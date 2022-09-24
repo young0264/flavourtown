@@ -73,6 +73,7 @@ public class Post {
         place.getPosts().add(this);
     }
 
+
     public void addReply(Reply reply) {
         this.replyList.add(reply);
         reply.insertPost(this);
