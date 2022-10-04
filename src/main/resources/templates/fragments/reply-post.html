@@ -155,14 +155,15 @@
                 data: $('#replyForm').serialize(),
                 success: function (replyDto) {
                     let result = $("#reply_async_template").html()
-                        .replace("{imageUrl}", replyDto.nickname)
-                        .replace("{nickname}", replyDto.nickname)
-                        .replace("{comment}", replyDto.comment)
+                        .replaceAll("{nickname}", replyDto.nickname)
+                        .replaceAll("{comment}", replyDto.comment)
                         .replace("{replyTime}", replyDto.replyTime)
+                        .replaceAll("${id}", replyDto.id)
                         .replace("{likeCount}", replyDto.replyLikeCount)
-                        .replace("{id}", replyDto.id)
-                        .replace("replyLike{id}", "replyLike" + replyDto.id);
                     $(".comment-list").prepend(result);
+                    console.log("replyDto : " + replyDto);
+                    console.log("result : " + result);
+                    console.log("nickname 값 : " + replyDto.nickname);
                 }
             })
             imageDelay(function (){

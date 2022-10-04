@@ -10,7 +10,8 @@
                 <div class="post-header">
                     <div class="media">
                         <div class="user-img">
-                            <svg data-jdenticon-value="{imageUrl}" width="40" height="40" class="rounded-circle identicon" data-id="{imageUrl}"></svg>
+                            <img data-jdenticon-value="{nickname}" width="40" height="40"
+                                 class="rounded-circle identicon" data-id="{nickname}"></img>
                         </div>
                         <div class="media-body">
                             <div class="user-title">
@@ -32,33 +33,55 @@
                             <!--                                        <a class="edit icofont-comment dropdown-item"-->
                             <!--                                           th:href="@{|/reply/update/${reply.id}|}"><span class="ml-1">수정</span></a>-->
                             <!-- Button trigger modal -->
-                            <button type="button" class="edit icofont-comment dropdown-item" data-toggle="modal"
-                                    data-target="#exampleModal">
-                                댓글 수정
-                            </button>
+<!--                            <button type="button" class="edit icofont-comment dropdown-item" data-toggle="modal"-->
+<!--                                    data-target="#exampleModal">-->
+<!--                                댓글 수정-->
+<!--                            </button>-->
+                            <a class="icofont-comment dropdown-item" data-toggle="modal" data-target="#replyUpdate${id}"><span class="ml-1">수정</span></a>
+                            <a class="icofont-delete-alt dropdown-item" data-toggle="modal" data-target="#replyRemove${id}"><span class="ml-1">삭제</span></a>
 
-
-                            <a class="delete icofont-delete-alt dropdown-item"
-                               th:href="@{/reply/delete/}"><span class="ml-1">삭제</span></a>
+<!--                            <a class="delete icofont-delete-alt dropdown-item"-->
+<!--                            ><span class="ml-1">삭제</span></a>-->
                         </div>
                         <!-- Modal -->
-                        <div class="modal" id="exampleModal" tabindex="-1" role="dialog"
-                             aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
+                        <div class="modal fade" id="replyUpdate${id}" tabindex="-1" role="dialog" aria-labelledby="replyModalCenterTitle${id}" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <form id="replyUpdateForm${id}">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="replyModalLongTitle${id}">댓글 수정하기</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <input type="text" id="updateReplyComment${id}" value="{comment}" class="form-control w-75" placeholder="댓글을 입력해 주세요.">
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+                                            <button type="button" class="btn btn-primary" onclick="updateReplyBtn.updateReply(${id})">변경하기</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <!-- Modal -->
+                        <div class="modal fade" id="replyRemove${id}" tabindex="-1" role="dialog" aria-labelledby="replyRemoveModalCenterTitle${id}" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                        <h5 class="modal-title" id="replyRemoveLongTitle${id}">댓글 삭제</h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        ...
+                                        삭제된 댓글은 복구할 수 없습니다.<br>
+                                        정말 삭제하시겠습니까?
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기
-                                        </button>
-                                        <button type="button" class="btn btn-primary">댓글 저장</button>
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+                                        <button type="button" class="btn btn-danger" onclick="removeReplyBtn.removeReply(${id})">삭제</button>
                                     </div>
                                 </div>
                             </div>
@@ -71,9 +94,9 @@
                 <div class="post-footer">
                     <ul>
                         <li class="post-react">
-                            <a class="text-dark" onclick="addReplyLike.modifyReplyLike({id})">
+                            <a class="text-dark" onclick="addReplyLike.modifyReplyLike(${id})">
                                 <i class="icofont-thumbs-up"></i>추천
-                                <span id="replyLike{id}" class="badge rounded-pill bg-primary text-white ml-1">
+                                <span id="replyLike${id}" class="badge rounded-pill bg-primary text-white ml-1">
                                     {likeCount}</span>
                             </a>
                         </li>

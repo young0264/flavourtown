@@ -76,8 +76,7 @@
                             <li class="uk-width-1-5">
                                 <div class="uk-cover-container">
                                     <a th:href="${post.getPlace().mainPhotoUrl}" target="_blank" data-fancybox="gallery">
-                                        <img class="rounded"
-                                             th:src="@{${post.getPlace().mainPhotoUrl}}" uk-cover/>
+                                        <img style="object-fit: none; width:300px; height:300px; opacity: 0.5; " class="rounded" th:src="@{${post.getPlace().mainPhotoUrl}}">
                                     </a>
                                 </div>
                             </li>
