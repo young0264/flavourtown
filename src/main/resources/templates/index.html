@@ -49,7 +49,7 @@
                 </ol>
                 <div class="carousel-inner">
                     <div class="carousel-item" th:each="top, status : ${top5Place}" th:classappend="${status.index == 0} ? active" style=" cursor: pointer;" th:onclick="'location.href=\'' + @{/place/{placeId}/detail(placeId = ${top.id})} + '\''">
-                        <img class="d-block w-100" th:src="@{${top.getMainPhotoUrl()}}" style="height: 300px; opacity: 0.5;">
+                        <img  style=" object-fit: cover; height:350px; " class="d-block w-100" th:src="@{${top.getMainPhotoUrl()}}" >
                         <div class="carousel-caption d-none d-md-block">
                             <h5 th:text="${top.getPlaceName()}">장소이름</h5>
                             <p th:utext="${top.getCategoryName()}">분류</p>
@@ -80,7 +80,9 @@
                 </ol>
                 <div class="carousel-inner">
                     <div class="carousel-item" th:each="top, status : ${top5Post}" th:classappend="${status.index == 0} ? active" style=" cursor: pointer;" th:onclick="'location.href=\'' + @{/post/{postId}/detail(postId = ${top.id})} + '\''">
-                        <img class="d-block w-100" th:src="@{${top.getPlace().mainPhotoUrl}}" style="height: 300px; opacity: 0.5;">
+                        <img  style=" object-fit: cover; height:350px; " class="d-block w-100" th:src="@{${top.getPlace().mainPhotoUrl}}" >
+
+<!--                        <img class="d-block w-100" th:src="@{${top.getPlace().mainPhotoUrl}}" style="height: 300px; opacity: 0.5;">-->
                         <div class="carousel-caption d-none d-md-block">
                             <h5 th:text="${top.title}">제목</h5>
                             <p th:utext="${top.content}">내용 조금</p>
