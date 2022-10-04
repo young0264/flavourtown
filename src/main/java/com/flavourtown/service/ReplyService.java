@@ -7,7 +7,7 @@ import com.flavourtown.domain.post.Post;
 import com.flavourtown.domain.reply.Reply;
 import com.flavourtown.domain.reply.ReplyRepository;
 import com.flavourtown.domain.reply.ReplyTime;
-import com.flavourtown.web.dto.ReplyDto;
+import com.flavourtown.web.dto.reply.ReplyDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -37,10 +37,9 @@ public class ReplyService {
      */
     public Long saveReply(Post post, ReplyDto replyDto, Long id,String comment) {
         Optional<Member> byId = memberRepository.findById(id);
-        replyDto.insertComment(comment);
         String newTypeTime = convertDateTime(LocalDateTime.now());
         Reply reply = Reply.builder()
-                .comment(replyDto.getComment())
+                .comment(comment)
                 .createDate(LocalDateTime.now())
                 .writer(byId.get())////
                 .post(post)

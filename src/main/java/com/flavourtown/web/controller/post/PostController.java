@@ -14,7 +14,7 @@ import com.flavourtown.service.AccountService;
 import com.flavourtown.service.LikeApiService;
 import com.flavourtown.service.PostService;
 import com.flavourtown.service.ReplyService;
-import com.flavourtown.web.dto.ReplyDto;
+import com.flavourtown.web.dto.reply.ReplyDto;
 import com.flavourtown.web.dto.posts.PostCreateDto;
 import com.flavourtown.web.dto.posts.PostUpdateDto;
 import lombok.RequiredArgsConstructor;
@@ -84,7 +84,7 @@ public class PostController {
             model.addAttribute("likeFlag", likeFlag);
         }
 
-        return "/post/post-detail";
+        return "post/post-detail";
     }
 
     @GetMapping("/posts")
@@ -102,7 +102,7 @@ public class PostController {
 
         model.addAttribute("paging" , paging);
 
-        return "/post/posts-list";
+        return "post/posts-list";
     }
 
 
@@ -112,7 +112,7 @@ public class PostController {
     public String newPost(Model model) {
 
         model.addAttribute("postCreateDto", new PostCreateDto());
-        return "/post/post-newForm";
+        return "post/post-newForm";
     }
 
 
@@ -122,7 +122,7 @@ public class PostController {
     public String createPost(@Valid PostCreateDto postCreateDto , BindingResult bindingResult , Model model , Principal principal, RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("postCreateDto", postCreateDto);
-            return "/post/post-newForm";
+            return "post/post-newForm";
         }
         Member currentMember = accountService.findAccountByUsername(principal.getName()).getMember();
         Post newPost = postService.savePost(currentMember, postCreateDto);
@@ -154,7 +154,7 @@ public class PostController {
         model.addAttribute("findPost", dto);
         model.addAttribute("imageList", imageList);
 
-        return "/post/post-updateForm";
+        return "post/post-updateForm";
     }
 
 

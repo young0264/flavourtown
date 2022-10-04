@@ -1,4 +1,4 @@
-package com.flavourtown.web.dto;
+package com.flavourtown.web.dto.reply;
 
 import lombok.*;
 
@@ -22,8 +22,8 @@ public class ReplyDto {
 
     private List<ReplyDto> child = new ArrayList<>();
 
-    public void insertComment(String comment) {
-        this.comment = comment;
-    }
+//    public void insertComment(String comment) {
+//        this.comment = comment;
+//    }
 
 }

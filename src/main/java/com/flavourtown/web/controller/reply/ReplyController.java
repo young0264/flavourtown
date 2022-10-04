@@ -8,7 +8,7 @@ import com.flavourtown.domain.reply.Reply;
 import com.flavourtown.service.MemberService;
 import com.flavourtown.service.PostService;
 import com.flavourtown.service.ReplyService;
-import com.flavourtown.web.dto.ReplyDto;
+import com.flavourtown.web.dto.reply.ReplyDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -36,9 +36,9 @@ public class ReplyController {
     @ResponseBody
     @RequestMapping(value = "/post/{postId}/reply", method = {RequestMethod.POST})
     public ResponseEntity createReply(@RequestParam(value = "COMMENT") String comment,
-                              @PathVariable("postId") Long id,
-                              @Valid ReplyDto replyDto, BindingResult bindingResult,
-                              @AuthUser Account account) {
+                                      @PathVariable("postId") Long id,
+                                      @Valid ReplyDto replyDto, BindingResult bindingResult,
+                                      @AuthUser Account account) {
         if (bindingResult.hasErrors()) {
             log.info("값이 들어가지 않습니다. : " + replyDto.getComment());
             return ResponseEntity.badRequest().build();
