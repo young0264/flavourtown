@@ -38,7 +38,6 @@ import java.util.UUID;
 public class AccountService implements UserDetailsService {
 
     private final AccountRepository accountRepository;
-
     private final MemberService memberService;
     private final PasswordEncoder passwordEncoder;
 
