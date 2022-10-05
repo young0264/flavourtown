@@ -67,12 +67,12 @@ Chromium 기반의 웹에서 모두 작동하며, 위치 기반의 서비스를 
 - [Lombok](https://projectlombok.org/download)
 - [queryDsl](http://querydsl.com/)
 - [Spring Data JPA](https://spring.io/projects/spring-data-jpa)
-
+<!-- 
 ### DevOps
 - [AWS EC2](https://aws.amazon.com/ko/ec2/)
 - [AWS RDS](https://aws.amazon.com/ko/rds/)
 - [Docker](https://www.docker.com/)
-- [GitHub Actions](https://github.com/features/actions)
+- [GitHub Actions](https://github.com/features/actions) -->
 
 ## 10월부터 진행될 상황들 요약
 - 버그 Refactoring
