@@ -7,22 +7,18 @@
 ### [가준영](https://github.com/Jwhyee)
 - 프로젝트 팀장
 - `Spring Security`를 이용한 `Account`, `Member` 회원 도메인 개발
-- `Profile` 도메인 개발
+- `Profile`, `Post`도메인 개발
 - `Post`, `Place`, `Reply`, `Likes` 등 전체적인 기능 보조 개발
 
 ### [남의영](https://github.com/young0264)
-- `Reply`, `Like` 도메인 개발
-- 댓글과 관련된 `CRUD` 기능 개발
+- `Reply`, `Like`, `Post` 도메인 개발
+- 댓글, 과 관련된 `CRUD` 기능 개발
 - 댓글 관련 비동기 방식(JavaScript Ajax) 개발
 
 ### [최수용](https://github.com/Choisooyoung98)
-- `Favorite` 북마크 도메인 개발
+- `Favorite`, `Post` 북마크 도메인 개발
 - 북마크 폴더와 관련된 `CRUD` 기능 개발
 - `Place`와 연관된 북마크 기능을 비동기 방식(JavaScript Ajax) 개발 
-
-### [전병찬](https://github.com/icoo08217)
-- `Post` 도메인 개발
-- 맛집 리뷰와 관련된 `CRUD` 기능 개발
 
 ### [왕종휘](https://github.com/woowang789)
 - `Place` 도메인 개발
@@ -78,7 +74,8 @@ Chromium 기반의 웹에서 모두 작동하며, 위치 기반의 서비스를 
 - [Docker](https://www.docker.com/)
 - [GitHub Actions](https://github.com/features/actions)
 
-## 앞으로 진행될 사항들
-
-- AWS S3 도입 ➡️ 이미지처리
-- 클린 코드를 위한 코드 리팩터링
+## 10월부터 진행될 상황들 요약
+- 버그 Refactoring
+- 배포 파이프라인 구성 및 AWS ECS를 통한 배포
+- 접속자에 따른 성능테스트툴 사용(grafana k6 ... 등등)
+- 클린 코드를 위한 코드 리팩터링(Service 부분 interface로 바꾸기)
