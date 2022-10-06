@@ -45,6 +45,7 @@ public class Place {
         this.x = x;
         this.y = y;
     }
+
     public void setAdditionalInfo(String menu,String facility,String mainPhotoUrl,String photoUrls){
         this.menus = menu;
         this.facilityInfo = facility;

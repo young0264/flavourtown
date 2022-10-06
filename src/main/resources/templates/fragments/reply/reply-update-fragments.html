@@ -18,6 +18,7 @@
           data : param,
           success: function (flag) {
             $(`#replyDiv`).load(location.href+` #replyDiv`);
+            // $(`#replyTable0`).load(location.href+` #replyDiv`);
             $(`#replyUpdate${replyId}`).modal('hide');
             $('body').removeClass('modal-open');
             $('.modal-backdrop').remove();

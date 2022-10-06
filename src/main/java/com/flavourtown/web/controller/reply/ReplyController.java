@@ -1,4 +1,4 @@
-package com.flavourtown.web.controller;
+package com.flavourtown.web.controller.reply;
 
 
 import com.flavourtown.domain.account.Account;

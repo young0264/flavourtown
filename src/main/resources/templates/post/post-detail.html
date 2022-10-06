@@ -44,7 +44,7 @@
                 <div class="media">
                     <div class="user-img">
                         <div class="item-img bg-white">
-                            <svg th:data-jdenticon-value="${post.getAuthor().nickname}" width="44" height="44" class="rounded-circle"></svg>
+                            <svg th:data-jdenticon-value="${post.author.nickname}" width="45" height="45" class="rounded-circle"></svg>
                         </div>
                     </div>
                     <div class="media-body">
@@ -73,10 +73,10 @@
                     <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slider="center: true">
 
                         <ul class="uk-slider-items uk-grid uk-grid-match" uk-height-viewport="offset-top: true; offset-bottom: 30">
-                            <li class="uk-width-1-5">
+                            <li class="uk-width-2-4">
                                 <div class="uk-cover-container">
                                     <a th:href="${post.getPlace().mainPhotoUrl}" target="_blank" data-fancybox="gallery">
-                                        <img style="object-fit: none; width:300px; height:300px; opacity: 0.5; " class="rounded" th:src="@{${post.getPlace().mainPhotoUrl}}">
+                                        <img style="object-fit: cover; width:400px; height:200px; " class="" th:src="@{${post.getPlace().mainPhotoUrl}}">
                                     </a>
                                 </div>
                             </li>

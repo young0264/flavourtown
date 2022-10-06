@@ -41,7 +41,7 @@ public class ReplyService {
         Reply reply = Reply.builder()
                 .comment(comment)
                 .createDate(LocalDateTime.now())
-                .writer(byId.get())////
+                .writer(byId.get())
                 .post(post)
                 .replyLike(new HashSet<>())
                 .replyTime(newTypeTime)
@@ -62,7 +62,6 @@ public class ReplyService {
     /**
      *post id로 페이징 댓글 가져오기
      */
-
     public Page<Reply> getReplyList(int page,Long id) {
         List<Sort.Order> sorts = new ArrayList<>();
         sorts.add(Sort.Order.desc("createDate")); //수정 댓글 리팩토링 필요
