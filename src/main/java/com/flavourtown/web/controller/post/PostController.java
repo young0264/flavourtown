@@ -35,6 +35,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.security.Principal;
 import java.util.List;
 
@@ -94,6 +95,9 @@ public class PostController {
                                Model model ,
                                @PageableDefault(sort = "id" , direction = Sort.Direction.DESC , size = 12)Pageable pageable){
 
+        String images = Paths.get(System.getProperty("user.dir"), "images").toString() + "/";
+        log.info("images = " + images);
+
         // model에 담기
         model.addAttribute("searchType", SearchType.values());
 
@@ -119,7 +123,8 @@ public class PostController {
     // 게시글 등록 post
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/post/new")
-    public String createPost(@Valid PostCreateDto postCreateDto , BindingResult bindingResult , Model model , Principal principal, RedirectAttributes redirectAttributes) {
+    public String createPost(@Valid PostCreateDto postCreateDto , BindingResult bindingResult ,
+                             Model model , Principal principal, RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("postCreateDto", postCreateDto);
             return "post/post-newForm";
@@ -141,7 +146,7 @@ public class PostController {
         Post post = postService.findById(id);
 
         // posts가 가지고 있는 image들을 list로 받아 와야한다.
-        List<MultipartFile> imageList = postService.getImageList(post.getImageUrls());
+//        List<MultipartFile> imageList = postService.getImageList(post.getImageUrls());
 
         PostUpdateDto dto = new PostUpdateDto();
         dto.setId(post.getId());
@@ -152,7 +157,7 @@ public class PostController {
 
 
         model.addAttribute("findPost", dto);
-        model.addAttribute("imageList", imageList);
+//        model.addAttribute("imageList", imageList);
 
         return "post/post-updateForm";
     }
