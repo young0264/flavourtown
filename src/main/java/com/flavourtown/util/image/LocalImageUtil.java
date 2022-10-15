@@ -13,12 +13,12 @@ import java.util.List;
 import java.util.UUID;
 
 @Slf4j
-@Profile("local")
 @Component
 public class LocalImageUtil implements ImageUtil {
 
     final private String fileDir =
             Paths.get(System.getProperty("user.dir"), "images").toString()+"/";
+
 
     @Override
     public String saveFiles(List<MultipartFile> files) {

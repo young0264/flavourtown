@@ -7,7 +7,7 @@ import com.flavourtown.domain.post.PostRepository;
 import com.flavourtown.domain.post.PostRepositoryImpl;
 import com.flavourtown.domain.post.SearchType;
 import com.flavourtown.domain.reply.ReplyTime;
-import com.flavourtown.util.image.ImageUtil;
+//import com.flavourtown.util.image.ImageUtil;
 import com.flavourtown.web.dto.posts.PostCreateDto;
 import lombok.RequiredArgsConstructor;
 
@@ -36,9 +36,8 @@ public class PostService {
 
     private final PlaceService placeService;
 
-    private final ImageUtil imageUtil;
+//    private final ImageUtil imageUtil;
     private final PostRepository postRepository;
-    private final PostRepositoryImpl postRepositoryImpl;
 
     public Post findById(Long id) {
         return postRepository.findById(id).get();
@@ -53,7 +52,7 @@ public class PostService {
     }
 
     public Post savePost(Member member, PostCreateDto dto) {
-        String imageUrls = imageUtil.saveFiles(dto.getImgFiles());
+//        String imageUrls = imageUtil.saveFiles(dto.getImgFiles());
         Place place = placeService.findPlace(dto.getPlaceId());
         String newTypeTime = convertDateTime(LocalDateTime.now());
 
@@ -62,7 +61,7 @@ public class PostService {
                 .content(dto.getContent())
                 .privateStatus(dto.getPrivateStatus())
                 .author(member)
-                .imageUrls(imageUrls)
+//                .imageUrls(imageUrls)
                 .createdTime(LocalDateTime.now())
                 .modifiedTime(null)
                 .postTime(newTypeTime)
@@ -80,8 +79,8 @@ public class PostService {
             if (StringUtils.isEmpty(imgName)){
                 continue;
             }
-            File file = new File(imageUtil.getFullPath(imgName));
-            imgList.add(getMultipartFile(file));
+//            File file = new File(imageUtil.getFullPath(imgName));
+//            imgList.add(getMultipartFile(file));
         }
 
         log.info("리스트 생성 완료");
