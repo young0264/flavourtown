@@ -20,7 +20,7 @@ public class ReplyDto {
     private Integer replyLikeCount;
     private String nickname;
 
-    private List<ReplyDto> child = new ArrayList<>();
+    private List<ReplyDto> child =  new ArrayList<>();
 
 //    public void insertComment(String comment) {
 //        this.comment = comment;
