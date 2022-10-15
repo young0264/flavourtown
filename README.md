@@ -13,7 +13,7 @@
 ### [남의영](https://github.com/young0264)
 - `Reply`, `Like`, `Post` 도메인 개발
 - 게시물, 댓글과 관련된 `CRUD` 기능 개발
-- 댓글 관련 비동기 방식(JavaScript Ajax) 개발
+- 댓글 관련 비동기 방식 (JavaScript Ajax) 개발
 
 ### [최수용](https://github.com/Choisooyoung98)
 - `Favorite`, `Post` 북마크 도메인 개발
