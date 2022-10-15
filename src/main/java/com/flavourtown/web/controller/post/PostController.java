@@ -70,8 +70,8 @@ public class PostController {
         model.addAttribute("post", post);
 
         // 이미지
-//        String postImage = postService.callImage(id);
-//        model.addAttribute("postImage", postImage);
+        String postImage = postService.callImage(id);
+        model.addAttribute("postImage", postImage);
 
         List<Reply> replyList = post.getReplyList();
         replyService.refreshTime(replyList);
