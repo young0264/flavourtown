@@ -32,24 +32,15 @@ jobs:
       uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
       with:
         arguments: build
-
-    ##aws s3 create bucket
-    - name: flavourtown
-      # You may pin to the exact commit or the version.
-#      uses: aitorres/aws-s3-create-bucket@bf2701c2732789d5924ae02b68976343a31f6db5
-#      uses: aitorres/aws-s3-create-bucket@v1.2.0
-      with:
-        # Name of the bucket that will be created (make sure it is unique)
-        bucket-name: flavourtown
         # AWS Access Key ID
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+    aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         # AWS Secret Access Key
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+    aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         # AWS Region (default: us-east-1)
-        aws-region: ap-northeast-2
+    aws-region: ap-northeast-2
         # default is us-east-1
         # ACL to apply to the bucket during creation (default: private)
-        acl: private
+    acl: private
         # default is private
 
 #    # 전송할 파이릉ㄹ 담을 디렉토리 생성
