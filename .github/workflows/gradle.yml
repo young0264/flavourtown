@@ -58,7 +58,7 @@ jobs:
 
         # S3 Bucket으로 copy
         - name: Deliver to AWS S3
-          run: aws s3 cp --region ap-northeast-2 --acl private ./flavourtown.zip s3://${{ secrets.AWS_S3_BUCKET }}/
+          run: aws s3 cp --region ap-northeast-2 --acl private ./flavourtown.zip s3://flavourtown/
 
 #    # 전송할 파이릉ㄹ 담을 디렉토리 생성
 #    - name: Make Directory for deliver
