@@ -34,6 +34,7 @@ vcs.xml
 .idea/**
 .idea
 .gradle
+#.gradle/**
 build/**
 build
 
@@ -147,6 +148,7 @@ images/*
 .mtj.tmp/
 
 # Package Files #
+#*.jar
 *.war
 *.nar
 *.ear
