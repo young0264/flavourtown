@@ -33,11 +33,11 @@ jobs:
       with:
         arguments: build
         # AWS Access Key ID
-    aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         # AWS Secret Access Key
-    aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         # AWS Region (default: us-east-1)
-    aws-region: ap-northeast-2
+      aws-region: ap-northeast-2
         # default is us-east-1
         # ACL to apply to the bucket during creation (default: private)
     acl: private
