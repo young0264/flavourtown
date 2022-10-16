@@ -46,6 +46,7 @@ public class Post {
     @Column(nullable = false)
     private boolean privateStatus; // 공개 / 비공개 여부  true => 비공개 , false => 공개
 
+    @Builder.Default
     @OneToMany(mappedBy = "post" , cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Reply> replyList = new ArrayList<>();
 

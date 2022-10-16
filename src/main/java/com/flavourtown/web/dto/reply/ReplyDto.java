@@ -20,7 +20,5 @@ public class ReplyDto {
     private Integer replyLikeCount;
     private String nickname;
 
-    private List<ReplyDto> child = new ArrayList<>();
-
 
 }
