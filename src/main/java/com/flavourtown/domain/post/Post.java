@@ -33,7 +33,7 @@ public class Post {
     @Column(nullable = false , columnDefinition = "TEXT")
     private String content; // 내용
 
-    // NPE 때문에 추가
+    // NPE 때문에 추가 ?
     @Nullable
     private String imageUrls;
 
