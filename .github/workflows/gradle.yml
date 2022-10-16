@@ -36,8 +36,8 @@ jobs:
     ##aws s3 create bucket
     - name: flavourtown
       # You may pin to the exact commit or the version.
-      # uses: aitorres/aws-s3-create-bucket@bf2701c2732789d5924ae02b68976343a31f6db5
-      uses: aitorres/aws-s3-create-bucket@v1.2.0
+      uses: aitorres/aws-s3-create-bucket@bf2701c2732789d5924ae02b68976343a31f6db5
+#      uses: aitorres/aws-s3-create-bucket@v1.2.0
       with:
         # Name of the bucket that will be created (make sure it is unique)
         bucket-name: flavourtown
