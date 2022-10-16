@@ -34,7 +34,6 @@ vcs.xml
 .idea/**
 .idea
 .gradle
-.gradle/**
 build/**
 build
 
