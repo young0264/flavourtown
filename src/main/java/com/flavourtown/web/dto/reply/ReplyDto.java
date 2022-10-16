@@ -22,8 +22,5 @@ public class ReplyDto {
 
     private List<ReplyDto> child = new ArrayList<>();
 
-//    public void insertComment(String comment) {
-//        this.comment = comment;
-//    }
 
 }
