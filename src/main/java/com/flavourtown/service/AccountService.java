@@ -177,6 +177,7 @@ public class AccountService implements UserDetailsService {
      */
     public MemberVo getReadOnlyMember(String username) {
         Member currentMember = memberService.findMemberByUsername(username);
+        log.info("currentMember1 : " + currentMember);
         return MemberVo.builder()
                 .nickname(currentMember.getNickname())
                 .introduce(currentMember.getIntroduce())
@@ -185,6 +186,7 @@ public class AccountService implements UserDetailsService {
                 .postList(currentMember.getPostList())
                 .replyList(currentMember.getReplyList())
                 .build();
+
     }
 
     public boolean checkAccountPassword(String password, Account currentUser) {

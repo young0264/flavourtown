@@ -127,6 +127,7 @@ public class ProfileController {
         }
         log.info("test4");
         MemberVo memberVo = accountService.getReadOnlyMember(principal.getName());
+        log.info("memberVo = " + memberVo);
         model.addAttribute("member", memberVo);
 
         return "profile/profile-bookmark";
