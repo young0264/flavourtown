@@ -63,7 +63,6 @@ public class Post {
         this.postTime = postTime;
     }
 
-
     public void addPlace(Place place) {
         this.place = place;
         place.getPosts().add(this);

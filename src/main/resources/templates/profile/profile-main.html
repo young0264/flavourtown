@@ -18,7 +18,7 @@
             <div th:replace="fragments/message-fragments :: danger-notice (message = ${isNotPresentMemberMessage})"></div>
         </div>
         <!-- Banner Area Start -->
-        <th:block th:replace="/fragments/profile-nav::profile-nav(${member}, profile)"></th:block>
+        <th:block th:replace="fragments/profile-nav::profile-nav(${member}, profile)"></th:block>
         <div>
             <th:block th:if="${member.getPostList().size() == 0}">
                 <div class="block-box post-view">
@@ -47,10 +47,10 @@
                                         </span>
                                         <hr class="my-1">
                                         <div>
-                                            <span>
-                                                <i class="icofont-clock-time"></i>
-                                                <span th:text="${post.postTime}" class="mx-2">업로드 시간</span>
-                                            </span>
+<!--                                            <span>-->
+<!--                                                <i class="icofont-clock-time"></i>-->
+<!--                                                <span th:text="${post.postTime}" class="mx-2">업로드 시간</span>-->
+<!--                                            </span>-->
                                             <span>
                                                 <th:block th:if="${!post.privateStatus}">
                                                     <i class="icofont-lock"></i><span class="mx-2">비공개</span>
