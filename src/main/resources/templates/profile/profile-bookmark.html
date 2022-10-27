@@ -15,7 +15,7 @@
     <!--=====================================-->
     <div class="container">
         <!-- Banner Area Start -->
-        <th:block th:replace="/fragments/profile-nav::profile-nav(${member}, bookmark)"></th:block>
+        <th:block th:replace="fragments/profile-nav::profile-nav(${member}, bookmark)"></th:block>
 
         <!-- 북마크 리스트 -->
         <div class="block-box post-view" th:each="favorite, loop : ${favorites}">
