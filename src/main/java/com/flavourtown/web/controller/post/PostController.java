@@ -30,7 +30,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
@@ -88,7 +87,7 @@ public class PostController {
         return "post/post-detail";
     }
 
-    @GetMapping("/posts")
+    @GetMapping("/post-list")
     public String showAllPosts(@RequestParam(defaultValue = "")String keyword,
                                @RequestParam(defaultValue = "0") int page,
                                @RequestParam(defaultValue = "title")String searchType,
@@ -106,7 +105,7 @@ public class PostController {
 
         model.addAttribute("paging" , paging);
 
-        return "post/posts-list";
+        return "post/post-list";
     }
 
 

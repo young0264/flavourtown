@@ -4,61 +4,59 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns="http://www.w3.org/1999/html">
 <body>
-  <!-- Top Header -->
-  <header class="fixed-header" th:fragment="header">
+<!-- Top Header -->
+<header class="fixed-header" th:fragment="header">
     <div class="header-menu">
-      <div class="navbar">
-        <div class="nav-item d-none d-sm-block">
-          <div class="header-logo">
-            <a th:href="@{/}"><img src="/media/logo.png" alt="Cirkle"></a>
-          </div>
-        </div>
-        <div class="nav-item nav-top-menu">
-          <nav id="dropdown" class="template-main-menu">
-            <ul class="menu-content">
-              <li class="header-nav-item">
-                <a th:href="@{/post/new}" class="menu-link active">맛집 리뷰 추가</a>
-              </li>
-            </ul>
-          </nav>
-        </div>
-        <div class="nav-item header-control">
-          <div class="inline-item">
-            <div class="dropdown dropdown-admin">
-              <th:block sec:authorize="!isAuthenticated()">
-                <a class="text-white" th:href="@{/login}">로그인</a>
-              </th:block>
-              <th:block sec:authorize="isAuthenticated()">
-                <button class="dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
-                  <span class="media">
-                      <span class="item-img bg-white rounded-circle">
-                          <svg th:data-jdenticon-value="${#authentication.principal.nickname}" width="45" height="45" class="rounded-circle"></svg>
-                      </span>
-                      <span class="media-body">
-                          <span class="item-title" sec:authentication="principal.nickname">닉네임</span>
-                      </span>
-                  </span>
-                </button>
-                <div class="dropdown-menu dropdown-menu-right">
-                  <ul class="admin-options">
-                    <li><a th:href="@{/profile/{nickname}(nickname=${#authentication.getName()})}">프로필</a></li>
-                    <li><a th:href="@{/settings/profile}">프로필 설정</a></li>
-                    <li><a th:href="@{/profile/bookmark/view}">북마크 관리</a></li>
-                    <li>
-                      <form action="#" name="logout" th:action="@{/logout}" method="post">
-                        <a href="javascript:logout.submit();">
-                          로그아웃
-                        </a>
-                      </form>
-                    </li>
-                  </ul>
+        <div class="navbar">
+            <div class="nav-item d-none d-sm-block">
+                <div class="header-logo">
+                    <a th:href="@{/}"><img src="/media/logo.png" alt="Cirkle"></a>
                 </div>
-              </th:block>
             </div>
-          </div>
+            <div class="nav-item nav-top-menu">
+                <nav id="dropdown" class="template-main-menu">
+                    <ul class="menu-content">
+                        <li class="header-nav-item">
+                            <a th:href="@{/post/new}" class="menu-link active">맛집 리뷰 추가</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="nav-item header-control">
+                <div class="inline-item">
+                    <div class="dropdown dropdown-admin">
+                        <th:block sec:authorize="!isAuthenticated()">
+                            <a class="text-white" th:href="@{/login}">로그인</a>
+                        </th:block>
+                        <th:block sec:authorize="isAuthenticated()">
+                            <button class="dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+                                <span class="media">
+                      <span class="item-img bg-white rounded-circle">
+                          <svg th:data-jdenticon-value="${#authentication.principal.nickname}" width="45" height="45"
+                               class="rounded-circle"></svg></span>
+                      <span class="media-body">
+                          <span class="item-title" sec:authentication="principal.nickname">닉네임</span></span></span>
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <ul class="admin-options">
+                                    <li><a th:href="@{/profile/{nickname}(nickname=${#authentication.getName()})}">프로필</a></li>
+                                    <li><a th:href="@{/settings/profile}">프로필 설정</a></li>
+                                    <li><a th:href="@{/profile/bookmark/view}">북마크 관리</a></li>
+                                    <li>
+                                        <form name="logout" th:action="@{/logout}" method="post">
+                                            <a href="javascript:logout.submit();">
+                                                로그아웃
+                                            </a>
+                                        </form>
+                                    </li>
+                                </ul>
+                            </div>
+                        </th:block>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </header>
+</header>
 </body>
 </html>

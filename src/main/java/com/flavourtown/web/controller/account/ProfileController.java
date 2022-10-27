@@ -56,7 +56,6 @@ public class ProfileController {
         model.addAttribute("profilePasswordDto", new ProfilePasswordDto());
         model.addAttribute("profileWithdrawalDto", new ProfileWithdrawalDto());
         model.addAttribute("profileIntroduceDto", new ProfileIntroduceDto());
-
         return "profile/profile-setting";
     }
 
@@ -64,11 +63,9 @@ public class ProfileController {
     @RequestMapping(value = "/settings/profile/nicknameCheck")
     public boolean overlappedID(@RequestParam(value = "nickname") String nickname) {
         boolean flag = false;
-
         if (accountService.checkDuplicatedAccount(nickname) && memberService.existMemberNickname(nickname)) {
             flag = true;
         }
-
         return flag;
     }
 
