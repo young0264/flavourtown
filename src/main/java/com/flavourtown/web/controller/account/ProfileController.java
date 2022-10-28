@@ -34,6 +34,7 @@ public class ProfileController {
     private final FavoriteService favoriteService;
     private final PostService postService;
 
+
     @GetMapping("/profile/{username}")
     public String showProfilePage(@PathVariable String username, Model model, @AuthUser Account account) {
         Optional<MemberVo> memberVo = profileService.findByUsernameOrNickname(username);

@@ -56,7 +56,7 @@ public class Member {
 
     public void addReply(Reply reply) {
         this.replyList.add(reply);
-        reply.setWriter(this);
+        reply.insertWriter(this);
     }
 
     public void addBasicInfo(Date birth, String gender, String introduce, MemberAge memberAge) {

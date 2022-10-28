@@ -8,7 +8,6 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 @Transactional(readOnly = true)
-@Repository
 public interface ReplyRepository extends JpaRepository<Reply, Long> {
 
     Page<Reply> findAll(Pageable pageable);

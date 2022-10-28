@@ -53,7 +53,9 @@ public class PostController {
     private final LikeApiService likeApiService;
 
 
-    // 게시글 상세 조회
+    /**
+     * 게시글 조회
+     */
     @GetMapping("/post/{id}/detail")
     public String showDetailPost(@PathVariable long id,
                                  @RequestParam(value = "page", defaultValue = "0") int page,
@@ -61,16 +63,14 @@ public class PostController {
                                  Model model, @ModelAttribute("replyDto") ReplyDto replyDto,
                                  @AuthUser Account account, @AuthenticationPrincipal SecurityUser securityUser) {
         Post post = postService.findById(id);
-        postService.refreshTime1(post);
         if (!post.isPrivateStatus()) {
             if (securityUser == null || !account.getMember().getNickname().equals(post.getAuthor().getNickname())) {
                 redirectAttributes.addFlashAttribute("accessError", "비공개 글에는 접근할 수 없습니다.");
                 return "redirect:/post";
             }
         }
+        postService.refreshTime1(post);
         model.addAttribute("post", post);
-
-        // 이미지
         String postImage = postService.callImage(id);
         model.addAttribute("postImage", postImage);
         Page<Reply> paging = replyService.getReplyList(page, id);
@@ -108,7 +108,9 @@ public class PostController {
     }
 
 
-    // 게시글 등록 폼 페이지
+    /**
+     * 게시글 등록
+     */
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/post/new")
     public String newPost(Model model) {
@@ -117,8 +119,6 @@ public class PostController {
         return "post/post-newForm";
     }
 
-
-    // 게시글 등록 post
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/post/new")
     public String createPost(@Valid PostCreateDto postCreateDto, BindingResult bindingResult,

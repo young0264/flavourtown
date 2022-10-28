@@ -18,7 +18,6 @@ import java.util.Set;
 @Entity
 @Builder
 @Getter
-@Setter
 @RequiredArgsConstructor
 //계정마다 관리가능하게
 public class Reply {
@@ -62,5 +61,12 @@ public class Reply {
         this.replyTime = replyTime;
     }
 
+    public void insertPost(Post post) {
+        this.post = post;
+    }
+
+    public void insertWriter(Member member) {
+        this.writer = member;
+    }
 
 }

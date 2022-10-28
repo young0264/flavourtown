@@ -5,6 +5,7 @@ import com.flavourtown.domain.member.Member;
 import com.flavourtown.domain.place.Place;
 import com.flavourtown.domain.reply.Reply;
 import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.lang.Nullable;
 
@@ -14,7 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-@Entity @Getter
+@Entity
+@Getter
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
@@ -37,7 +39,8 @@ public class Post {
     @Nullable
     private String imageUrls;
 
-    @Column(updatable = false) // 수정 불가
+//    @Column(updatable = false) // 수정 불가
+    @CreatedDate
     private LocalDateTime createdTime;
 
     @LastModifiedDate
@@ -70,7 +73,7 @@ public class Post {
 
     public void addReply(Reply reply) {
         this.replyList.add(reply);
-        reply.setPost(this);
+        reply.insertPost(this);
     }
 
     // 수정 메소드
