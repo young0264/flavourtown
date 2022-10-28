@@ -1,15 +1,15 @@
 <!-- 게시글 상세 페이지 -->
 <!DOCTYPE html>
-<html  class="no-js"
-       xmlns:th="http://www.thymeleaf.org"
-       xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
-       xmlns="http://www.w3.org/1999/html"
-       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-       layout:decorate="~{layouts/layout.html}">
+<html class="no-js"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns="http://www.w3.org/1999/html"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout.html}">
 
 <head>
     <title>맛동산 | 메인</title>
-    <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" /> <!-- 토스트 ui -->
+    <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css"/> <!-- 토스트 ui -->
 
     <!-- summernote 시작 -->
 
@@ -40,8 +40,9 @@
                             <i class="icofont-abacus-alt"></i>
                         </button>
                         <div class="drop-menu">
-                            <select class="select2" th:name="searchType" data-placeholder="검색어를 입력해주세요" required >
-                                <option th:each="type : ${searchType}" th:value="${type}" th:text="${type.getValue()}"></option>
+                            <select class="select2" th:name="searchType" data-placeholder="검색어를 입력해주세요" required>
+                                <option th:each="type : ${searchType}" th:value="${type}"
+                                        th:text="${type.getValue()}"></option>
                             </select>
                         </div>
                     </li>
@@ -51,7 +52,8 @@
                         </button>
                         <div class="drop-menu">
                             <div class="input-group">
-                                <input type="text" class="form-control" placeholder="검색어를 입력해주세요." name="keyword" th:value="${param.keyword}">
+                                <input type="text" class="form-control" placeholder="검색어를 입력해주세요." name="keyword"
+                                       th:value="${param.keyword}">
                                 <div class="input-group-append">
                                     <button class="search-btn" type="submit"><i class="icofont-search-1"></i></button>
                                 </div>
@@ -65,43 +67,42 @@
             <div th:replace="fragments/message-fragments :: danger-notice (message = ${accessError})"></div>
         </div>
         <div class="row gutters-20">
-            <div class="col-lg-3 col-md-4 col-6" th:each="post, loop : ${paging}">
+            <div class="col-lg-3 col-md-5 col-6" th:each="post, loop : ${paging}">
                 <!--이전 post list-->
-<!--                <div class="block-box user-blog">-->
-<!--                    <div class="blog-content">-->
-<!--                        &lt;!&ndash;카테고리?&ndash;&gt;-->
-<!--                        <div class="blog-category">-->
-<!--                            <a th:href="@{|/post/${post.id}/detail|}" th:text="|#${post.id}|"></a>-->
-<!--                            <a th:href="@{|/place/${post.getPlace().id}/detail|}" th:text="${post.getPlace().getPlaceName()}"></a>-->
-<!--                        </div>-->
-<!--                        <h3 class="blog-title"><a th:href="@{|/post/${post.id}/detail|}" th:text="${post.title}">제목</a></h3>-->
-<!--                    </div>-->
-<!--                    <div class="blog-meta">-->
-<!--                        <ul>-->
-<!--                            <li><i class="icofont-thumbs-up"></i><span th:text="${post.postLike.size()}">좋아요 수</span></li>-->
-<!--                            <li><i class="icofont-comment"></i><span th:text="${post.replyList.size()}">댓글 수</span></li>-->
-<!--                            <li><i class="icofont-clock-time"></i><span th:text="${post.postTime}">업로드 시간</span></li>-->
-<!--                        </ul>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--                <div class="col-lg-3 col-md-4 col-6">-->
-                    <div class="card mb-2">
-                        <img th:src="${post.getPlace().mainPhotoUrl}" class="card-img-top" alt="..." style="height:180px;">
-                        <div class="card-body">
-                            <h5 class="card-title"><a th:href="@{|/post/${post.id}/detail|}" th:text="${post.title}">제목</a></h5>
-                            <span>
-                                            <i class="icofont-location-pin"></i>
-                                            <a th:href="@{/place/{placeId}/detail(placeId = ${post.getPlace().getId()})}">
+                <!--                <div class="block-box user-blog">-->
+                <!--                    <div class="blog-content">-->
+                <!--                        &lt;!&ndash;카테고리?&ndash;&gt;-->
+                <!--                        <div class="blog-category">-->
+                <!--                            <a th:href="@{|/post/${post.id}/detail|}" th:text="|#${post.id}|"></a>-->
+                <!--                            <a th:href="@{|/place/${post.getPlace().id}/detail|}" th:text="${post.getPlace().getPlaceName()}"></a>-->
+                <!--                        </div>-->
+                <!--                        <h3 class="blog-title"><a th:href="@{|/post/${post.id}/detail|}" th:text="${post.title}">제목</a></h3>-->
+                <!--                    </div>-->
+                <!--                    <div class="blog-meta">-->
+                <!--                        <ul>-->
+                <!--                            <li><i class="icofont-thumbs-up"></i><span th:text="${post.postLike.size()}">좋아요 수</span></li>-->
+                <!--                            <li><i class="icofont-comment"></i><span th:text="${post.replyList.size()}">댓글 수</span></li>-->
+                <!--                            <li><i class="icofont-clock-time"></i><span th:text="${post.postTime}">업로드 시간</span></li>-->
+                <!--                        </ul>-->
+                <!--                    </div>-->
+                <!--                </div>-->
+                <!--                <div class="col-lg-3 col-md-4 col-6">-->
+                <div class="card mb-2">
+                    <img th:src="${post.getPlace().mainPhotoUrl}" class="card-img-top" alt="..." style="height:180px;">
+                    <div class="card-body">
+                        <h5 class="card-title"><a th:href="@{|/post/${post.id}/detail|}" th:text="${post.title}">제목</a>
+                        </h5><span><i class="icofont-location-pin"></i>
+                            <a th:href="@{/place/{placeId}/detail(placeId = ${post.getPlace().getId()})}">
                                                 <h6 class="card-text" th:text="${post.getPlace().placeName}">장소 이름</h6>
                                             </a>
                                         </span>
-                            <hr class="my-1">
-                            <div>
+                        <hr class="my-1">
+                        <div>
                                             <span>
                                                 <i class="icofont-clock-time"></i>
                                                 <span th:text="${post.postTime}" class="mx-2">업로드 시간</span>
                                             </span>
-                                <span>
+                            <span>
                                                 <th:block th:if="${!post.privateStatus}">
                                                     <i class="icofont-lock"></i><span class="mx-2">비공개</span>
                                                 </th:block>
@@ -109,11 +110,12 @@
                                                     <i class="icofont-world"></i><span class="mx-2">공개</span>
                                                 </th:block>
                                             </span>
-                            </div>
-                            <div>
-                                <span><i class="icofont-thumbs-up text-dark"></i><span th:text="${post.getPostLike().size()}" class="mx-2">추천 수</span></span>
-                                <span><i class="icofont-comment text-dark"></i><span th:text="${post.getReplyList().size()}" class="mx-2">댓글 수</span></span>
-                            </div>
+                        </div>
+                        <div>
+                            <span><i class="icofont-thumbs-up text-dark"></i><span
+                                    th:text="${post.getPostLike().size()}" class="mx-2">추천 수</span></span>
+                            <span><i class="icofont-comment text-dark"></i><span th:text="${post.getReplyList().size()}"
+                                                                                 class="mx-2">댓글 수</span></span>
                         </div>
                     </div>
                 </div>
