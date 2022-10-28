@@ -180,7 +180,7 @@ public class PostController {
     public String deletePost(@PathVariable Long id){
         postService.delete(id);
 
-        return "redirect:/post/list";
+        return "redirect:/post-list";
     }
 
 }

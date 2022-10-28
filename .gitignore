@@ -168,4 +168,4 @@ replay_pid*
 application-prod.properties
 
 #properties
-.application.properties
+application.properties
