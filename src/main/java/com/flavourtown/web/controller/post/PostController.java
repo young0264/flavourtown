@@ -61,6 +61,7 @@ public class PostController {
                                  Model model, @ModelAttribute("replyDto") ReplyDto replyDto,
                                  @AuthUser Account account, @AuthenticationPrincipal SecurityUser securityUser) {
         Post post = postService.findById(id);
+        postService.refreshTime1(post);
         if (!post.isPrivateStatus()) {
             if (securityUser == null || !account.getMember().getNickname().equals(post.getAuthor().getNickname())) {
                 redirectAttributes.addFlashAttribute("accessError", "비공개 글에는 접근할 수 없습니다.");
@@ -72,13 +73,6 @@ public class PostController {
         // 이미지
         String postImage = postService.callImage(id);
         model.addAttribute("postImage", postImage);
-
-        List<Reply> replyList = post.getReplyList();
-        replyService.refreshTime(replyList);
-        post.insertReplyTime(postService.convertDateTime(LocalDateTime.now()));
-
-//        postService.refreshTime(post);
-
         Page<Reply> paging = replyService.getReplyList(page, id);
         model.addAttribute("paging", paging);
 
@@ -158,7 +152,6 @@ public class PostController {
         dto.setContent(post.getContent());
         dto.setPlaceName(post.getPlace().getPlaceName());
         dto.setPrivateStatus(post.isPrivateStatus());
-
 
         model.addAttribute("findPost", dto);
 //        model.addAttribute("imageList", imageList);

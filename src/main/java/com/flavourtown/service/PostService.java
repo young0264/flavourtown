@@ -17,6 +17,7 @@ import org.apache.commons.fileupload.disk.DiskFileItem;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
@@ -30,6 +31,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 @Slf4j
 public class PostService {
 
@@ -128,6 +130,14 @@ public class PostService {
 
     // 추가 부분
 
+    public void refreshTime1(Post post) {
+        if (post.getModifiedTime() == null) {
+            convertDateTime(post.getCreatedTime());
+        }else{
+            convertDateTime(post.getModifiedTime());
+        }
+    }
+
     public void refreshTime(List<Post> postList) {
         for (Post post : postList) {
             if (post.getModifiedTime() == null) {
@@ -135,7 +145,6 @@ public class PostService {
             } else {
                 post.insertReplyTime(convertDateTime(post.getModifiedTime()));
             }
-
         }
     }
 
