@@ -132,9 +132,9 @@ public class PostService {
 
     public void refreshTime1(Post post) {
         if (post.getModifiedTime() == null) {
-            convertDateTime(post.getCreatedTime());
+            post.insertReplyTime(convertDateTime(post.getCreatedTime()));
         }else{
-            convertDateTime(post.getModifiedTime());
+            post.insertReplyTime(convertDateTime(post.getModifiedTime()));
         }
     }
 
