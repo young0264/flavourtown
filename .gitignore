@@ -166,3 +166,6 @@ replay_pid*
 
 #aws
 application-prod.properties
+
+#properties
+.application.properties
