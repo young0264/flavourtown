@@ -42,7 +42,6 @@ public class PlaceController {
         return "place/place-map";
     }
 
-
     @GetMapping("/{placeId}/detail")
     public String showPlaceDetail(Principal principal,@PathVariable("placeId") long placeId, Model model) {
         Account account = accountService.findAccountByUsername(principal.getName());
