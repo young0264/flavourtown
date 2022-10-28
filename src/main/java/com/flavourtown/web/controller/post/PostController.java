@@ -36,6 +36,7 @@ import javax.validation.Valid;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.security.Principal;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Controller
@@ -74,7 +75,9 @@ public class PostController {
 
         List<Reply> replyList = post.getReplyList();
         replyService.refreshTime(replyList);
-        postService.refreshTime(post);
+        post.insertReplyTime(postService.convertDateTime(LocalDateTime.now()));
+
+//        postService.refreshTime(post);
 
         Page<Reply> paging = replyService.getReplyList(page, id);
         model.addAttribute("paging", paging);
@@ -104,9 +107,9 @@ public class PostController {
         Page<Post> paging = postService.getList(keyword, page, searchType, pageable);
 
         model.addAttribute("paging", paging);
-        for (Post post : paging) {
-            postService.refreshTime(post);
-        }
+        List<Post> posts = paging.toList();
+        postService.refreshTime(posts);
+
         return "post/post-list";
     }
 

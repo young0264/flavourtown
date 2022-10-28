@@ -35,7 +35,7 @@ public class PostService {
 
     private final PlaceService placeService;
 
-//    private final ImageUtil imageUtil;
+    //    private final ImageUtil imageUtil;
     private final PostRepository postRepository;
 
     public Post findById(Long id) {
@@ -46,7 +46,7 @@ public class PostService {
         return postRepository.findAll();
     }
 
-    public List<Post> findAllByPlaceAndPrivateStatus(Place place){
+    public List<Post> findAllByPlaceAndPrivateStatus(Place place) {
         return postRepository.findAllByPlaceAndPrivateStatus(place, true);
     }
 
@@ -74,8 +74,8 @@ public class PostService {
     public List<MultipartFile> getImageList(String imageUrls) throws IOException {
         List<MultipartFile> imgList = new ArrayList<>();
 
-        for (String imgName : imageUrls.split(",")){
-            if (StringUtils.isEmpty(imgName)){
+        for (String imgName : imageUrls.split(",")) {
+            if (StringUtils.isEmpty(imgName)) {
                 continue;
             }
 //            File file = new File(imageUtil.getFullPath(imgName));
@@ -107,7 +107,7 @@ public class PostService {
     }
 
     // 게시글 전체 조회를 페이징으로
-    public Page<Post> getList(String keyword , int page , String searchType ,Pageable pageable) {
+    public Page<Post> getList(String keyword, int page, String searchType, Pageable pageable) {
 
         searchType = searchType.toLowerCase();
 
@@ -128,19 +128,23 @@ public class PostService {
 
     // 추가 부분
 
-    public void refreshTime(Post post) {
-        if (post.getModifiedTime() == null){
-            post.insertReplyTime(convertDateTime(post.getCreatedTime()));
-        }else{
-            post.insertReplyTime(convertDateTime(post.getModifiedTime()));
+    public void refreshTime(List<Post> postList) {
+        for (Post post : postList) {
+            if (post.getModifiedTime() == null) {
+                post.insertReplyTime(convertDateTime(post.getCreatedTime()));
+            } else {
+                post.insertReplyTime(convertDateTime(post.getModifiedTime()));
+            }
+
         }
     }
+
     public static String convertDateTime(LocalDateTime localDateTime) {
         LocalDateTime now = LocalDateTime.now();
 
         long diffTime = localDateTime.until(now, ChronoUnit.SECONDS);
 
-        if (diffTime < ReplyTime.SEC){
+        if (diffTime < ReplyTime.SEC) {
             return diffTime + "초전";
         }
         diffTime = diffTime / ReplyTime.SEC;
@@ -167,9 +171,9 @@ public class PostService {
     // image 불러오기
     public String callImage(long id) {
         String imgSource = "";
-        if (id % 3 == 0){
+        if (id % 3 == 0) {
             imgSource = "jjajang.jpg";
-        } else if ( id % 3 == 1) {
+        } else if (id % 3 == 1) {
             imgSource = "jongro.jpg";
         } else {
             imgSource = "sushi.jpg";

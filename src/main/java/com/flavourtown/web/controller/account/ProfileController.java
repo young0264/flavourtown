@@ -44,11 +44,8 @@ public class ProfileController {
             return "profile/profile-main";
         }
         model.addAttribute("member", memberVo.get());
-        for (Post post : memberVo.get().getPostList()) {
-            postService.refreshTime(post);
-        }
-
-
+        List<Post> postList = memberVo.get().getPostList();
+        postService.refreshTime(postList);
         return "profile/profile-main";
     }
 
@@ -106,6 +103,7 @@ public class ProfileController {
 
     /**
      * 프로필의 북마크 관리 페이지
+     *
      * @param model
      * @param account
      * @param principal
@@ -159,7 +157,7 @@ public class ProfileController {
             log.info("favorite.subject->{}", favorite.getSubject());
             log.info("bookmark.subject->{}", bookmarkSubject);
             log.info("true->{}", bookmarkSubject.equals(favorite.getSubject()));
-            if (bookmarkSubject.equals(favorite.getSubject())){
+            if (bookmarkSubject.equals(favorite.getSubject())) {
                 check = true;
             }
         }
