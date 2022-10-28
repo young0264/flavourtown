@@ -66,7 +66,7 @@ Chromium 기반의 웹에서 모두 작동하며, 위치 기반의 서비스를 
 - [GitHub Actions](https://github.com/features/actions) -->
 
 ## 10월부터 진행될 상황들 요약
-- 버그 Refactoring
-- 배포 파이프라인 구성 및 AWS ECS를 통한 배포
-- 접속자에 따른 성능테스트툴 사용(grafana k6 ... 등등)
-- 클린 코드를 위한 코드 리팩터링(Service 부분 interface로 바꾸기)
+- ~9월까지 구현된 기능, 배포시 버그들 리팩터링(완료)
+- 배포 파이프라인 구성 및 AWS EC2를 통한 배포(완료)
+- 성능 테스트
+- CI/CD 구축
