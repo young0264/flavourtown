@@ -4,11 +4,10 @@ import com.flavourtown.domain.member.Member;
 import com.flavourtown.domain.place.Place;
 import com.flavourtown.domain.post.Post;
 import com.flavourtown.domain.post.PostRepository;
-import com.flavourtown.domain.post.PostRepositoryImpl;
 import com.flavourtown.domain.post.SearchType;
 import com.flavourtown.domain.reply.ReplyTime;
 //import com.flavourtown.util.image.ImageUtil;
-import com.flavourtown.web.dto.posts.PostCreateDto;
+import com.flavourtown.web.dto.post.PostCreateDto;
 import lombok.RequiredArgsConstructor;
 
 import lombok.extern.slf4j.Slf4j;

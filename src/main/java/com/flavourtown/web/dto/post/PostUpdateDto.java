@@ -1,4 +1,4 @@
-package com.flavourtown.web.dto.posts;
+package com.flavourtown.web.dto.post;
 
 import lombok.Getter;
 import lombok.Setter;

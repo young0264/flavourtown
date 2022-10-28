@@ -1,4 +1,4 @@
-package com.flavourtown.web.dto.posts;
+package com.flavourtown.web.dto.post;
 
 import lombok.*;
 import org.springframework.web.multipart.MultipartFile;

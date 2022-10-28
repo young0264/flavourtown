@@ -15,8 +15,8 @@ import com.flavourtown.service.LikeApiService;
 import com.flavourtown.service.PostService;
 import com.flavourtown.service.ReplyService;
 import com.flavourtown.web.dto.reply.ReplyDto;
-import com.flavourtown.web.dto.posts.PostCreateDto;
-import com.flavourtown.web.dto.posts.PostUpdateDto;
+import com.flavourtown.web.dto.post.PostCreateDto;
+import com.flavourtown.web.dto.post.PostUpdateDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -181,7 +181,7 @@ public class PostController {
 
         postService.delete(id);
 
-        return "redirect:/posts";
+        return "redirect:/post";
     }
 
 }
