@@ -69,7 +69,10 @@ public class PostController {
                 return "redirect:/post";
             }
         }
+        log.info("time1 : " + post.getPostTime());
         postService.refreshTime1(post);
+        replyService.refreshTime(post.getReplyList());
+        log.info("time2 : " + post.getPostTime());
         model.addAttribute("post", post);
         String postImage = postService.callImage(id);
         model.addAttribute("postImage", postImage);
