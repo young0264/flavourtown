@@ -88,11 +88,11 @@ public class PostController {
     }
 
     @GetMapping("/post-list")
-    public String showAllPosts(@RequestParam(defaultValue = "")String keyword,
+    public String showAllPosts(@RequestParam(defaultValue = "") String keyword,
                                @RequestParam(defaultValue = "0") int page,
-                               @RequestParam(defaultValue = "title")String searchType,
-                               Model model ,
-                               @PageableDefault(sort = "id" , direction = Sort.Direction.DESC , size = 12)Pageable pageable){
+                               @RequestParam(defaultValue = "title") String searchType,
+                               Model model,
+                               @PageableDefault(sort = "id", direction = Sort.Direction.DESC, size = 12) Pageable pageable) {
 
         String images = Paths.get(System.getProperty("user.dir"), "images").toString() + "/";
         log.info("images = " + images);
@@ -101,10 +101,12 @@ public class PostController {
         model.addAttribute("searchType", SearchType.values());
 
         // 게시글 전체 조회
-        Page<Post> paging = postService.getList(keyword , page ,  searchType , pageable);
+        Page<Post> paging = postService.getList(keyword, page, searchType, pageable);
 
-        model.addAttribute("paging" , paging);
-
+        model.addAttribute("paging", paging);
+        for (Post post : paging) {
+            postService.refreshTime(post);
+        }
         return "post/post-list";
     }
 
@@ -122,8 +124,8 @@ public class PostController {
     // 게시글 등록 post
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/post/new")
-    public String createPost(@Valid PostCreateDto postCreateDto , BindingResult bindingResult ,
-                             Model model , Principal principal, RedirectAttributes redirectAttributes) {
+    public String createPost(@Valid PostCreateDto postCreateDto, BindingResult bindingResult,
+                             Model model, Principal principal, RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("postCreateDto", postCreateDto);
             return "post/post-newForm";
@@ -140,7 +142,7 @@ public class PostController {
     // 게시글 수정 뷰 페이지
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/post/modify/{id}")
-    public String modifyPost(@PathVariable Long id ,Model model) throws IOException {
+    public String modifyPost(@PathVariable Long id, Model model) throws IOException {
 
         Post post = postService.findById(id);
 
@@ -177,7 +179,7 @@ public class PostController {
     // 글 삭제
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/post/delete/{id}")
-    public String deletePost(@PathVariable Long id){
+    public String deletePost(@PathVariable Long id) {
         postService.delete(id);
 
         return "redirect:/post-list";
