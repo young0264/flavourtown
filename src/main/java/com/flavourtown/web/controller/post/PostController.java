@@ -63,7 +63,7 @@ public class PostController {
         if (!post.isPrivateStatus()) {
             if (securityUser == null || !account.getMember().getNickname().equals(post.getAuthor().getNickname())) {
                 redirectAttributes.addFlashAttribute("accessError", "비공개 글에는 접근할 수 없습니다.");
-                return "redirect:/posts";
+                return "redirect:/post";
             }
         }
         model.addAttribute("post", post);
@@ -181,7 +181,7 @@ public class PostController {
 
         postService.delete(id);
 
-        return "redirect:/post";
+        return "redirect:/post/list";
     }
 
 }
