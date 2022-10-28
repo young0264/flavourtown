@@ -4,10 +4,8 @@ import com.flavourtown.domain.account.Account;
 import com.flavourtown.domain.account.AuthUser;
 import com.flavourtown.domain.favorite.Favorite;
 import com.flavourtown.domain.member.Member;
-import com.flavourtown.service.AccountService;
-import com.flavourtown.service.FavoriteService;
-import com.flavourtown.service.MemberService;
-import com.flavourtown.service.ProfileService;
+import com.flavourtown.domain.post.Post;
+import com.flavourtown.service.*;
 import com.flavourtown.web.dto.profile.ProfileIntroduceDto;
 import com.flavourtown.web.dto.profile.ProfilePasswordDto;
 import com.flavourtown.web.dto.profile.ProfileWithdrawalDto;
@@ -34,17 +32,22 @@ public class ProfileController {
     private final AccountService accountService;
     private final MemberService memberService;
     private final FavoriteService favoriteService;
+    private final PostService postService;
 
     @GetMapping("/profile/{username}")
     public String showProfilePage(@PathVariable String username, Model model, @AuthUser Account account) {
-        Optional<MemberVo> member = profileService.findByUsernameOrNickname(username);
-        if (member.isEmpty()) {
+        Optional<MemberVo> memberVo = profileService.findByUsernameOrNickname(username);
+        if (memberVo.isEmpty()) {
             MemberVo principalMember = accountService.getReadOnlyMember(account.getMember().getNickname());
             model.addAttribute("member", principalMember);
             model.addAttribute("isNotPresentMemberMessage", "해당 유저가 존재하지 않습니다.");
             return "profile/profile-main";
         }
-        model.addAttribute("member", member.get());
+        model.addAttribute("member", memberVo.get());
+        for (Post post : memberVo.get().getPostList()) {
+            postService.refreshTime(post);
+        }
+
 
         return "profile/profile-main";
     }

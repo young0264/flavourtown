@@ -45,12 +45,12 @@
                                                 <h6 class="card-text" th:text="${post.getPlace().placeName}">장소 이름</h6>
                                             </a>
                                         </span>
-                                        <hr class="my-1">
+                                         <hr class="my-1">
                                         <div>
-<!--                                            <span>-->
-<!--                                                <i class="icofont-clock-time"></i>-->
-<!--                                                <span th:text="${post.postTime}" class="mx-2">업로드 시간</span>-->
-<!--                                            </span>-->
+                                            <span>
+                                                <i class="icofont-clock-time"></i>
+                                                <span th:text="${post.postTime}" class="mx-2">업로드 시간</span>
+                                            </span>
                                             <span>
                                                 <th:block th:if="${!post.privateStatus}">
                                                     <i class="icofont-lock"></i><span class="mx-2">비공개</span>
