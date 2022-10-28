@@ -178,7 +178,6 @@ public class PostController {
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/post/delete/{id}")
     public String deletePost(@PathVariable Long id){
-
         postService.delete(id);
 
         return "redirect:/post/list";

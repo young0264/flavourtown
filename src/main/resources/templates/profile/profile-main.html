@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html class="no-js"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
-      xmlns="http://www.w3.org/1999/html"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layouts/layout.html}">
+<html  class="no-js"
+       xmlns:th="http://www.thymeleaf.org"
+       xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+       xmlns="http://www.w3.org/1999/html"
+       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+       layout:decorate="~{layouts/layout.html}">
 <head>
     <title>맛동산 | 프로필</title>
 </head>
@@ -36,12 +36,9 @@
                         <th:block th:if="${post.getAuthor().nickname == #authentication.principal.nickname}">
                             <div class="col-lg-3 col-md-4 col-6">
                                 <div class="card mb-2">
-                                    <img th:src="${post.getPlace().mainPhotoUrl}" class="card-img-top" alt="..."
-                                         style="height:180px;">
+                                    <img th:src="${post.getPlace().mainPhotoUrl}" class="card-img-top" alt="..." style="height:180px;">
                                     <div class="card-body">
-                                        <h5 class="card-title">
-                                            <a th:href="@{|/post/${post.id}/detail|}" th:text="${post.title}">제목</a>
-                                        </h5>
+                                        <h5 class="card-title"><a th:href="@{|/post/${post.id}/detail|}" th:text="${post.title}">제목</a></h5>
                                         <span>
                                             <i class="icofont-location-pin"></i>
                                             <a th:href="@{/place/{placeId}/detail(placeId = ${post.getPlace().getId()})}">
@@ -52,8 +49,7 @@
                                         <div>
 <!--                                            <span>-->
 <!--                                                <i class="icofont-clock-time"></i>-->
-<!--                                                <span th:text="${post.postTime}"-->
-<!--                                                      class="mx-2">업로드 시간</span>-->
+<!--                                                <span th:text="${post.postTime}" class="mx-2">업로드 시간</span>-->
 <!--                                            </span>-->
                                             <span>
                                                 <th:block th:if="${!post.privateStatus}">
@@ -65,26 +61,19 @@
                                             </span>
                                         </div>
                                         <div>
-                                            <span><i class="icofont-thumbs-up text-dark"></i><span
-                                                    th:text="${post.getPostLike().size()}"
-                                                    class="mx-2">추천 수</span></span>
-                                            <span><i class="icofont-comment text-dark"></i><span
-                                                    th:text="${post.getReplyList().size()}"
-                                                    class="mx-2">댓글 수</span></span>
+                                            <span><i class="icofont-thumbs-up text-dark"></i><span th:text="${post.getPostLike().size()}" class="mx-2">추천 수</span></span>
+                                            <span><i class="icofont-comment text-dark"></i><span th:text="${post.getReplyList().size()}" class="mx-2">댓글 수</span></span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </th:block>
-                        <th:block
-                                th:if="${(post.getAuthor().nickname != #authentication.principal.nickname) && post.privateStatus}">
+                        <th:block th:if="${(post.getAuthor().nickname != #authentication.principal.nickname) && post.privateStatus}">
                             <div class="col-lg-3 col-md-4 col-6">
                                 <div class="card mb-2">
-                                    <img th:src="${post.getPlace().mainPhotoUrl}" class="card-img-top" alt="..."
-                                         style="height:180px;">
+                                    <img th:src="${post.getPlace().mainPhotoUrl}" class="card-img-top" alt="..." style="height:180px;">
                                     <div class="card-body">
-                                        <h5 class="card-title"><a th:href="@{|/post/${post.id}/detail|}"
-                                                                  th:text="${post.title}">제목</a></h5>
+                                        <h5 class="card-title"><a th:href="@{|/post/${post.id}/detail|}" th:text="${post.title}">제목</a></h5>
                                         <span>
                                             <i class="icofont-location-pin"></i>
                                             <a th:href="@{/place/{placeId}/detail(placeId = ${post.getPlace().getId()})}">
@@ -107,12 +96,8 @@
                                             </span>
                                         </div>
                                         <div>
-                                            <span><i class="icofont-thumbs-up text-dark"></i><span
-                                                    th:text="${post.getPostLike().size()}"
-                                                    class="mx-2">추천 수</span></span>
-                                            <span><i class="icofont-comment text-dark"></i><span
-                                                    th:text="${post.getReplyList().size()}"
-                                                    class="mx-2">댓글 수</span></span>
+                                            <span><i class="icofont-thumbs-up text-dark"></i><span th:text="${post.getPostLike().size()}" class="mx-2">추천 수</span></span>
+                                            <span><i class="icofont-comment text-dark"></i><span th:text="${post.getReplyList().size()}" class="mx-2">댓글 수</span></span>
                                         </div>
                                     </div>
                                 </div>
