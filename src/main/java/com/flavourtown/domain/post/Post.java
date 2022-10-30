@@ -62,9 +62,11 @@ public class Post {
     // 추가 부분
     private String postTime;
 
+
     public void insertReplyTime(String postTime) {
         this.postTime = postTime;
     }
+
 
     public void addPlace(Place place) {
         this.place = place;
