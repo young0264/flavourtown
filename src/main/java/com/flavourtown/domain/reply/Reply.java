@@ -47,6 +47,7 @@ public class Reply {
 
     @Builder.Default
     @OneToMany(mappedBy = "parent", orphanRemoval = true)
+
     private List<Reply> child = new ArrayList<>();
 
     private String replyTime;

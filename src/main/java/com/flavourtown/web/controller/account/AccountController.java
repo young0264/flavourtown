@@ -34,6 +34,7 @@ public class AccountController {
 
     private final SocialLoginApiService loginApiService;
 
+
     @GetMapping("/login")
     public String showLoginPage(Model model) {
         // 로그인할 때 사용할 Dto 전달

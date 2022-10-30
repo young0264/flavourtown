@@ -150,11 +150,12 @@ public class PostService {
 
     public static String convertDateTime(LocalDateTime localDateTime) {
         LocalDateTime now = LocalDateTime.now();
+        log.info("post timenow : " + now.toString());
 
         long diffTime = localDateTime.until(now, ChronoUnit.SECONDS);
 
         if (diffTime < ReplyTime.SEC) {
-            return diffTime + "초전";
+            return diffTime + "초 전";
         }
         diffTime = diffTime / ReplyTime.SEC;
         if (diffTime < ReplyTime.MIN) {
@@ -172,7 +173,6 @@ public class PostService {
         if (diffTime < ReplyTime.MONTH) {
             return diffTime + "개월 전";
         }
-
         diffTime = diffTime / ReplyTime.MONTH;
         return diffTime + "년 전";
     }

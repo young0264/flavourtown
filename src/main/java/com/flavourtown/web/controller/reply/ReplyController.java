@@ -18,6 +18,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.time.LocalDateTime;
 import java.util.Map;
 
 @Slf4j
@@ -28,7 +29,16 @@ public class ReplyController {
     private final PostService postService;
     private final ReplyService replyService;
     private final MemberService memberService;
-
+/**
+ * 시간 테스트
+ */
+    @ResponseBody
+    @GetMapping("test")
+    public String home() {
+        LocalDateTime now = LocalDateTime.now();
+        log.info("test time : " + now.toString());
+        return now.toString();
+    }
     /**
      * 댓글등록 (버튼)
      */

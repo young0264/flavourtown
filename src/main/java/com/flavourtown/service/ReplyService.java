@@ -9,6 +9,7 @@ import com.flavourtown.domain.reply.ReplyRepository;
 import com.flavourtown.domain.reply.ReplyTime;
 import com.flavourtown.web.dto.reply.ReplyDto;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -26,6 +27,7 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 @Transactional
+@Slf4j
 public class ReplyService {
 
     private final ReplyRepository replyRepository;
@@ -90,7 +92,6 @@ public class ReplyService {
      * 댓글 좋아요 추가
      */
     public void plusReplyLike(Reply reply, Member member) {
-
         ReplyLike replyLike = ReplyLike.builder()
                 .reply(reply)
                 .member(member)
@@ -115,7 +116,7 @@ public class ReplyService {
 
     public static String convertDateTime(LocalDateTime localDateTime) {
         LocalDateTime now = LocalDateTime.now();
-
+        log.info("reply timenow : " + now.toString());
         long diffTime = localDateTime.until(now, ChronoUnit.SECONDS); // now보다 이후면 +, 전이면 -
 
         if (diffTime < ReplyTime.SEC){
