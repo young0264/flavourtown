@@ -31,7 +31,7 @@ public class PostRepositoryImpl implements PostRepositoryCustom{
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize());
 
-        for (Sort.Order o : pageable.getSort()) { // ?
+        for (Sort.Order o : pageable.getSort()) {
             PathBuilder pathBuilder = new PathBuilder(post.getType(), post.getMetadata());
             postQuery.orderBy(new OrderSpecifier(o.isAscending() ? Order.ASC : Order.DESC, pathBuilder.get(o.getProperty())));
         }
