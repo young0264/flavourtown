@@ -157,7 +157,8 @@ public class PostController {
                 .privateStatus(post.isPrivateStatus())
                 .build();
 
-        model.addAttribute("findPost", postUpdateDto);
+        model.addAttribute("post", post);
+        model.addAttribute("postUpdateDto", postUpdateDto);
 
         return "post/post-updateForm";
     }

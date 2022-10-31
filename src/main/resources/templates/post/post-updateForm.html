@@ -53,24 +53,24 @@
             <div class="my-4" >
                 <h3 class="heading-title">게시글 수정</h3>
                 <!-- 저장시 url -->
-                <form th:object="${postUpdateDto}" th:action="@{/post/update/{id}(id=${findPost.getId()})}" method="post" enctype="multipart/form-data" >
+                <form th:object="${postUpdateDto}" th:action="@{/post/update/{id}(id=${post.getId()})}" method="post" enctype="multipart/form-data" >
                     <!-- 위치 -->
                     <div class="form-floating mb-3">
                         <label for="place">위치</label>
                         <input type="text" class="form-control" id="place"
-                               th:placeholder="${findPost.placeName}" readonly>
+                               th:placeholder="${postUpdateDto.placeName}" readonly>
                     </div>
                     <!-- 제목 -->
                     <div class="form-floating mb-3">
                         <label for="title">제목</label>
-                        <input type="text" class="form-control" id="title" th:field="*{title}" th:value="${findPost.title}" placeholder="제목을 입력하세요.">
+                        <input type="text" class="form-control" id="title" th:field="*{title}" th:value="${postUpdateDto.title}" placeholder="제목을 입력하세요.">
                         <small class="form-text text-danger fieldError" th:errors="*{title}">title Error</small>
 
                     </div>
                     <!-- 내용 -->
                     <div class="form-floating mb-3">
                         <label for="summernote">내용</label>
-                        <textarea id="summernote" th:field="*{content}" th:text="${findPost.content}"></textarea>
+                        <textarea id="summernote" th:field="*{content}" th:text="${postUpdateDto.content}"></textarea>
 
 
 
@@ -136,7 +136,7 @@
                     <div class="form-floating mb-3">
                         <label for="privateStatus">공개 여부</label>
                         <div class="form-check form-switch" id="privateStatus">
-                            <select th:field="*{privateStatus}" class="select2" th:value="${findPost.privateStatus}">
+                            <select th:field="*{privateStatus}" class="select2" th:value="${postUpdateDto.privateStatus}">
                                 <option value="true" selected>공개</option>
                                 <option value="false">비공개</option>
                             </select>
@@ -146,7 +146,7 @@
                     <!-- 저장 / 취소 버튼  -->
                     <div class="d-grid gap-2 d-md-block">
                         <button class="btn btn-primary" type="submit">수정</button>
-                        <button class="btn btn-primary" type="button" th:onclick="|location.href='@{/post/{id}/detail( id = ${findPost.id} )}'|">취소</button>
+                        <button class="btn btn-primary" type="button" th:onclick="|location.href='@{/post/{id}/detail( id = ${postUpdateDto.id} )}'|">취소</button>
                     </div>
                 </form>
             </div>
