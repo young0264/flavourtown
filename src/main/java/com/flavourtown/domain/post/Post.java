@@ -5,6 +5,7 @@ import com.flavourtown.domain.member.Member;
 import com.flavourtown.domain.place.Place;
 import com.flavourtown.domain.reply.Reply;
 import lombok.*;
+import net.bytebuddy.asm.Advice;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.lang.Nullable;
@@ -82,10 +83,12 @@ public class Post {
     /**
      * 수정
      */
-    public void change(String title, String content,  String imageUrls , boolean privateStatus) {
+    public void updateCurrentPost(String title, String content,  String imageUrls , boolean privateStatus) {
         this.title = title;
         this.content = content;
         this.imageUrls = imageUrls == null ? "" : imageUrls;
         this.privateStatus = privateStatus;
+        this.modifiedTime = LocalDateTime.now();
     }
+
 }

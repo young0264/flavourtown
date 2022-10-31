@@ -8,6 +8,7 @@ import com.flavourtown.domain.post.SearchType;
 import com.flavourtown.domain.reply.ReplyTime;
 //import com.flavourtown.util.image.ImageUtil;
 import com.flavourtown.web.dto.post.PostCreateDto;
+import com.flavourtown.web.dto.post.PostUpdateDto;
 import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 
@@ -73,9 +74,9 @@ public class PostService {
         return postRepository.save(post);
     }
 
-    public void updatePost() {
-
-    }
+//    public PostUpdateDto updatePost(Post post, PostUpdateDto postUpdateDto) {
+//
+//    }
 
 
     public void delete(Long id) {
@@ -104,12 +105,13 @@ public class PostService {
 
     // 추가 부분
 
-    public void refreshTime1(Post post) {
+    public Post refreshTime1(Post post) {
         if (post.getModifiedTime() == null) {
             post.insertPostTime(convertDateTime(post.getCreatedTime()));
         }else{
             post.insertPostTime(convertDateTime(post.getModifiedTime()));
         }
+        return post;
     }
 
     public void refreshTime(List<Post> postList) {

@@ -137,7 +137,6 @@ public class PostController {
         Long id = newPost.getId();
         redirectAttributes.addAttribute("id", id);
 
-        // 저장 완료 후 , 게시글 목록으로 간다.
         return "redirect:/post/{id}/detail";
     }
 
@@ -150,14 +149,8 @@ public class PostController {
     public String modifyPost(@PathVariable Long id, Model model) throws IOException {
 
         Post post = postService.findById(id);
-        PostUpdateDto postUpdateDto = PostUpdateDto.builder()
-                .title(post.getTitle())
-                .content(post.getContent())
-                .placeName(post.getPlace().getPlaceName())
-                .privateStatus(post.isPrivateStatus())
-                .build();
-
-        model.addAttribute("post", post);
+        PostUpdateDto postUpdateDto = new PostUpdateDto(post.getId(), post.getTitle(), post.getContent(),
+                post.getPlace().getPlaceName(), post.isPrivateStatus());
         model.addAttribute("postUpdateDto", postUpdateDto);
 
         return "post/post-updateForm";
@@ -167,12 +160,9 @@ public class PostController {
     @PostMapping("/post/update/{id}")
     public String updatePost(@PathVariable Long id, PostUpdateDto updateDto) {
 
-        Post updatePost = postService.findById(id);
-
-        updatePost.change(updateDto.getTitle(), updateDto.getContent(), "", updateDto.getPrivateStatus());
-
-        postRepository.save(updatePost);
-
+        Post post = postService.findById(id);
+        post.updateCurrentPost(updateDto.getTitle(), updateDto.getContent(), "", updateDto.getPrivateStatus());
+        postRepository.save(post);
         return "redirect:/post/{id}/detail";
     }
 
@@ -183,7 +173,6 @@ public class PostController {
     @GetMapping("/post/delete/{id}")
     public String deletePost(@PathVariable Long id) {
         postService.delete(id);
-
         return "redirect:/post-list";
     }
 
