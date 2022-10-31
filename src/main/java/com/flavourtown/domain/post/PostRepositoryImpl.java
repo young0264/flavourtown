@@ -10,7 +10,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.support.PageableExecutionUtils;
-
 import java.util.List;
 
 import static com.flavourtown.domain.post.QPost.post;
@@ -20,14 +19,15 @@ public class PostRepositoryImpl implements PostRepositoryCustom{
 
     private final JPAQueryFactory jpaQueryFactory;
 
-    // 제목
+    /**
+     * 페이징
+     */
     @Override
     public Page<Post> searchTitle(String keyword, Pageable pageable) {
         JPAQuery<Post> postQuery = jpaQueryFactory
                 .selectFrom(post)
                 .where(post.title.contains(keyword)
-                        .and(post.privateStatus.eq(true))
-                )
+                        .and(post.privateStatus.eq(true)))
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize());
 
@@ -43,7 +43,6 @@ public class PostRepositoryImpl implements PostRepositoryCustom{
                 .from(post)
                 .where(post.title.contains(keyword)
                         .and(post.privateStatus.eq(true)));
-
         return PageableExecutionUtils.getPage(posts, pageable, postCountQuery::fetchOne);
     }
 

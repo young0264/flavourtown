@@ -7,7 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@Transactional
+@Transactional(readOnly = true)
 public interface PostRepository extends JpaRepository<Post,Long> , PostRepositoryCustom {
 
     List<Post> findAllByPlace(Place place);

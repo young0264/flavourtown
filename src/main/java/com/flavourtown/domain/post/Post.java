@@ -63,7 +63,7 @@ public class Post {
     private String postTime;
 
 
-    public void insertReplyTime(String postTime) {
+    public void insertPostTime(String postTime) {
         this.postTime = postTime;
     }
 

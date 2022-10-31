@@ -72,7 +72,10 @@ public class PostService {
         return postRepository.save(post);
     }
 
-    // 이미지 폴더에서 파일을 리스트로 받아오는 로직
+
+    /**
+     * 이미지 폴더에서 파일을 리스트로 받아오는 로직
+     */
     public List<MultipartFile> getImageList(String imageUrls) throws IOException {
         List<MultipartFile> imgList = new ArrayList<>();
 
@@ -90,19 +93,6 @@ public class PostService {
 
     }
 
-    // File 객체를 MultipartFile로 변경하는 로직
-    private MultipartFile getMultipartFile(File file) throws IOException {
-
-        log.info("변환 완료");
-        FileItem fileItem = new DiskFileItem("mainFile", Files.probeContentType(file.toPath()), false, file.getName(), (int) file.length(), file.getParentFile());
-
-        InputStream input = new FileInputStream(file);
-        OutputStream os = fileItem.getOutputStream();
-        IOUtils.copy(input, os);
-
-        MultipartFile multipartFile = new CommonsMultipartFile(fileItem);
-        return multipartFile;
-    }
 
     public void delete(Long id) {
         postRepository.deleteById(id);
@@ -132,18 +122,18 @@ public class PostService {
 
     public void refreshTime1(Post post) {
         if (post.getModifiedTime() == null) {
-            post.insertReplyTime(convertDateTime(post.getCreatedTime()));
+            post.insertPostTime(convertDateTime(post.getCreatedTime()));
         }else{
-            post.insertReplyTime(convertDateTime(post.getModifiedTime()));
+            post.insertPostTime(convertDateTime(post.getModifiedTime()));
         }
     }
 
     public void refreshTime(List<Post> postList) {
         for (Post post : postList) {
             if (post.getModifiedTime() == null) {
-                post.insertReplyTime(convertDateTime(post.getCreatedTime()));
+                post.insertPostTime(convertDateTime(post.getCreatedTime()));
             } else {
-                post.insertReplyTime(convertDateTime(post.getModifiedTime()));
+                post.insertPostTime(convertDateTime(post.getModifiedTime()));
             }
         }
     }
@@ -177,7 +167,10 @@ public class PostService {
         return diffTime + "년 전";
     }
 
-    // image 불러오기
+
+    /**
+     * 이미지 불러오기
+     */
     public String callImage(long id) {
         String imgSource = "";
         if (id % 3 == 0) {

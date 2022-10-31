@@ -63,20 +63,22 @@ public class PostController {
                                  Model model, @ModelAttribute("replyDto") ReplyDto replyDto,
                                  @AuthUser Account account, @AuthenticationPrincipal SecurityUser securityUser) {
         Post post = postService.findById(id);
+        String postImage = postService.callImage(id);
+
         if (!post.isPrivateStatus()) {
             if (securityUser == null || !account.getMember().getNickname().equals(post.getAuthor().getNickname())) {
                 redirectAttributes.addFlashAttribute("accessError", "비공개 글에는 접근할 수 없습니다.");
                 return "redirect:/post";
             }
         }
-        log.info("time1 : " + post.getPostTime());
+
         postService.refreshTime1(post);
         replyService.refreshTime(post.getReplyList());
-        log.info("time2 : " + post.getPostTime());
-        model.addAttribute("post", post);
-        String postImage = postService.callImage(id);
-        model.addAttribute("postImage", postImage);
+
         Page<Reply> paging = replyService.getReplyList(page, id);
+
+        model.addAttribute("post", post);
+        model.addAttribute("postImage", postImage);
         model.addAttribute("paging", paging);
 
         if (account != null) {
@@ -139,15 +141,16 @@ public class PostController {
         return "redirect:/post/{id}/detail";
     }
 
-    // 게시글 수정 뷰 페이지
+
+    /**
+     * 게시글 수정 페이지
+     */
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/post/modify/{id}")
     public String modifyPost(@PathVariable Long id, Model model) throws IOException {
 
         Post post = postService.findById(id);
 
-        // posts가 가지고 있는 image들을 list로 받아 와야한다.
-//        List<MultipartFile> imageList = postService.getImageList(post.getImageUrls());
 
         PostUpdateDto dto = new PostUpdateDto();
         dto.setId(post.getId());
@@ -157,7 +160,6 @@ public class PostController {
         dto.setPrivateStatus(post.isPrivateStatus());
 
         model.addAttribute("findPost", dto);
-//        model.addAttribute("imageList", imageList);
 
         return "post/post-updateForm";
     }
