@@ -79,7 +79,9 @@ public class Post {
         reply.insertPost(this);
     }
 
-    // 수정 메소드
+    /**
+     * 수정
+     */
     public void change(String title, String content,  String imageUrls , boolean privateStatus) {
         this.title = title;
         this.content = content;

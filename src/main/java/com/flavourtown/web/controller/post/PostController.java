@@ -150,16 +150,14 @@ public class PostController {
     public String modifyPost(@PathVariable Long id, Model model) throws IOException {
 
         Post post = postService.findById(id);
+        PostUpdateDto postUpdateDto = PostUpdateDto.builder()
+                .title(post.getTitle())
+                .content(post.getContent())
+                .placeName(post.getPlace().getPlaceName())
+                .privateStatus(post.isPrivateStatus())
+                .build();
 
-
-        PostUpdateDto dto = new PostUpdateDto();
-        dto.setId(post.getId());
-        dto.setTitle(post.getTitle());
-        dto.setContent(post.getContent());
-        dto.setPlaceName(post.getPlace().getPlaceName());
-        dto.setPrivateStatus(post.isPrivateStatus());
-
-        model.addAttribute("findPost", dto);
+        model.addAttribute("findPost", postUpdateDto);
 
         return "post/post-updateForm";
     }

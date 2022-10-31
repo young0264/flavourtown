@@ -8,6 +8,7 @@ import com.flavourtown.domain.post.SearchType;
 import com.flavourtown.domain.reply.ReplyTime;
 //import com.flavourtown.util.image.ImageUtil;
 import com.flavourtown.web.dto.post.PostCreateDto;
+import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 
 import lombok.extern.slf4j.Slf4j;
@@ -72,24 +73,7 @@ public class PostService {
         return postRepository.save(post);
     }
 
-
-    /**
-     * 이미지 폴더에서 파일을 리스트로 받아오는 로직
-     */
-    public List<MultipartFile> getImageList(String imageUrls) throws IOException {
-        List<MultipartFile> imgList = new ArrayList<>();
-
-        for (String imgName : imageUrls.split(",")) {
-            if (StringUtils.isEmpty(imgName)) {
-                continue;
-            }
-//            File file = new File(imageUtil.getFullPath(imgName));
-//            imgList.add(getMultipartFile(file));
-        }
-
-        log.info("리스트 생성 완료");
-
-        return imgList;
+    public void updatePost() {
 
     }
 

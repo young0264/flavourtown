@@ -1,9 +1,10 @@
 package com.flavourtown.web.dto.post;
 
+import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
 
-@Getter @Setter
+@Getter
+@Builder
 public class PostUpdateDto {
 
     private Long id;
@@ -12,10 +13,9 @@ public class PostUpdateDto {
 
     private String content;
 
-//    private List<MultipartFile> imgFiles;
-
-    //    private LocalDateTime modifiedTime;
     private String placeName;
 
     private Boolean privateStatus;
+
+
 }
