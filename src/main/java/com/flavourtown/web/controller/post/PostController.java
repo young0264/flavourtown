@@ -143,7 +143,7 @@ public class PostController {
 
 
     /**
-     * 게시글 수정 페이지
+     * 게시글 수정
      */
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/post/modify/{id}")
@@ -177,7 +177,9 @@ public class PostController {
         return "redirect:/post/{id}/detail";
     }
 
-    // 글 삭제
+    /**
+     * 게시글 삭제
+     */
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/post/delete/{id}")
     public String deletePost(@PathVariable Long id) {
