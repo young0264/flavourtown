@@ -29,18 +29,9 @@
                         </button>
 
                         <div class="dropdown-menu dropdown-menu-right">
-                            <!--                                        <a class="edit icofont-comment dropdown-item"-->
-                            <!--                                           th:href="@{|/reply/update/${reply.id}|}"><span class="ml-1">수정</span></a>-->
-                            <!-- Button trigger modal -->
-<!--                            <button type="button" class="edit icofont-comment dropdown-item" data-toggle="modal"-->
-<!--                                    data-target="#exampleModal">-->
-<!--                                댓글 수정-->
-<!--                            </button>-->
                             <a class="icofont-comment dropdown-item" data-toggle="modal" data-target="#replyUpdate${id}"><span class="ml-1">수정</span></a>
-                            <a class="icofont-delete-alt dropdown-item" data-toggle="modal" data-target="#replyRemove${id}"><span class="ml-1">삭제</span></a>
+                            <a class="icofont-delete-alt dropdown-item" data-toggle="modal" data-target="#replyDelete${id}"><span class="ml-1">삭제</span></a>
 
-<!--                            <a class="delete icofont-delete-alt dropdown-item"-->
-<!--                            ><span class="ml-1">삭제</span></a>-->
                         </div>
                         <!-- Modal -->
                         <div class="modal fade" id="replyUpdate${id}" tabindex="-1" role="dialog" aria-labelledby="replyModalCenterTitle${id}" aria-hidden="true">
@@ -65,11 +56,11 @@
                             </div>
                         </div>
                         <!-- Modal -->
-                        <div class="modal fade" id="replyRemove${id}" tabindex="-1" role="dialog" aria-labelledby="replyRemoveModalCenterTitle${id}" aria-hidden="true">
+                        <div class="modal fade" id="replyDelete${id}" tabindex="-1" role="dialog" aria-labelledby="replyDeleteModalCenterTitle${id}" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="replyRemoveLongTitle${id}">댓글 삭제</h5>
+                                        <h5 class="modal-title" id="replyDeleteLongTitle${id}">댓글 삭제</h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
@@ -80,7 +71,7 @@
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
-                                        <button type="button" class="btn btn-danger" onclick="removeReplyBtn.removeReply(${id})">삭제</button>
+                                        <button type="button" class="btn btn-danger" onclick="deleteReplyBtn.deleteReply(${id})">삭제</button>
                                     </div>
                                 </div>
                             </div>

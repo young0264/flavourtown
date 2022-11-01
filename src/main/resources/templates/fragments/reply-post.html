@@ -47,7 +47,7 @@
                                                     class="ml-1">수정</span></a>
 
                                             <a class="icofont-delete-alt dropdown-item" data-toggle="modal"
-                                               th:data-target="|#replyRemove${reply.id}|"><span
+                                               th:data-target="|#replydelete${reply.id}|"><span
                                                     class="ml-1">삭제</span></a>
                                         </div>
                                     </th:block>
@@ -85,12 +85,12 @@
                                 </div>
                             </div>
                             <!-- Modal -->
-                            <div class="modal fade" th:id="|replyRemove${reply.id}|" tabindex="-1" role="dialog"
-                                 th:aria-labelledby="|replyRemoveModalCenterTitle${reply.id}|" aria-hidden="true">
+                            <div class="modal fade" th:id="|replydelete${reply.id}|" tabindex="-1" role="dialog"
+                                 th:aria-labelledby="|replyDeleteModalCenterTitle${reply.id}|" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" th:id="|replyRemoveLongTitle${reply.id}|">댓글 삭제</h5>
+                                            <h5 class="modal-title" th:id="|replyDeleteLongTitle${reply.id}|">댓글 삭제</h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
@@ -103,7 +103,7 @@
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">취소
                                             </button>
                                             <button type="button" class="btn btn-danger"
-                                                    th:onclick="|removeReplyBtn.removeReply(${reply.id})|">삭제
+                                                    th:onclick="|deleteReplyBtn.deleteReply(${reply.id})|">삭제
                                             </button>
                                         </div>
                                     </div>
@@ -164,7 +164,7 @@
         </div>
         <th:block th:replace="fragments/likes/reply-like-fragments::likes"></th:block>
         <th:block th:replace="fragments/reply/reply-update-fragments::update"></th:block>
-        <th:block th:replace="fragments/reply/reply-remove-fragments::update"></th:block>
+        <th:block th:replace="fragments/reply/reply-delete-fragments::update"></th:block>
         <th:block th:replace="fragments/reply-post-async::reply_async"></th:block>
 
         <script th:inline="javascript">
