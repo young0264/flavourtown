@@ -81,7 +81,7 @@ public class ReplyController {
     }
 
     @PreAuthorize("isAuthenticated()")
-    @DeleteMapping("/reply/remove")
+    @PostMapping("/reply/delete")
     @ResponseBody
     public boolean removeReply(@RequestParam Map<String, String> params) {
         Reply currentReply = replyService.getReply(Long.valueOf(params.get("replyNum")));

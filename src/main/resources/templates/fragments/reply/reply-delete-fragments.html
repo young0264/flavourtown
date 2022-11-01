@@ -18,7 +18,7 @@
             $(`#replyDiv`).load(location.href+` #replyDiv`);
             $(`#replyUpdate${replyId}`).modal('hide');
             $('body').removeClass('modal-open');
-            $('.modal-backdrop').delete();
+            $('.modal-backdrop').remove();
           },
         })
         imageDelay(function (){
