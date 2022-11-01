@@ -3,7 +3,7 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns="http://www.w3.org/1999/html">
 <body>
-<th:block th:fragment="update">
+<th:block th:fragment="delete">
   <script th:inline="javascript">
     let deleteReplyBtn = {
       deleteReply: function (replyId) {
@@ -17,7 +17,7 @@
           success: function (flag) {
             $(`#replyDiv`).load(location.href+` #replyDiv`);
             $(`#replyUpdate${replyId}`).modal('hide');
-            $('body').deleteClass('modal-open');
+            $('body').removeClass('modal-open');
             $('.modal-backdrop').delete();
           },
         })
