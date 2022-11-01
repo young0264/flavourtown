@@ -5,20 +5,20 @@
 <body>
 <th:block th:fragment="update">
   <script th:inline="javascript">
-    let removeReplyBtn = {
-      removeReply: function (replyId) {
+    let deleteReplyBtn = {
+      deleteReply: function (replyId) {
         let param = {
           replyNum: replyId
         };
         $.ajax({
           type: "POST",
-          url: "/reply/remove",
+          url: "/reply/delete",
           data : param,
           success: function (flag) {
             $(`#replyDiv`).load(location.href+` #replyDiv`);
             $(`#replyUpdate${replyId}`).modal('hide');
-            $('body').removeClass('modal-open');
-            $('.modal-backdrop').remove();
+            $('body').deleteClass('modal-open');
+            $('.modal-backdrop').delete();
           },
         })
         imageDelay(function (){
