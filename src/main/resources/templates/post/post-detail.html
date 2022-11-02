@@ -34,12 +34,12 @@
                             ...
                         </button>
                         <div class="dropdown-menu dropdown-menu-right">
-                            <a class="dropdown-item" th:href="@{/post/modify/{id}(id=${post.getId()})}"><span
-                                    class="ml-1">수정</span></a>
+                            <form class="dropdown-item" th:action="@{/post/modify/{id}(id=${post.getId()})}"
+                                  th:method="put">
+                                <button class="ml-1">수정</button>
                             <form class="dropdown-item" th:action="@{/post/delete/{id}(id=${post.getId()})}"
-                                  th:method="delete" >
+                                  th:method="delete">
                                 <button class="ml-1">삭제</button>
-
                             </form>
                         </div>
                     </th:block>

@@ -145,7 +145,7 @@ public class PostController {
      * 게시글 수정
      */
     @PreAuthorize("isAuthenticated()")
-    @GetMapping("/post/modify/{id}")
+    @PutMapping("/post/modify/{id}")
     public String modifyPost(@PathVariable Long id, Model model) throws IOException {
 
         Post post = postService.findById(id);
@@ -157,7 +157,7 @@ public class PostController {
     }
 
 
-    @PostMapping("/post/update/{id}")
+    @PutMapping("post/update/{id}")
     public String updatePost(@PathVariable Long id, PostUpdateDto updateDto) {
 
         Post post = postService.findById(id);
