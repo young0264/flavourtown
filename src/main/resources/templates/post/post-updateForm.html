@@ -147,7 +147,7 @@
                     <div class="d-grid gap-2 d-md-block">
                         <form class="dropdown-item" th:action="@{/post/update/{id}(id=${postUpdateDto.getId()})}"
                               th:method="put">
-                            <button class="ml-1">수정</button>
+                            <button class="btn btn-primary">수정</button>
                         <button class="btn btn-primary" type="button" th:onclick="|location.href='@{/post/{id}/detail( id = ${postUpdateDto.id} )}'|">취소</button>
                     </div>
                 </form>

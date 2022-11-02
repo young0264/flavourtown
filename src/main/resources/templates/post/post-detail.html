@@ -35,10 +35,10 @@
                         </button>
                         <div class="dropdown-menu dropdown-menu-right">
                             <form class="dropdown-item" th:action="@{/post/modify/{id}(id=${post.getId()})}">
-                                    <button class="ml-1">수정</button>
+                                    <button class="btn btn-primary">수정</button>
                             <form class="dropdown-item" th:action="@{/post/delete/{id}(id=${post.getId()})}"
                                   th:method="delete" >
-                                <button class="ml-1">삭제</button>
+                                <button class="btn btn-primary">삭제</button>
                             </form>
                         </div>
                     </th:block>
