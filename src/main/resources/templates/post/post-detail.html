@@ -10,9 +10,9 @@
 <head>
     <title>맛동산 | 메인</title>
     <!-- OPENGRAPH -->
-    <meta property="og:type" content="website" />
-    <meta property="og:title" th:content="${post.getTitle()}" />
-    <meta property="og:description" th:content="${post.getContent()}" />
+    <meta property="og:type" content="website"/>
+    <meta property="og:title" th:content="${post.getTitle()}"/>
+    <meta property="og:description" th:content="${post.getContent()}"/>
     <meta property="og:url" th:content="@{matdongsan.tk/post/{id}/detail(id = ${post.getId()})}">
 </head>
 <body>
@@ -29,12 +29,18 @@
                 </div>
                 <div class="dropdown" sec:authorize="isAuthenticated()">
                     <th:block th:if="${#authentication.principal.username == post.author.account.username}">
-                        <button class="dropdown-toggle text-primary" type="button" data-toggle="dropdown" aria-expanded="false">
+                        <button class="dropdown-toggle text-primary" type="button" data-toggle="dropdown"
+                                aria-expanded="false">
                             ...
                         </button>
                         <div class="dropdown-menu dropdown-menu-right">
-                            <a class="dropdown-item" th:href="@{/post/modify/{id}(id=${post.getId()})}"><span class="ml-1">수정</span></a>
-                            <a class="dropdown-item" th:href="@{/post/delete/{id}(id=${post.getId()})}"><span class="ml-1">삭제</span></a>
+                            <a class="dropdown-item" th:href="@{/post/modify/{id}(id=${post.getId()})}"><span
+                                    class="ml-1">수정</span></a>
+                            <form class="dropdown-item" th:action="@{/post/delete/{id}(id=${post.getId()})}"
+                                  th:method="delete" >
+                                <button class="ml-1">삭제</button>
+
+                            </form>
                         </div>
                     </th:block>
                 </div>
@@ -44,11 +50,14 @@
                 <div class="media">
                     <div class="user-img">
                         <div class="item-img bg-white">
-                            <svg th:data-jdenticon-value="${post.author.nickname}" width="45" height="45" class="rounded-circle"></svg>
+                            <svg th:data-jdenticon-value="${post.author.nickname}" width="45" height="45"
+                                 class="rounded-circle"></svg>
                         </div>
                     </div>
                     <div class="media-body">
-                        <div class="user-title"><a th:href="@{/profile/{username}(username = ${post.getAuthor().nickname})}" th:text="${post.getAuthor().nickname}">닉네임</a></div>
+                        <div class="user-title"><a
+                                th:href="@{/profile/{username}(username = ${post.getAuthor().nickname})}"
+                                th:text="${post.getAuthor().nickname}">닉네임</a></div>
                         <ul class="entry-meta">
                             <th:block th:if="${!post.privateStatus}">
                                 <li class="meta-privacy"><i class="icofont-lock"></i>비공개</li>
@@ -72,23 +81,29 @@
                     <!-- 이미지-->
                     <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slider="center: true">
 
-                        <ul class="uk-slider-items uk-grid uk-grid-match" uk-height-viewport="offset-top: true; offset-bottom: 30">
+                        <ul class="uk-slider-items uk-grid uk-grid-match"
+                            uk-height-viewport="offset-top: true; offset-bottom: 30">
                             <li class="uk-width-2-4">
                                 <div class="uk-cover-container">
-                                    <a th:href="${post.getPlace().mainPhotoUrl}" target="_blank" data-fancybox="gallery">
-                                        <img style="object-fit: cover; width:400px; height:200px; " class="" th:src="@{${post.getPlace().mainPhotoUrl}}">
+                                    <a th:href="${post.getPlace().mainPhotoUrl}" target="_blank"
+                                       data-fancybox="gallery">
+                                        <img style="object-fit: cover; width:400px; height:200px; " class=""
+                                             th:src="@{${post.getPlace().mainPhotoUrl}}">
                                     </a>
                                 </div>
                             </li>
                         </ul>
 
-                        <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous uk-slider-item="previous"></a>
-                        <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next uk-slider-item="next"></a>
+                        <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#"
+                           uk-slidenav-previous uk-slider-item="previous"></a>
+                        <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next
+                           uk-slider-item="next"></a>
 
                     </div>
 
                     <div style="font-weight: bold;font-size: 16px;text-align: end">
-                        <a th:text="${post.getPlace().getPlaceName()}" th:href="@{/place/{id}/detail(id = ${post.getPlace().getId()})}">
+                        <a th:text="${post.getPlace().getPlaceName()}"
+                           th:href="@{/place/{id}/detail(id = ${post.getPlace().getId()})}">
                             음식점 이름
                         </a>
                     </div>
@@ -96,7 +111,8 @@
                 <div class="post-meta-wrap">
                     <th:block sec:authorize="isAuthenticated()">
                         <div class="post-meta" id="post-ajax-form">
-                            <button class="btn" id="post-react-btn" th:onclick="|addPostLike.modifyPostLike(${post.getId()})|">
+                            <button class="btn" id="post-react-btn"
+                                    th:onclick="|addPostLike.modifyPostLike(${post.getId()})|">
                                 <th:block th:if="${!likeFlag}">
                                     <i class="icofont-thumbs-up"></i>
                                     <span class="mx-2">좋아요</span>
@@ -105,12 +121,13 @@
                                     <i class="icofont-thumbs-up text-primary"></i>
                                     <span class="mx-2 text-primary">좋아요 취소</span>
                                 </th:block>
-                                <span class="badge rounded-pill bg-primary text-white" th:text="${post.getPostLike().size()}"></span>
+                                <span class="badge rounded-pill bg-primary text-white"
+                                      th:text="${post.getPostLike().size()}"></span>
                             </button>
                         </div>
                     </th:block>
                     <div class="post-meta">
-                        <div class="meta-text" >
+                        <div class="meta-text">
                             <a th:text="${post.replyList.size()}"></a>
                             개의 댓글
                         </div>
@@ -118,7 +135,8 @@
                 </div>
                 <div id="replyDiv" sec:authorize="isAuthenticated()">
                     <!--댓글 부분-->
-                    <div class="post-comment" th:replace="fragments/reply-post::reply_fragment(${paging},${replyDto})"></div>
+                    <div class="post-comment"
+                         th:replace="fragments/reply-post::reply_fragment(${paging},${replyDto})"></div>
                     <!-- 댓글 끝 -->
                 </div>
                 <div class="dropdown" sec:authorize="!isAuthenticated()">
