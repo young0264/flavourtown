@@ -116,7 +116,6 @@ public class ReplyService {
 
     public static String convertDateTime(LocalDateTime localDateTime) {
         LocalDateTime now = LocalDateTime.now();
-        log.info("reply timenow : " + now.toString());
         long diffTime = localDateTime.until(now, ChronoUnit.SECONDS); // now보다 이후면 +, 전이면 -
 
         if (diffTime < ReplyTime.SEC){
@@ -136,6 +135,8 @@ public class ReplyService {
         }
         diffTime = diffTime / ReplyTime.DAY;
         if (diffTime < ReplyTime.MONTH) {
+
+
             return diffTime + "개월 전";
         }
 
