@@ -14,6 +14,7 @@
 - `Reply`, `Like`, `Post` 도메인 개발
 - 댓글, 과 관련된 `CRUD` 기능 개발
 - 댓글 관련 비동기 방식(JavaScript Ajax) 개발
+- AWS EC2를 사용하여 배포 및 운영 경험
 
 ### [최수용](https://github.com/Choisooyoung98)
 - `Favorite`, `Post` 북마크 도메인 개발
@@ -23,7 +24,6 @@
 ### [왕종휘](https://github.com/woowang789)
 - `Place` 도메인 개발
 - `Kakao Map Api`를 활용하여 `Place` 기능 개발
-- `AWS`, `Docker`, `Github Actions` 등 배포와 관련된 `CI/CD` 환경 개발
 
 # 맛집 저장 웹사이트
 
