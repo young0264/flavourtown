@@ -14,6 +14,7 @@
 - `Reply`, `Like`, `Post` 도메인 개발
 - 댓글, 과 관련된 `CRUD` 기능 개발
 - 댓글 관련 비동기 방식(JavaScript Ajax) 개발
+- AWS EC2를 사용하여 배포 및 운영 경험
 
 ### [최수용](https://github.com/Choisooyoung98)
 - `Favorite`, `Post` 북마크 도메인 개발
@@ -23,7 +24,6 @@
 ### [왕종휘](https://github.com/woowang789)
 - `Place` 도메인 개발
 - `Kakao Map Api`를 활용하여 `Place` 기능 개발
-- `AWS`, `Docker`, `Github Actions` 등 배포와 관련된 `CI/CD` 환경 개발
 
 # 맛집 저장 웹사이트
 
@@ -67,6 +67,6 @@ Chromium 기반의 웹에서 모두 작동하며, 위치 기반의 서비스를 
 
 ## 10월부터 진행될 상황들 요약
 - ~9월까지 구현된 기능, 배포시 버그들 리팩터링(완료)
-- 배포 파이프라인 구성 및 AWS EC2를 통한 배포(운영중) https://flavourtown.site
+- 배포 파이프라인 구성 및 AWS EC2를 통한 배포(운영중) https://flavourtown.site (크롬환경, wifi 5G 혹은 모바일 데이터를 사용해야 접속이 원활합니다.) 
 - 성능 테스트
 - CI/CD 구축
