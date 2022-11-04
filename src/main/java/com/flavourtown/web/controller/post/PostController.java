@@ -62,6 +62,7 @@ public class PostController {
                                  RedirectAttributes redirectAttributes,
                                  Model model, @ModelAttribute("replyDto") ReplyDto replyDto,
                                  @AuthUser Account account, @AuthenticationPrincipal SecurityUser securityUser) {
+
         Post post = postService.findById(id);
         String postImage = postService.callImage(id);
 
@@ -71,7 +72,6 @@ public class PostController {
                 return "redirect:/post";
             }
         }
-
         postService.refreshTime1(post);
         replyService.refreshTime(post.getReplyList());
 
@@ -89,7 +89,7 @@ public class PostController {
         return "post/post-detail";
     }
 
-    @GetMapping("/post-list")
+    @GetMapping("/post/list")
     public String showAllPosts(@RequestParam(defaultValue = "") String keyword,
                                @RequestParam(defaultValue = "0") int page,
                                @RequestParam(defaultValue = "title") String searchType,
@@ -104,8 +104,12 @@ public class PostController {
 
         // 게시글 전체 조회
         Page<Post> paging = postService.getList(keyword, page, searchType, pageable);
-
         model.addAttribute("paging", paging);
+
+        //게시글 test용 postlist
+        List<Post> postList = postService.findAll();
+        model.addAttribute("postList", postList);
+
         List<Post> posts = paging.toList();
         postService.refreshTime(posts);
 
@@ -173,7 +177,7 @@ public class PostController {
     @DeleteMapping("/post/delete/{id}")
     public String deletePost(@PathVariable Long id) {
         postService.delete(id);
-        return "redirect:/post-list";
+        return "redirect:/post/list";
     }
 
 }
