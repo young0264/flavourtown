@@ -17,10 +17,8 @@ import java.util.Set;
 @Entity
 @Getter
 @Builder
-//@AllArgsConstructor(access = AccessLevel.PRIVATE)
-//@NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
-@NoArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Member {
     // 주석 추가
     @Id
