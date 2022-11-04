@@ -2,14 +2,17 @@ package com.flavourtown.domain.account;
 
 import com.flavourtown.domain.member.Member;
 import lombok.*;
+import org.springframework.data.redis.core.RedisHash;
 
 import javax.persistence.*;
 
-@Entity @Getter
+@Entity
+@Getter
 @Builder
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Account {
+
     // 주석 추가
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
