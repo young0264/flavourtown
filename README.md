@@ -1,29 +1,6 @@
 # 맛동산 프로젝트
 
-`멋쟁이사자처럼 해커톤`을 통해 프로젝트를 기획, 개발되었습니다.
-
-## 개발자
-
-### [가준영](https://github.com/Jwhyee)
-- 프로젝트 팀장
-- `Spring Security`를 이용한 `Account`, `Member` 회원 도메인 개발
-- `Profile`, `Post` 도메인 개발
-- `Post`, `Place`, `Reply`, `Likes` 등 전체적인 기능 보조 개발
-
-### [남의영](https://github.com/young0264)
-- `Reply`, `Like`, `Post` 도메인 개발
-- 댓글, 과 관련된 `CRUD` 기능 개발
-- 댓글 관련 비동기 방식(JavaScript Ajax) 개발
-- AWS EC2를 사용하여 배포 및 운영 경험
-
-### [최수용](https://github.com/Choisooyoung98)
-- `Favorite`, `Post` 북마크 도메인 개발
-- 북마크 폴더와 관련된 `CRUD` 기능 개발
-- `Place`와 연관된 북마크 기능을 비동기 방식(JavaScript Ajax) 개발 
-
-### [왕종휘](https://github.com/woowang789)
-- `Place` 도메인 개발
-- `Kakao Map Api`를 활용하여 `Place` 기능 개발
+해커톤을 통해 팀원과 함께 프로젝트를 기획, 개발하였습니다.
 
 # 맛집 저장 웹사이트
 
