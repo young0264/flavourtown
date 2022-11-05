@@ -33,6 +33,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+//@Transactional
 @Transactional
 @Slf4j
 public class PostService {
@@ -41,15 +42,14 @@ public class PostService {
 
     //    private final ImageUtil imageUtil;
     private final PostRepository postRepository;
-
     public Post findById(Long id) {
         return postRepository.findById(id).get();
     }
-
+    @Transactional(readOnly = true)
     public List<Post> findAll() {
         return postRepository.findAll();
     }
-
+    @Transactional(readOnly = true)
     public List<Post> findAllByPlaceAndPrivateStatus(Place place) {
         return postRepository.findAllByPlaceAndPrivateStatus(place, true);
     }
@@ -78,12 +78,12 @@ public class PostService {
 //
 //    }
 
-
     public void delete(Long id) {
         postRepository.deleteById(id);
     }
 
-    // 게시글 전체 조회를 페이징으로
+    // 게시글 전체 조회. 페이징으로
+    @Transactional(readOnly = true)
     public Page<Post> getList(String keyword, int page, String searchType, Pageable pageable) {
 
         searchType = searchType.toLowerCase();
@@ -113,7 +113,7 @@ public class PostService {
         }
         return post;
     }
-
+    @Transactional(readOnly = true)
     public void refreshTime(List<Post> postList) {
         for (Post post : postList) {
             if (post.getModifiedTime() == null) {
