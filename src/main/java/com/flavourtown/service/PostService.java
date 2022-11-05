@@ -6,34 +6,21 @@ import com.flavourtown.domain.post.Post;
 import com.flavourtown.domain.post.PostRepository;
 import com.flavourtown.domain.post.SearchType;
 import com.flavourtown.domain.reply.ReplyTime;
-//import com.flavourtown.util.image.ImageUtil;
 import com.flavourtown.web.dto.post.PostCreateDto;
-import com.flavourtown.web.dto.post.PostUpdateDto;
-import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 
 import lombok.extern.slf4j.Slf4j;
-import org.apache.tomcat.util.http.fileupload.IOUtils;
-import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.disk.DiskFileItem;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.StringUtils;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
-import java.io.*;
-import java.nio.file.Files;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-//@Transactional
 @Transactional
 @Slf4j
 public class PostService {

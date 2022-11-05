@@ -32,16 +32,18 @@
                             <button class="dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
                                 <span class="media">
                       <span class="item-img bg-white rounded-circle">
-                          <svg th:data-jdenticon-value="${#authentication.principal.nickname}" width="45" height="45"
-                               class="rounded-circle"></svg></span>
+                          <svg th:data-jdenticon-value="${#authentication.principal.username}" width="45" height="45" class="rounded-circle"></svg></span>
+<!--                          <svg th:data-jdenticon-value="${#authentication.principal.nickname}" width="45" height="45" class="rounded-circle"></svg></span>-->
                       <span class="media-body">
                           <span class="item-title" sec:authentication="principal.nickname">닉네임</span></span></span>
                             </button>
                             <div class="dropdown-menu dropdown-menu-right">
                                 <ul class="admin-options">
-<!--                                    <li><a th:href="@{/profile/{nickname}(nickname=${#authentication.getName()})}">내 정보</a></li>-->
+                                    <!--                                    <li><a th:href="@{/profile/{nickname}(nickname=${#authentication.getName()})}">내 정보</a></li>-->
                                     <li><a th:href="@{/settings/profile}">계정 정보 수정</a></li>
-                                    <li><a th:href="@{/profile/{username}(username = ${#authentication.principal.nickname})}">나의 게시물 관리</a></li>
+                                    <li>
+                                        <a th:href="@{/profile/{username}(username = ${#authentication.principal.nickname})}">나의
+                                            게시물 관리</a></li>
                                     <li><a th:href="@{/profile/bookmark/view}">북마크 관리</a></li>
                                     <li>
                                         <form name="logout" th:action="@{/logout}" method="post">

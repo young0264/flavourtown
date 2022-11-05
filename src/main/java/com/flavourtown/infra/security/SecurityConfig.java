@@ -22,7 +22,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf(csrf -> csrf.disable()
                 // /api/place 로 보내지지가 않아서 설정
-        ).authorizeRequests(authorizeRequests -> authorizeRequests.mvcMatchers("/login", "/signup", "/account/idCheck", "/account/kakao/**", "/", "/place", "/place/map", "/post", "/post-list" , "/post/*/detail").permitAll() // 누구나 접근 가능
+        ).authorizeRequests(authorizeRequests -> authorizeRequests.mvcMatchers("/login","/mainPage", "/signup", "/account/idCheck", "/account/kakao/**", "/", "/place", "/place/map", "/post", "/post/list" , "/post/*/detail").permitAll() // 누구나 접근 가능
                 .anyRequest().authenticated() // 나머지 요청은 권한이 있어야함
         ).formLogin(formLogin -> formLogin
                 // 인증 필요시 로그인 페이지와 로그인 성공시 리다이랙팅 경로 지정

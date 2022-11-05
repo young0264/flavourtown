@@ -6,6 +6,7 @@ import com.flavourtown.domain.place.Place;
 import com.flavourtown.domain.reply.Reply;
 import lombok.*;
 import net.bytebuddy.asm.Advice;
+import org.hibernate.annotations.BatchSize;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.lang.Nullable;

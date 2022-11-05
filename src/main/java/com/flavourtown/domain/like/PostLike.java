@@ -3,6 +3,7 @@ package com.flavourtown.domain.like;
 import com.flavourtown.domain.member.Member;
 import com.flavourtown.domain.post.Post;
 import lombok.*;
+import org.hibernate.annotations.BatchSize;
 
 import javax.persistence.*;
 

@@ -18,6 +18,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.Map;
 
@@ -48,7 +49,8 @@ public class ReplyController {
     public ResponseEntity createReply(@RequestParam(value = "COMMENT") String comment,
                                       @PathVariable("postId") Long id,
                                       @Valid ReplyDto replyDto, BindingResult bindingResult,
-                                      @AuthUser Account account) {
+                                      @AuthUser Account account,
+                                      Principal principal) {
         if (bindingResult.hasErrors()) {
             log.info("값이 들어가지 않습니다. : " + replyDto.getComment());
             return ResponseEntity.badRequest().build();
@@ -61,7 +63,9 @@ public class ReplyController {
 
         ReplyDto newReplyDto = ReplyDto.builder()
                 .id(reply.getId())
-                .nickname(reply.getWriter().getNickname())
+//                .nickname(reply.getWriter().getNickname())//
+                .nickname(reply.getPost().getAuthor().getNickname())//
+//                .nickname(principal.get)
                 .replyLikeCount(reply.getReplyLike().size())
                 .replyTime(reply.getReplyTime())
                 .comment(reply.getComment())

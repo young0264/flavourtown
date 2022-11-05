@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class LikeApiService {
 
     private final PostLikeRepository postLikeRepository;
@@ -23,7 +24,6 @@ public class LikeApiService {
 
     /* Post Like 시작 */
 
-    @Transactional
     public void createNewPostLike(Member member, Post currentPost) {
         PostLike newPostLike = PostLike.builder()
                 .member(member)
@@ -36,7 +36,6 @@ public class LikeApiService {
         return postLikeRepository.existsByMemberAndPost(member, post);
     }
 
-    @Transactional
     public boolean modifyLikeStatus(Member member, Long id, String sort) {
         switch (sort) {
             case "post":
@@ -67,7 +66,6 @@ public class LikeApiService {
 
     /* Reply Like 시작 */
 
-    @Transactional
     public void createNewReplyLike(Member member, Reply currentReply) {
         ReplyLike newPostLike = ReplyLike.builder()
                 .member(member)

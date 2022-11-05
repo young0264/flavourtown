@@ -16,9 +16,10 @@
                                 <div class="media">
                                     <div class="user-img">
                                         <!--img svg. reply & replyDto-->
-                                        <svg th:data-jdenticon-value="${reply.writer.nickname}" width="40" height="40"
-                                             class="rounded-circle identicon"
-                                             th:data-id="${reply.writer.nickname}"></svg>
+<!--                                        <svg th:data-jdenticon-value="${reply.writer.nickname}" width="40" height="40"-->
+<!--                                             class="rounded-circle identicon" th:data-id="${reply.writer.nickname}"></svg>-->
+                                        <svg th:data-jdenticon-value="${#authentication.principal.nickname}" width="45" height="45"
+                                             class="rounded-circle"></svg>
                                     </div>
                                     <div class="media-body">
                                         <div class="user-title"><a
