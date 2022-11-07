@@ -1,8 +1,8 @@
 package com.flavourtown.service;
 
 import com.flavourtown.domain.place.Place;
-import com.flavourtown.domain.place.PlaceDto;
 import com.flavourtown.domain.place.PlaceRepository;
+import com.flavourtown.web.dto.place.PlaceDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.json.simple.JSONArray;

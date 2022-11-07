@@ -1,6 +1,7 @@
-package com.flavourtown.domain.place;
+package com.flavourtown.web.dto.place;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.flavourtown.domain.place.Place;
 import lombok.Data;
 
 @Data
