@@ -78,7 +78,7 @@ public class PostRepositoryImpl implements PostRepositoryCustom{
     public Page<Post> searchAuthor(String keyword, Pageable pageable) {
         JPAQuery<Post> postQuery = jpaQueryFactory
                 .selectFrom(post)
-                .where(post.author.nickname.contains(keyword)
+                .where(post.member.nickname.contains(keyword)
                         .and(post.privateStatus.eq(true))
                 )
                 .offset(pageable.getOffset())
@@ -94,7 +94,7 @@ public class PostRepositoryImpl implements PostRepositoryCustom{
         JPAQuery<Long> postCountQuery = jpaQueryFactory
                 .select(post.count())
                 .from(post)
-                .where(post.author.nickname.contains(keyword)
+                .where(post.member.nickname.contains(keyword)
                         .and(post.privateStatus.eq(true)));
 
         return PageableExecutionUtils.getPage(posts, pageable, postCountQuery::fetchOne);

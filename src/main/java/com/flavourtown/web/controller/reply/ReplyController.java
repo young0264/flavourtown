@@ -56,7 +56,6 @@ public class ReplyController {
         Long memberId = account.getMember().getId(); //securityuser . account . member . id가져오기
         Long replyId = replyService.saveReply(postId, replyDto, memberId);
         Reply reply = replyService.getReply(replyId);
-
         ReplyDto newReplyDto = ReplyDto.builder()
                 .id(reply.getId())
                 .nickname(postService.findById(postId).getUserName())
@@ -64,8 +63,6 @@ public class ReplyController {
                 .replyTime(reply.getReplyTime())
                 .comment(reply.getComment())
                 .build();
-        log.info("replyDto new name : " + newReplyDto.getNickname());
-
         log.info("값이 들어갔습니다 = " + replyDto.getComment());
         return ResponseEntity.ok(newReplyDto);
     }

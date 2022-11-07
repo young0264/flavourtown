@@ -24,6 +24,8 @@ public class Reply {
 
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    private String nickname;
     @Column(nullable = false, length = 500)
     private String comment;
     @CreatedDate
