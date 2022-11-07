@@ -48,6 +48,9 @@
                                         <div class="modal-body">
                                             <input type="text" id="updateReplyComment${id}" value="{comment}" class="form-control w-75" placeholder="댓글을 입력해 주세요.">
                                         </div>
+<!--                                        <small class="form-text text-danger fieldError" th:if="${#fields.hasErrors('title')}" th:errors="*{title}">title Error</small>-->
+<!--                                        <small class="form-text text-danger fieldError" value="{error}">title Error</small>-->
+
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
                                             <button type="button" class="btn btn-primary" onclick="updateReplyBtn.updateReply(${id})">변경하기</button>

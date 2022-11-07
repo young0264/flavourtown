@@ -37,11 +37,11 @@ public class ReplyService {
     /**
      * 댓글저장
      */
-    public Long saveReply(Post post, ReplyDto replyDto, Long id,String comment) {
+    public Long saveReply(Post post, ReplyDto replyDto, Long id) {
         Optional<Member> byId = memberRepository.findById(id);
         String newTypeTime = convertDateTime(LocalDateTime.now());
         Reply reply = Reply.builder()
-                .comment(comment)
+                .comment(replyDto.getComment())
                 .createDate(LocalDateTime.now())
                 .writer(byId.get())
                 .post(post)

@@ -135,12 +135,15 @@
             <a href="#" class="item-btn">Load More Comments <span>4+</span></a>
         </div>-->
         <div class="my-2">
-            <form method="POST" th:action="@{|/post/${post.id}/reply|}" id="replyForm">
+            <form method="POST" th:object="${replyDto}" th:action="@{|/post/${post.id}/reply|}" id="replyForm">
                 <div class="input-group">
-                    <input type="text" id="comment" name="COMMENT" class="form-control w-75" placeholder="댓글을 입력해 주세요.">
+<!--                    <input type="text" id="comment" name="COMMENT" class="form-control w-75" placeholder="댓글을 입력해 주세요.">-->
+                    <input type="text" th:field="*{comment}" class="form-control w-75" placeholder="댓글을 입력해 주세요.">
+<!--                    <small class="form-text text-danger fieldError" th:if="${#fields.hasErrors('comment')}" th:errors="*{comment}">Comment Error</small>-->
                     <div class="input-group-append">
                         <button type="button" id="replyButton" class="btn btn-primary mx-2">등록</button>
                     </div>
+
                 </div>
             </form>
         </div>
@@ -176,6 +179,14 @@
                     type: "POST",
                     url: "/post/" + postId + "/reply",
                     data: $('#replyForm').serialize(),
+                    error: function(error){
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error...',
+                            text: '댓글을 5자 이상 입력해주세요!',
+                        })
+                    },
+
                     success: function (replyDto) {
                         let result = $("#reply_async_template").html()
                             .replaceAll("{nickname}", replyDto.nickname)
@@ -183,8 +194,9 @@
                             .replace("{replyTime}", replyDto.replyTime)
                             .replaceAll("${id}", replyDto.id)
                             .replace("{likeCount}", replyDto.replyLikeCount)
+                            // .replace("{error}", replyDto.comment )
                         $(".comment-list").prepend(result);
-                        console.log("replyDto : " + replyDto);
+                        console.log("replyDto.comment : " + replyDto.comment);
                         console.log("result : " + result);
                         console.log("nickname 값 : " + replyDto.nickname);
                     }
