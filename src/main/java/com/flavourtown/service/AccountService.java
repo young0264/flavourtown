@@ -9,6 +9,7 @@ import com.flavourtown.infra.security.SecurityUser;
 import com.flavourtown.web.dto.account.AccountSignUpDto;
 import com.flavourtown.web.dto.member.MemberInfoDto;
 import com.flavourtown.web.vo.MemberVo;
+import com.google.gson.JsonObject;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -96,9 +97,19 @@ public class AccountService implements UserDetailsService {
 
             //Gson 라이브러리로 JSON파싱
             JsonParser parser = new JsonParser();
+            log.info("1");
             JsonElement element = parser.parse(result.toString());
+            log.info("2");
 
             int id = element.getAsJsonObject().get("id").getAsInt();
+            log.info("3");
+            JsonObject asJsonObject = element.getAsJsonObject();
+            log.info("kakao object : " + asJsonObject.size());
+            JsonElement kakao_account = element.getAsJsonObject().get("kakao_account");
+            log.info("kakao account : " + kakao_account);
+            JsonElement kakao_email = element.getAsJsonObject().get("has_email");
+            log.info("kakao email : " + kakao_email);
+
             boolean hasEmail = element.getAsJsonObject().get("kakao_account").getAsJsonObject().get("has_email").getAsBoolean();
             log.info("has_email={}", hasEmail);
 
