@@ -43,7 +43,7 @@ public class Member {
     private Account account;
 
     @Builder.Default
-    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Post> postList = new ArrayList<>();
 
     @Builder.Default

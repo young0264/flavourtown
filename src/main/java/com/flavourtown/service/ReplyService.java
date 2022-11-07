@@ -4,6 +4,7 @@ import com.flavourtown.domain.like.ReplyLike;
 import com.flavourtown.domain.member.Member;
 import com.flavourtown.domain.member.MemberRepository;
 import com.flavourtown.domain.post.Post;
+import com.flavourtown.domain.post.PostRepository;
 import com.flavourtown.domain.reply.Reply;
 import com.flavourtown.domain.reply.ReplyRepository;
 import com.flavourtown.domain.reply.ReplyTime;
@@ -32,24 +33,26 @@ public class ReplyService {
 
     private final ReplyRepository replyRepository;
     private final MemberRepository memberRepository;
+    private final PostRepository postRepository;
 
 
     /**
      * 댓글저장
      */
-    public Long saveReply(Post post, ReplyDto replyDto, Long id) {
-        Optional<Member> byId = memberRepository.findById(id);
+    public Long saveReply(Long postId, ReplyDto replyDto, Long memberId) {
+        Optional<Member> member = memberRepository.findById(memberId);
+        Optional<Post> post = postRepository.findById(postId);
         String newTypeTime = convertDateTime(LocalDateTime.now());
         Reply reply = Reply.builder()
                 .comment(replyDto.getComment())
                 .createDate(LocalDateTime.now())
-                .writer(byId.get())
-                .post(post)
+                .writer(member.get())
+                .post(post.get())
                 .replyLike(new HashSet<>())
                 .replyTime(newTypeTime)
                 .build();
         Reply savedReply = replyRepository.save(reply);     //id와 comment만 등록되어 있는 상태.
-        post.addReply(savedReply);                 //Reply에 Post객체 초기화
+        post.get().addReply(savedReply);                 //Reply에 Post객체 초기화
         return reply.getId();
     }
 

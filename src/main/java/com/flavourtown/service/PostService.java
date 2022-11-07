@@ -41,7 +41,7 @@ public class PostService {
         return postRepository.findAllByPlaceAndPrivateStatus(place, true);
     }
 
-    public Post savePost(Member member, PostCreateDto dto) {
+    public Post savePost(String userName, Member user, PostCreateDto dto) {
 //        String imageUrls = imageUtil.saveFiles(dto.getImgFiles());
         Place place = placeService.findPlace(dto.getPlaceId());
         String newTypeTime = convertDateTime(LocalDateTime.now());
@@ -50,10 +50,10 @@ public class PostService {
                 .title(dto.getTitle())
                 .content(dto.getContent())
                 .privateStatus(dto.getPrivateStatus())
-                .author(member)
+                .member(user)
+                .userName(userName)
 //                .imageUrls(imageUrls)
                 .createdTime(LocalDateTime.now())
-                .modifiedTime(null)
                 .postTime(newTypeTime)
                 .build();
         post.addPlace(place);
@@ -62,7 +62,6 @@ public class PostService {
     }
 
 //    public PostUpdateDto updatePost(Post post, PostUpdateDto postUpdateDto) {
-//
 //    }
 
     public void delete(Long id) {

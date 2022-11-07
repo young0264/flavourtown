@@ -13,7 +13,7 @@ import java.util.List;
 public class PostCreateDto {
 
     @NotBlank(message = "제목을 입력하세요")
-    @Size(min = 5, max = 15, message = "제목은 5글자 ~ 15글자 이내로 작성해주세요.")
+    @Size(min = 5, max = 20, message = "제목은 5글자 ~ 20글자 이내로 작성해주세요.")
     private String title; // 제목
 
     @NotBlank(message = "내용을 입력하세요")

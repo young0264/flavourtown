@@ -65,9 +65,10 @@ public class PostController {
 
         Post post = postService.findById(id);
         String postImage = postService.callImage(id);
+//        log.info("se name : " + securityUser.getUsername());
 
         if (!post.isPrivateStatus()) {
-            if (securityUser == null || !account.getMember().getNickname().equals(post.getAuthor().getNickname())) {
+            if (securityUser == null || !account.getMember().getNickname().equals(post.getMember().getNickname())) {
                 redirectAttributes.addFlashAttribute("accessError", "비공개 글에는 접근할 수 없습니다.");
                 return "redirect:/post";
             }
@@ -131,13 +132,16 @@ public class PostController {
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/post/new")
     public String createPost(@Valid PostCreateDto postCreateDto, BindingResult bindingResult,
-                             Model model, Principal principal, RedirectAttributes redirectAttributes) {
+                             Model model, Principal principal, RedirectAttributes redirectAttributes,
+                             @AuthenticationPrincipal SecurityUser securityUser) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("postCreateDto", postCreateDto);
             return "post/post-newForm";
         }
         Member currentMember = accountService.findAccountByUsername(principal.getName()).getMember();
-        Post newPost = postService.savePost(currentMember, postCreateDto);
+        String userName = securityUser.getUsername();
+        Post newPost = postService.savePost(userName,currentMember , postCreateDto);
+        log.info("userName post : " + userName);
         Long id = newPost.getId();
         redirectAttributes.addAttribute("id", id);
 
@@ -156,7 +160,7 @@ public class PostController {
         PostUpdateDto postUpdateDto = new PostUpdateDto(post.getId(), post.getTitle(), post.getContent(),
                 post.getPlace().getPlaceName(), post.isPrivateStatus());
         model.addAttribute("postUpdateDto", postUpdateDto);
-
+        model.addAttribute("post", post);
         return "post/post-updateForm";
     }
 
@@ -164,6 +168,7 @@ public class PostController {
     @PutMapping("post/update/{id}")
     public String updatePost(@PathVariable Long id, PostUpdateDto updateDto) {
 
+//        postService.up
         Post post = postService.findById(id);
         post.updateCurrentPost(updateDto.getTitle(), updateDto.getContent(), "", updateDto.getPrivateStatus());
         postRepository.save(post);

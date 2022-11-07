@@ -29,7 +29,9 @@ public class Post {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private Member member;  // 작성자
+    private Member member;  // 유저
+
+    private String userName; //작성자
 
     @Column(length = 200 , nullable = false)
     private String title; // 제목

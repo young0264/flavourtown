@@ -46,25 +46,25 @@ public class ReplyController {
     @ResponseBody
     @RequestMapping(value = "/post/{postId}/reply", method = {RequestMethod.POST})
     public ResponseEntity createReply(@Valid ReplyDto replyDto, BindingResult bindingResult,
-                                      @PathVariable("postId") Long id,
+                                      @PathVariable("postId") Long postId,
                                       @AuthUser Account account,
                                       Principal principal) {
         if (bindingResult.hasErrors()) {
             return ResponseEntity.badRequest().build();
         }
-        Post post = postService.findById(id);
 
         Long memberId = account.getMember().getId(); //securityuser . account . member . id가져오기
-        Long replyId = replyService.saveReply(post, replyDto, memberId);
+        Long replyId = replyService.saveReply(postId, replyDto, memberId);
         Reply reply = replyService.getReply(replyId);
 
         ReplyDto newReplyDto = ReplyDto.builder()
                 .id(reply.getId())
-                .nickname(reply.getPost().getAuthor().getNickname())//
+                .nickname(postService.findById(postId).getUserName())
                 .replyLikeCount(reply.getReplyLike().size())
                 .replyTime(reply.getReplyTime())
                 .comment(reply.getComment())
                 .build();
+        log.info("replyDto new name : " + newReplyDto.getNickname());
 
         log.info("값이 들어갔습니다 = " + replyDto.getComment());
         return ResponseEntity.ok(newReplyDto);

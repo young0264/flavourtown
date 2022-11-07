@@ -90,8 +90,8 @@
                                 </th:block>
                                 <th:block>
                                 <i class="icofont-ui-user"></i>
-                                    <a th:href="@{profile/{username}(username=${post.getAuthor().nickname})}">
-                                    <span th:text="${post.author.getNickname()}" class="mx-2"></span></a>
+                                    <a th:href="@{profile/{username}(username=${post.userName})}">
+                                    <span th:text="${post.userName}" class="mx-2"></span></a>
                                 </th:block>
                             </span>
                         </div>

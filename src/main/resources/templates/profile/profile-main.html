@@ -33,7 +33,7 @@
             <th:block th:if="${member.getPostList().size() != 0}">
                 <div class="row gutters-20 ">
                     <th:block th:each="post : ${member.getPostList()}">
-                        <th:block th:if="${post.getAuthor().nickname == #authentication.principal.nickname}">
+                        <th:block th:if="${post.getMember().nickname == #authentication.principal.nickname}">
                             <div class="col-lg-3 col-md-4 col-6">
                                 <div class="card mb-2">
                                     <img th:src="${post.getPlace().mainPhotoUrl}" class="card-img-top" alt="..." style="height:180px;">
@@ -68,7 +68,7 @@
                                 </div>
                             </div>
                         </th:block>
-                        <th:block th:if="${(post.getAuthor().nickname != #authentication.principal.nickname) && post.privateStatus}">
+                        <th:block th:if="${(post.getMember().nickname != #authentication.principal.nickname) && post.privateStatus}">
                             <div class="col-lg-3 col-md-4 col-6">
                                 <div class="card mb-2">
                                     <img th:src="${post.getPlace().mainPhotoUrl}" class="card-img-top" alt="..." style="height:180px;">

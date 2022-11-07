@@ -4,14 +4,15 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns="http://www.w3.org/1999/html">
 <template id="reply_async_template" th:fragment="reply_async">
+
     <li class="main-comments">
         <form method="post">
             <div class="each-comment">
                 <div class="post-header">
                     <div class="media">
                         <div class="user-img">
-                            <img data-jdenticon-value="{nickname}" width="40" height="40"
-                                 class="rounded-circle identicon" data-id="{nickname}"></img>
+                            <svg data-jdenticon-value="{nickname}" width="40" height="40"
+                                 class="rounded-circle identicon" data-id="{nickname}"></svg>
                         </div>
                             <!--reply post async-->
                         <div class="media-body">
@@ -94,11 +95,17 @@
                                     {likeCount}</span>
                             </a>
                         </li>
-<!--                        <li><a href="#"><i class="icofont-reply"></i>Reply</a></li>-->
                     </ul>
                 </div>
             </div>
         </form>
     </li>
+<!-- identicon -->
+<script src="https://cdn.jsdelivr.net/npm/jdenticon@3.2.0/dist/jdenticon.min.js" async
+        integrity="sha384-yBhgDqxM50qJV5JPdayci8wCfooqvhFYbIKhv0hTtLvfeeyJMJCscRfFNKIxt43M" crossorigin="anonymous">
+</script>
+<script src='//cdnjs.cloudflare.com/ajax/libs/blueimp-md5/2.7.0/js/md5.min.js'></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/identicon.js/2.3.3/identicon.min.js"></script>
 </template>
 </html>
+
