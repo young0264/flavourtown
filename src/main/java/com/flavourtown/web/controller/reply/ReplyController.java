@@ -14,6 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -70,7 +71,7 @@ public class ReplyController {
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/reply/update")
     @ResponseBody
-    public boolean updateReply(@RequestParam Map<String, String> params) {
+    public boolean updateReply(@RequestParam Map<String, String> params, Model model) {
         Reply currentReply = replyService.getReply(Long.valueOf(params.get("replyNum")));
         replyService.update(currentReply, params.get("replyComment"));
         return true;

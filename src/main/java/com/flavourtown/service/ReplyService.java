@@ -44,6 +44,7 @@ public class ReplyService {
         Optional<Post> post = postRepository.findById(postId);
         String newTypeTime = convertDateTime(LocalDateTime.now());
         Reply reply = Reply.builder()
+                .nickname(member.get().getNickname())
                 .comment(replyDto.getComment())
                 .createDate(LocalDateTime.now())
                 .writer(member.get())
@@ -51,6 +52,7 @@ public class ReplyService {
                 .replyLike(new HashSet<>())
                 .replyTime(newTypeTime)
                 .build();
+        log.info("member nickname : " + member.get().getNickname());
         Reply savedReply = replyRepository.save(reply);     //id와 comment만 등록되어 있는 상태.
         post.get().addReply(savedReply);                 //Reply에 Post객체 초기화
         return reply.getId();
@@ -80,6 +82,7 @@ public class ReplyService {
     public void update(Reply reply, String content) {
         reply.updateComment(content);
         reply.insertReplyTime(convertDateTime(LocalDateTime.now()));
+
         replyRepository.save(reply);
     }
 
