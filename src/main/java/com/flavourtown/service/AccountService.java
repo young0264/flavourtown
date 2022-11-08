@@ -9,7 +9,7 @@ import com.flavourtown.infra.security.SecurityUser;
 import com.flavourtown.web.dto.account.AccountSignUpDto;
 import com.flavourtown.web.dto.member.MemberInfoDto;
 import com.flavourtown.web.vo.MemberVo;
-import com.google.gson.JsonObject;
+import com.google.gson.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -22,8 +22,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.google.gson.JsonParser;
-import com.google.gson.JsonElement;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -87,31 +85,28 @@ public class AccountService implements UserDetailsService {
             //요청을 통해 얻은 JSON타입의 Response 메세지 읽어오기
             BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
             String line = "";
-            StringBuilder result = new StringBuilder();
+            String result = "";
 
             while ((line = br.readLine()) != null) {
-                result.append(line);
+                result += line;
             }
-            log.info("response body = {}", result.toString());
-
+            log.info("response body = {}", result);
 
             //Gson 라이브러리로 JSON파싱
-            JsonParser parser = new JsonParser();
-            log.info("1");
-            JsonElement element = parser.parse(result.toString());
-            log.info("2");
+//            JsonParser parser = new JsonParser();
+            JsonElement element = JsonParser.parseString(result);
 
-            int id = element.getAsJsonObject().get("id").getAsInt();
-            log.info("3");
             JsonObject asJsonObject = element.getAsJsonObject();
-            log.info("kakao object : " + asJsonObject.size());
-            JsonElement kakao_account = element.getAsJsonObject().get("kakao_account");
-            log.info("kakao account : " + kakao_account);
-            JsonElement kakao_email = element.getAsJsonObject().get("has_email");
-            log.info("kakao email : " + kakao_email);
+            log.info("kakao object : " + asJsonObject);
+
+            Long kakao_id = element.getAsJsonObject().get("id").getAsLong();
+            log.info("kakao id : " + kakao_id);
 
             boolean hasEmail = element.getAsJsonObject().get("kakao_account").getAsJsonObject().get("has_email").getAsBoolean();
             log.info("has_email={}", hasEmail);
+
+            JsonElement kakao_account = element.getAsJsonObject().get("kakao_account");
+            log.info("kakao account : " + kakao_account);
 
             String email = "";
 
@@ -124,7 +119,6 @@ public class AccountService implements UserDetailsService {
                 newDto.setUsername(username);
                 newDto.setEmail(email);
                 newDto.setPassword(String.valueOf(UUID.randomUUID()));
-
                 br.close();
 
                 if (!existMemberCheck(newDto)) {
@@ -133,7 +127,6 @@ public class AccountService implements UserDetailsService {
                     return findAccountByUsername(username);
                 }
             }
-
         } catch (IOException e) {
             e.printStackTrace();
         }
