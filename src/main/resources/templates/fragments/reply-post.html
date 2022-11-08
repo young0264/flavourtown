@@ -5,8 +5,8 @@
 <!-- Post 댓글 조각화 -->
 <div layout:fragment="content">
     <div class="post-comment" th:fragment="reply_fragment(paging,replyDto)">
-        <div id="replyDiv" sec:authorize="isAuthenticated()">
-            <ul class="comment-list">
+        <ul class="comment-list">
+            <div id="replyDiv" sec:authorize="isAuthenticated()">
                 <li class="main-comments" th:id="|reply${reply.id}|" th:each="reply : ${paging}">
 
                     <form method="post">
@@ -135,88 +135,89 @@
                         </div>
                     </form>
                 </li>
-            </ul>
-            <!--<div class="load-more-btn">
-                <a href="#" class="item-btn">Load More Comments <span>4+</span></a>
-            </div>-->
-            <div class="my-2">
-                <form method="POST" th:object="${replyDto}" th:action="@{|/post/${post.id}/reply|}" id="replyForm">
-                    <div class="input-group">
-                        <!--                    <input type="text" id="comment" name="COMMENT" class="form-control w-75" placeholder="댓글을 입력해 주세요.">-->
-                        <input type="text" th:field="*{comment}" class="form-control w-75" placeholder="댓글을 입력해 주세요.">
-                        <!--                    <small class="form-text text-danger fieldError" th:if="${#fields.hasErrors('comment')}" th:errors="*{comment}">Comment Error</small>-->
+            </div>
+        </ul>
+        <!--<div class="load-more-btn">
+            <a href="#" class="item-btn">Load More Comments <span>4+</span></a>
+        </div>-->
+        <div class="my-2">
+            <form method="POST" th:object="${replyDto}" th:action="@{|/post/${post.id}/reply|}" id="replyForm">
+                <div class="input-group">
+                    <!--                    <input type="text" id="comment" name="COMMENT" class="form-control w-75" placeholder="댓글을 입력해 주세요.">-->
+                    <input type="text" th:field="*{comment}" class="form-control w-75" placeholder="댓글을 입력해 주세요.">
+                    <!--                    <small class="form-text text-danger fieldError" th:if="${#fields.hasErrors('comment')}" th:errors="*{comment}">Comment Error</small>-->
 
-                        <div class="input-group-append">
-                            <button type="button" id="replyButton" class="btn btn-primary mx-2">등록</button>
-                        </div>
-
+                    <div class="input-group-append">
+                        <button type="button" id="replyButton" class="btn btn-primary mx-2">등록</button>
                     </div>
-                </form>
-            </div>
-            <div th:if="${!paging.isEmpty()}">
-                <ul class="pagination justify-content-center">
-                    <li class="page-item" th:classappend="${!paging.hasPrevious} ? 'disabled'">
-                        <a class="page-link"
-                           th:href="@{|?page=${paging.number-1}|}">
-                            <span>이전</span>
-                        </a>
-                    </li>
-                    <li th:each="page: ${#numbers.sequence(0, paging.totalPages-1)}"
-                        th:if="${page >= paging.number-5 and page <= paging.number+5}"
-                        th:classappend="${page == paging.number} ? 'active'" class="page-item">
-                        <a th:text="${page} + 1" class="page-link" th:href="@{|?page=${page}|}"></a>
-                    </li>
-                    <li class="page-item" th:classappend="${!paging.hasNext} ? 'disabled'">
-                        <a class="page-link" th:href="@{|?page=${paging.number+1}|}">
-                            <span>다음</span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-            <th:block th:replace="fragments/likes/reply-like-fragments::likes"></th:block>
-            <th:block th:replace="fragments/reply/reply-update-fragments::update"></th:block>
-            <th:block th:replace="fragments/reply/reply-delete-fragments::delete"></th:block>
-            <th:block th:replace="fragments/reply-post-async::reply_async"></th:block>
-            <!-- identicon -->
-            <script src="https://cdn.jsdelivr.net/npm/jdenticon@3.2.0/dist/jdenticon.min.js" async
-                    integrity="sha384-yBhgDqxM50qJV5JPdayci8wCfooqvhFYbIKhv0hTtLvfeeyJMJCscRfFNKIxt43M"
-                    crossorigin="anonymous">
-            </script>
-            <script src='//cdnjs.cloudflare.com/ajax/libs/blueimp-md5/2.7.0/js/md5.min.js'></script>
-            <script src="//cdnjs.cloudflare.com/ajax/libs/identicon.js/2.3.3/identicon.min.js"></script>
 
-            <script th:inline="javascript">
-
-                const postId = [[${post.id}]]
-                $("#replyButton").click(function (e) {
-
-                    $.ajax({
-                        type: "POST",
-                        url: "/post/" + postId + "/reply",
-                        data: $('#replyForm').serialize(),
-                        error: function (error) {
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Error...',
-                                text: '댓글을 5자 이상 입력해주세요!',
-                            })
-                        },
-
-                        success: function (replyDto) {
-                            let result = $("#reply_async_template").html()
-                                .replaceAll("{nickname}", replyDto.nickname)
-                                .replaceAll("{comment}", replyDto.comment)
-                                .replace("{replyTime}", replyDto.replyTime)
-                                .replaceAll("${id}", replyDto.id)
-                                .replace("{likeCount}", replyDto.replyLikeCount)
-                            $(".comment-list").prepend(result);
-                            console.log("replyDto.comment : " + replyDto.comment);
-                            console.log("result : " + result);
-                            console.log("nickname 값 : " + replyDto.nickname);
-                        }
-                    })
-                });
-            </script>
+                </div>
+            </form>
         </div>
+        <div th:if="${!paging.isEmpty()}">
+            <ul class="pagination justify-content-center">
+                <li class="page-item" th:classappend="${!paging.hasPrevious} ? 'disabled'">
+                    <a class="page-link"
+                       th:href="@{|?page=${paging.number-1}|}">
+                        <span>이전</span>
+                    </a>
+                </li>
+                <li th:each="page: ${#numbers.sequence(0, paging.totalPages-1)}"
+                    th:if="${page >= paging.number-5 and page <= paging.number+5}"
+                    th:classappend="${page == paging.number} ? 'active'" class="page-item">
+                    <a th:text="${page} + 1" class="page-link" th:href="@{|?page=${page}|}"></a>
+                </li>
+                <li class="page-item" th:classappend="${!paging.hasNext} ? 'disabled'">
+                    <a class="page-link" th:href="@{|?page=${paging.number+1}|}">
+                        <span>다음</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <th:block th:replace="fragments/likes/reply-like-fragments::likes"></th:block>
+        <th:block th:replace="fragments/reply/reply-update-fragments::update"></th:block>
+        <th:block th:replace="fragments/reply/reply-delete-fragments::delete"></th:block>
+        <th:block th:replace="fragments/reply-post-async::reply_async"></th:block>
+        <!-- identicon -->
+        <script src="https://cdn.jsdelivr.net/npm/jdenticon@3.2.0/dist/jdenticon.min.js" async
+                integrity="sha384-yBhgDqxM50qJV5JPdayci8wCfooqvhFYbIKhv0hTtLvfeeyJMJCscRfFNKIxt43M"
+                crossorigin="anonymous">
+        </script>
+        <script src='//cdnjs.cloudflare.com/ajax/libs/blueimp-md5/2.7.0/js/md5.min.js'></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/identicon.js/2.3.3/identicon.min.js"></script>
+
+        <script th:inline="javascript">
+
+            const postId = [[${post.id}]]
+            $("#replyButton").click(function (e) {
+
+                $.ajax({
+                    type: "POST",
+                    url: "/post/" + postId + "/reply",
+                    data: $('#replyForm').serialize(),
+                    error: function (error) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error...',
+                            text: '댓글을 5자 이상 입력해주세요!',
+                        })
+                    },
+
+                    success: function (replyDto) {
+                        let result = $("#reply_async_template").html()
+                            .replaceAll("{nickname}", replyDto.nickname)
+                            .replaceAll("{comment}", replyDto.comment)
+                            .replace("{replyTime}", replyDto.replyTime)
+                            .replaceAll("${id}", replyDto.id)
+                            .replace("{likeCount}", replyDto.replyLikeCount)
+                        $(".comment-list").prepend(result);
+                        console.log("replyDto.comment : " + replyDto.comment);
+                        console.log("result : " + result);
+                        console.log("nickname 값 : " + replyDto.nickname);
+                    }
+                })
+            });
+        </script>
     </div>
+</div>
 </div>
