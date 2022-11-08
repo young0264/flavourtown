@@ -4,6 +4,7 @@
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns="http://www.w3.org/1999/html">
 <body>
 <th:block th:fragment="delete">
+  <script> window.jdenticon_config={replaceMode:"observe"};</script>
   <script th:inline="javascript">
     let deleteReplyBtn = {
       deleteReply: function (replyId) {
