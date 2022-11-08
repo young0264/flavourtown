@@ -4,6 +4,7 @@
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns="http://www.w3.org/1999/html">
 <body>
 <th:block th:fragment="update">
+  <script> window.jdenticon_config={replaceMode:"observe"};</script>
   <script th:inline="javascript">
     let updateReplyBtn = {
       updateReply: function (replyId) {
@@ -16,7 +17,9 @@
           type: "POST",
           url: "/reply/update",
           data : param,
-          success: function (flag) {
+          success: function (flag)
+          {
+            // jdenticon.update();
             $(`#replyDiv`).load(location.href+` #replyDiv`);
             // $(`#replyTable0`).load(location.href+` #replyDiv`);
             $(`#replyUpdate${replyId}`).modal('hide');
@@ -24,16 +27,15 @@
             $('.modal-backdrop').remove();
           },
         })
-        imageDelay(function (){
-          $(".identicon").each(function() {
-            var hash = md5($(this).data('id')).toString();
-            var data = new Identicon(hash,{format:'svg'}).toString();
-            $(this).attr('src', "data:image/svg+xml;base64,"+data);
-          });
-        }, 1000);
       },
     }
   </script>
+<!-- identicon -->
+<script src="https://cdn.jsdelivr.net/npm/jdenticon@3.2.0/dist/jdenticon.min.js" async
+        integrity="sha384-yBhgDqxM50qJV5JPdayci8wCfooqvhFYbIKhv0hTtLvfeeyJMJCscRfFNKIxt43M" crossorigin="anonymous">
+</script>
+<script src='//cdnjs.cloudflare.com/ajax/libs/blueimp-md5/2.7.0/js/md5.min.js'></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/identicon.js/2.3.3/identicon.min.js"></script>
 </th:block>
 </body>
 </html>
