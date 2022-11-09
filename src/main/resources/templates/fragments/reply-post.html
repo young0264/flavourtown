@@ -143,11 +143,11 @@
                 <a href="#" class="item-btn">Load More Comments <span>4+</span></a>
             </div>-->
         </div>
-        <div class="my-2">
+        <div id = class="my-2">
             <form method="POST" th:object="${replyDto}" th:action="@{|/post/${post.id}/reply|}" id="replyForm">
                 <div class="input-group">
                     <!--                    <input type="text" id="comment" name="COMMENT" class="form-control w-75" placeholder="댓글을 입력해 주세요.">-->
-                    <input type="text" th:field="*{comment}" class="form-control w-75" placeholder="댓글을 입력해 주세요.">
+                    <input id="replyInput" type="text" th:field="*{comment}" class="form-control w-75" placeholder="댓글을 입력해 주세요.">
                     <!--                    <small class="form-text text-danger fieldError" th:if="${#fields.hasErrors('comment')}" th:errors="*{comment}">Comment Error</small>-->
 
                     <div class="input-group-append">
@@ -213,6 +213,7 @@
                             .replace("{replyTime}", replyDto.replyTime)
                             .replaceAll("${id}", replyDto.id)
                             .replace("{likeCount}", replyDto.replyLikeCount)
+                        $(`#replyInput`).val("");
                         $(".comment-list").prepend(result);
                         console.log("replyDto.comment : " + replyDto.comment);
                         console.log("result : " + result);
