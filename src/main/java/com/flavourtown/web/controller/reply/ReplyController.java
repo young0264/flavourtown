@@ -3,6 +3,7 @@ package com.flavourtown.web.controller.reply;
 
 import com.flavourtown.domain.account.Account;
 import com.flavourtown.domain.account.AuthUser;
+import com.flavourtown.domain.member.Member;
 import com.flavourtown.domain.post.Post;
 import com.flavourtown.domain.reply.Reply;
 import com.flavourtown.service.MemberService;
@@ -54,12 +55,13 @@ public class ReplyController {
             return ResponseEntity.badRequest().build();
         }
 
-        Long memberId = account.getMember().getId(); //securityuser . account . member . id가져오기
+        Member member = account.getMember(); //securityuser . account . member . id가져오기
+        Long memberId = member.getId(); //securityuser . account . member . id가져오기
         Long replyId = replyService.saveReply(postId, replyDto, memberId);
         Reply reply = replyService.getReply(replyId);
         ReplyDto newReplyDto = ReplyDto.builder()
                 .id(reply.getId())
-                .nickname(postService.findById(postId).getUserName())
+                .nickname(member.getNickname())
                 .replyLikeCount(reply.getReplyLike().size())
                 .replyTime(reply.getReplyTime())
                 .comment(reply.getComment())

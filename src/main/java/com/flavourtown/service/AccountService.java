@@ -105,29 +105,37 @@ public class AccountService implements UserDetailsService {
             boolean hasEmail = element.getAsJsonObject().get("kakao_account").getAsJsonObject().get("has_email").getAsBoolean();
             log.info("has_email={}", hasEmail);
 
-            JsonElement kakao_account = element.getAsJsonObject().get("kakao_account");
-            log.info("kakao account : " + kakao_account);
+            JsonObject properties = element.getAsJsonObject().get("properties").getAsJsonObject();
+            JsonObject kakao_account = element.getAsJsonObject().get("kakao_account").getAsJsonObject();
+            String nickname = properties.getAsJsonObject().get("nickname").getAsString();
+            String email = kakao_account.getAsJsonObject().get("email").getAsString();
+            log.info("test3");
 
-            String email = "";
-
+//            userInfo.put("nickname", nickname);
+//            userInfo.put("email", email);
             int idx = 5;
             if(hasEmail){
-                email = element.getAsJsonObject().get("kakao_account").getAsJsonObject().get("email").getAsString();
+                log.info("success login");
+//                email = element.getAsJsonObject().get("kakao_account").getAsJsonObject().get("email").getAsString();
                 idx = email.indexOf("@");
-                String username = email.substring(0, idx);
+                log.info("email : " + email);
+//                String username = email.substring(0, idx);
                 AccountSignUpDto newDto = new AccountSignUpDto();
-                newDto.setUsername(username);
+                newDto.setUsername(nickname);
                 newDto.setEmail(email);
                 newDto.setPassword(String.valueOf(UUID.randomUUID()));
                 br.close();
 
                 if (!existMemberCheck(newDto)) {
+                    log.info("fail login 1");
                     return saveNewAccount(newDto, LoginType.KAKAO);
                 } else {
-                    return findAccountByUsername(username);
+                    log.info("fail login 2");
+                    return findAccountByUsername(nickname);
                 }
             }
         } catch (IOException e) {
+            log.info("fail login 3");
             e.printStackTrace();
         }
 
