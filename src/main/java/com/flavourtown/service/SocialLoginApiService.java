@@ -32,7 +32,8 @@ public class SocialLoginApiService {
             StringBuilder sb = new StringBuilder();
             sb.append("grant_type=authorization_code");
             sb.append("&client_id=8983013ae892b015737ad79cce0e27c1"); // TODO REST_API_KEY 입력
-            sb.append("&redirect_uri=http://localhost:9001/account/kakao"); // TODO 인가코드 받은 redirect_uri 입력
+//            sb.append("&redirect_uri=http://localhost:9001/account/kakao"); // TODO 인가코드 받은 redirect_uri 입력
+            sb.append("&redirect_uri=https://flavourtown.site/account/kakao"); // TODO 인가코드 받은 redirect_uri 입력
             sb.append("&code=" + code);
             bw.write(sb.toString());
             bw.flush();

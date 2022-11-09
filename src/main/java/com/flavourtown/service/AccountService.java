@@ -93,7 +93,6 @@ public class AccountService implements UserDetailsService {
             log.info("response body = {}", result);
 
             //Gson 라이브러리로 JSON파싱
-//            JsonParser parser = new JsonParser();
             JsonElement element = JsonParser.parseString(result);
 
             JsonObject asJsonObject = element.getAsJsonObject();
@@ -111,15 +110,11 @@ public class AccountService implements UserDetailsService {
             String email = kakao_account.getAsJsonObject().get("email").getAsString();
             log.info("test3");
 
-//            userInfo.put("nickname", nickname);
-//            userInfo.put("email", email);
             int idx = 5;
             if(hasEmail){
                 log.info("success login");
-//                email = element.getAsJsonObject().get("kakao_account").getAsJsonObject().get("email").getAsString();
                 idx = email.indexOf("@");
                 log.info("email : " + email);
-//                String username = email.substring(0, idx);
                 AccountSignUpDto newDto = new AccountSignUpDto();
                 newDto.setUsername(nickname);
                 newDto.setEmail(email);
