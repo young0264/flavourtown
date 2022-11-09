@@ -27,6 +27,7 @@ Chromium 기반의 웹에서 모두 작동하며, 위치 기반의 서비스를 
 
 ### Library
 - [jQuery v3.5.1](https://jquery.com/)
+- [Kakao Login API](https://developers.kakao.com/docs/latest/ko/kakaologin/rest-api)
 - [Kakao Map API](https://apis.map.kakao.com/web/sample/)
 - [Lombok](https://projectlombok.org/download)
 - [queryDsl](http://querydsl.com/)
