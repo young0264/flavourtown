@@ -5,8 +5,10 @@
 <!-- Post 댓글 조각화 -->
 <div layout:fragment="content">
     <div class="post-comment" th:fragment="reply_fragment(paging,replyDto)">
-        <ul class="comment-list">
-            <div id="replyDiv" sec:authorize="isAuthenticated()">
+        <div id="replyDiv" sec:authorize="isAuthenticated()">
+
+            <ul class="comment-list">
+                <!--            <div id="replyDiv" sec:authorize="isAuthenticated()">-->
                 <li class="main-comments" th:id="|reply${reply.id}|" th:each="reply : ${paging}">
 
                     <form method="post">
@@ -135,11 +137,12 @@
                         </div>
                     </form>
                 </li>
-            </div>
-        </ul>
-        <!--<div class="load-more-btn">
-            <a href="#" class="item-btn">Load More Comments <span>4+</span></a>
-        </div>-->
+
+            </ul>
+            <!--<div class="load-more-btn">
+                <a href="#" class="item-btn">Load More Comments <span>4+</span></a>
+            </div>-->
+        </div>
         <div class="my-2">
             <form method="POST" th:object="${replyDto}" th:action="@{|/post/${post.id}/reply|}" id="replyForm">
                 <div class="input-group">
@@ -220,4 +223,4 @@
         </script>
     </div>
 </div>
-</div>
+</html>

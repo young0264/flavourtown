@@ -17,12 +17,16 @@
           type: "POST",
           url: "/reply/update",
           data : param,
-          success: function (flag)
+          success: function z(flag)
           {
             $(`#replyDiv`).load(location.href+` #replyDiv`);
+            // $("replyButton").on(click , function (e) {
+            //   $(`#replyDiv`).load(location.href);
+            // });
             $(`#replyUpdate${replyId}`).modal('hide');
             $('body').removeClass('modal-open');
             $('.modal-backdrop').remove();
+            // $(`#replyButton`).click();
           },
         })
       },
