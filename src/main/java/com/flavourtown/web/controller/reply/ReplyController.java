@@ -70,14 +70,17 @@ public class ReplyController {
         return ResponseEntity.ok(newReplyDto);
     }
 
-//    @PreAuthorize("isAuthenticated()")
-//    @PostMapping("/reply/update")
-//    @ResponseBody
-//    public boolean updateReply(@RequestParam Map<String, String> params, Model model) {
-//        Reply currentReply = replyService.getReply(Long.valueOf(params.get("replyNum")));
-//        replyService.update(currentReply, params.get("replyComment"));
-//        return true;
-//    }
+    /**
+     *
+     */
+    @PreAuthorize("isAuthenticated()")
+    @PostMapping("/reply/update")
+    @ResponseBody
+    public boolean updateReply(@RequestParam Map<String, String> params) {
+        Reply currentReply = replyService.getReply(Long.valueOf(params.get("replyNum")));
+        replyService.update(currentReply, params.get("replyComment"));
+        return true;
+    }
 
     /**
      *
