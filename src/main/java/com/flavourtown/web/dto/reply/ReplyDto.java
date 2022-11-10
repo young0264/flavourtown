@@ -16,10 +16,8 @@ public class ReplyDto {
     @Size(min = 5, message = "댓글은 5글자이상 이내로 작성해주세요.")
     private String comment;
 
-    private Long id;//삭제
+    private Long id;
     private String replyTime;
     private Integer replyLikeCount;
     private String nickname;
-
-
 }

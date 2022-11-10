@@ -16,7 +16,6 @@ import com.flavourtown.service.PostService;
 import com.flavourtown.service.ReplyService;
 import com.flavourtown.web.dto.post.PostDto;
 import com.flavourtown.web.dto.reply.ReplyDto;
-import com.flavourtown.web.dto.post.PostUpdateDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
