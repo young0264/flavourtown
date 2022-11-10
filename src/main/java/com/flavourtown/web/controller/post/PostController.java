@@ -64,7 +64,7 @@ public class PostController {
                                  @AuthUser Account account, @AuthenticationPrincipal SecurityUser securityUser) {
 
         Post post = postService.findById(id);
-        String postImage = postService.callImage(id);
+//        String postImage = postService.callImage(id);
 //        log.info("se name : " + securityUser.getUsername());
 
         if (!post.isPrivateStatus()) {
@@ -79,7 +79,7 @@ public class PostController {
         Page<Reply> paging = replyService.getReplyList(page, id);
 
         model.addAttribute("post", post);
-        model.addAttribute("postImage", postImage);
+//        model.addAttribute("postImage", postImage);
         model.addAttribute("paging", paging);
 
         if (account != null) {
@@ -100,19 +100,16 @@ public class PostController {
         String images = Paths.get(System.getProperty("user.dir"), "images").toString() + "/";
         log.info("images = " + images);
 
-        // model에 담기
         model.addAttribute("searchType", SearchType.values());
 
-        // 게시글 전체 조회
+        // 페이징
         Page<Post> paging = postService.getList(keyword, page, searchType, pageable);
         model.addAttribute("paging", paging);
 
-        //게시글 test용 postlist
+        //게시글 리스트
         List<Post> postList = postService.findAll();
         model.addAttribute("postList", postList);
-
-        List<Post> posts = paging.toList();
-        postService.refreshTime(posts);
+        postService.refreshTime(postList);
 
         return "post/post-list";
     }
@@ -124,7 +121,6 @@ public class PostController {
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/post/new")
     public String newPost(Model model) {
-
         model.addAttribute("postCreateDto", new PostDto());
         return "post/post-newForm";
     }
@@ -154,20 +150,15 @@ public class PostController {
      */
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/post/modify/{id}")
-    public String modifyPost(@PathVariable Long id, Model model) throws IOException {
-
-        Post post = postService.findById(id);
+    public String updatePost(@PathVariable Long id, Model model) throws IOException {
         model.addAttribute("postUpdateDto", new PostDto());
         return "post/post-updateForm";
     }
 
     @PutMapping("post/update/{id}")
-    public String updatePost(@PathVariable Long id, PostUpdateDto updateDto) {
-
-//        postService.up
+    public String updatePost(@PathVariable Long id, PostDto postDto) {
         Post post = postService.findById(id);
-        postService.updatePost()
-//        post.updateCurrentPost(updateDto.getTitle(), updateDto.getContent(), updateDto.getPrivateStatus());
+        postService.updatePost(post,postDto);
         postRepository.save(post);
         return "redirect:/post/{id}/detail";
     }
@@ -175,11 +166,11 @@ public class PostController {
     /**
      * 게시글 삭제
      */
-    @PreAuthorize("isAuthenticated()")
-    @DeleteMapping("/post/delete/{id}")
-    public String deletePost(@PathVariable Long id) {
-        postService.delete(id);
-        return "redirect:/post/list";
-    }
+//    @PreAuthorize("isAuthenticated()")
+//    @DeleteMapping("/post/delete/{id}")
+//    public String deletePost(@PathVariable Long id) {
+//        postService.delete(id);
+//        return "redirect:/post/list";
+//    }
 
 }
