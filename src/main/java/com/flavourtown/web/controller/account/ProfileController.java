@@ -113,20 +113,15 @@ public class ProfileController {
     @GetMapping("/profile/bookmark/view")
     public String showBookmark(Model model, @AuthUser Account account, Principal principal) {
         Optional<Favorite> optionalFavorite = Optional.ofNullable(favoriteService.findTopByMember(account.getMember()));
-        log.info("test1");
         if (optionalFavorite.isPresent()) {
-            log.info("test2");
             List<Favorite> favoriteList = favoriteService.findAllByMember(account.getMember());
             model.addAttribute("favorites", favoriteList);
         } else {
-            log.info("test3");
             Favorite favorite = new Favorite(account.getMember(), "나만의 맛집");
             favoriteService.save(favorite);
             model.addAttribute("favorites", favorite);
         }
-        log.info("test4");
         MemberVo memberVo = accountService.getReadOnlyMember(principal.getName());
-        log.info("memberVo = " + memberVo);
         model.addAttribute("member", memberVo);
 
         return "profile/profile-bookmark";
