@@ -82,7 +82,6 @@ public class ReplyService {
     public void update(Reply reply, String content) {
         reply.updateComment(content);
         reply.insertReplyTime(convertDateTime(LocalDateTime.now()));
-
         replyRepository.save(reply);
     }
 

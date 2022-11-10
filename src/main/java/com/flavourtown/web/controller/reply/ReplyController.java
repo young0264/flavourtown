@@ -71,7 +71,7 @@ public class ReplyController {
     }
 
     /**
-     *
+     *댓글 수정
      */
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/reply/update")
@@ -83,7 +83,7 @@ public class ReplyController {
     }
 
     /**
-     *
+     *댓글 삭제
      */
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/reply/delete")
