@@ -166,11 +166,11 @@ public class PostController {
     /**
      * 게시글 삭제
      */
-//    @PreAuthorize("isAuthenticated()")
-//    @DeleteMapping("/post/delete/{id}")
-//    public String deletePost(@PathVariable Long id) {
-//        postService.delete(id);
-//        return "redirect:/post/list";
-//    }
+    @PreAuthorize("isAuthenticated()")
+    @DeleteMapping("/post/delete/{id}")
+    public String deletePost(@PathVariable Long id) {
+        postService.delete(id);
+        return "redirect:/post/list";
+    }
 
 }

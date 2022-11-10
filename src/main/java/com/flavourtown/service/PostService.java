@@ -6,7 +6,7 @@ import com.flavourtown.domain.post.Post;
 import com.flavourtown.domain.post.PostRepository;
 import com.flavourtown.domain.post.SearchType;
 import com.flavourtown.domain.reply.ReplyTime;
-import com.flavourtown.web.dto.post.PostCreateDto;
+import com.flavourtown.web.dto.post.PostDto;
 import lombok.RequiredArgsConstructor;
 
 import lombok.extern.slf4j.Slf4j;
@@ -19,9 +19,9 @@ import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
-@Service
 @RequiredArgsConstructor
 @Transactional
+@Service
 @Slf4j
 public class PostService {
 
@@ -29,27 +29,33 @@ public class PostService {
 
     //    private final ImageUtil imageUtil;
     private final PostRepository postRepository;
+
     public Post findById(Long id) {
         return postRepository.findById(id).get();
     }
+
     @Transactional(readOnly = true)
     public List<Post> findAll() {
         return postRepository.findAll();
     }
+
     @Transactional(readOnly = true)
     public List<Post> findAllByPlaceAndPrivateStatus(Place place) {
         return postRepository.findAllByPlaceAndPrivateStatus(place, true);
     }
 
-    public Post savePost(String userName, Member user, PostCreateDto dto) {
+    /**
+     * 게시글 등록
+     */
+    public Post savePost(String userName, Member user, PostDto postDto) {
 //        String imageUrls = imageUtil.saveFiles(dto.getImgFiles());
-        Place place = placeService.findPlace(dto.getPlaceId());
+        Place place = placeService.findPlace(postDto.getPlaceId());
         String newTypeTime = convertDateTime(LocalDateTime.now());
 
         Post post = Post.builder()
-                .title(dto.getTitle())
-                .content(dto.getContent())
-                .privateStatus(dto.getPrivateStatus())
+                .title(postDto.getTitle())
+                .content(postDto.getContent())
+                .privateStatus(postDto.getPrivateStatus())
                 .member(user)
                 .userName(userName)
 //                .imageUrls(imageUrls)
@@ -61,14 +67,22 @@ public class PostService {
         return postRepository.save(post);
     }
 
-//    public PostUpdateDto updatePost(Post post, PostUpdateDto postUpdateDto) {
-//    }
+    public void updatePost(Post post, PostDto postDto) {
+        post.updatePost(postDto.getTitle(), postDto.getContent(), postDto.getPrivateStatus());
+    }
 
+
+    /**
+     * 게시글 삭제
+     * @param id
+     */
     public void delete(Long id) {
         postRepository.deleteById(id);
     }
 
-    // 게시글 전체 조회. 페이징으로
+    /**
+     * 전체 게시글 조회. 페이징
+     **/
     @Transactional(readOnly = true)
     public Page<Post> getList(String keyword, int page, String searchType, Pageable pageable) {
 
@@ -81,7 +95,6 @@ public class PostService {
         } else if (searchType.equals(SearchType.AUTHOR.getKey())) {
             return postRepository.searchAuthor(keyword, pageable);
         }
-
         return postRepository.findAll(pageable);
     }
 
@@ -89,16 +102,23 @@ public class PostService {
         return postRepository.findPostTop5();
     }
 
-    // 추가 부분
 
+    /**
+     * 한개의 게시글 등록시간 갱신
+     */
     public Post refreshTime1(Post post) {
         if (post.getModifiedTime() == null) {
             post.insertPostTime(convertDateTime(post.getCreatedTime()));
-        }else{
+        } else {
             post.insertPostTime(convertDateTime(post.getModifiedTime()));
         }
         return post;
     }
+
+    /**
+     * 게시글 list 등록시간 갱신
+     * batch size 이슈로 transztional (read only = true)로 설정
+     */
     @Transactional(readOnly = true)
     public void refreshTime(List<Post> postList) {
         for (Post post : postList) {
@@ -109,6 +129,10 @@ public class PostService {
             }
         }
     }
+
+    /**
+     * '~시간전'으로 바꾸는 시간형태 변경 로직
+     */
 
     public static String convertDateTime(LocalDateTime localDateTime) {
         LocalDateTime now = LocalDateTime.now();
@@ -140,18 +164,4 @@ public class PostService {
     }
 
 
-    /**
-     * 이미지 불러오기
-     */
-    public String callImage(long id) {
-        String imgSource = "";
-        if (id % 3 == 0) {
-            imgSource = "jjajang.jpg";
-        } else if (id % 3 == 1) {
-            imgSource = "jongro.jpg";
-        } else {
-            imgSource = "sushi.jpg";
-        }
-        return imgSource;
-    }
 }

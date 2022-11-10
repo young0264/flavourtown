@@ -1,6 +1,8 @@
 package com.flavourtown.web.dto.post;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -12,6 +14,7 @@ import java.util.List;
 
 @Getter
 @Setter
+@NoArgsConstructor
 public class PostDto {
 
     private Long id;
@@ -23,14 +26,17 @@ public class PostDto {
     @NotBlank(message = "내용을 입력하세요")
     private String content; // 내용
 
-    private List<MultipartFile> imgFiles;
+    private Boolean privateStatus;
+
+//    private List<MultipartFile> imgFiles;
 
     private LocalDateTime modifiedTime;
 
-    private Boolean privateStatus;
+    private String postTime;
 
     @NotNull(message = "음식점을 골라주세요")
     private Long placeId;
 
-    private String postTime;
+    private String placeName;
+
 }
