@@ -157,12 +157,7 @@ public class PostController {
     public String modifyPost(@PathVariable Long id, Model model) throws IOException {
 
         Post post = postService.findById(id);
-        PostUpdateDto postUpdateDto = new PostUpdateDto(post.getId(), post.getTitle(), post.getContent(),
-                post.getPlace().getPlaceName(), post.isPrivateStatus());
-        //id, title, content, place, privateStatus 태
-        PostDto postDto = new PostDto();
-        model.addAttribute("postUpdateDto", postUpdateDto);
-        model.addAttribute("post", post);
+        model.addAttribute("postUpdateDto", new PostDto());
         return "post/post-updateForm";
     }
 
@@ -172,7 +167,7 @@ public class PostController {
 //        postService.up
         Post post = postService.findById(id);
         postService.updatePost()
-        post.updateCurrentPost(updateDto.getTitle(), updateDto.getContent(), "", updateDto.getPrivateStatus());
+//        post.updateCurrentPost(updateDto.getTitle(), updateDto.getContent(), updateDto.getPrivateStatus());
         postRepository.save(post);
         return "redirect:/post/{id}/detail";
     }
