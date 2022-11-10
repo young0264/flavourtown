@@ -14,8 +14,8 @@ import com.flavourtown.service.AccountService;
 import com.flavourtown.service.LikeApiService;
 import com.flavourtown.service.PostService;
 import com.flavourtown.service.ReplyService;
+import com.flavourtown.web.dto.post.PostDto;
 import com.flavourtown.web.dto.reply.ReplyDto;
-import com.flavourtown.web.dto.post.PostCreateDto;
 import com.flavourtown.web.dto.post.PostUpdateDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -125,22 +125,22 @@ public class PostController {
     @GetMapping("/post/new")
     public String newPost(Model model) {
 
-        model.addAttribute("postCreateDto", new PostCreateDto());
+        model.addAttribute("postCreateDto", new PostDto());
         return "post/post-newForm";
     }
 
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/post/new")
-    public String createPost(@Valid PostCreateDto postCreateDto, BindingResult bindingResult,
+    public String createPost(@Valid PostDto postDto, BindingResult bindingResult,
                              Model model, Principal principal, RedirectAttributes redirectAttributes,
                              @AuthenticationPrincipal SecurityUser securityUser) {
         if (bindingResult.hasErrors()) {
-            model.addAttribute("postCreateDto", postCreateDto);
+            model.addAttribute("postCreateDto", postDto);
             return "post/post-newForm";
         }
         Member currentMember = accountService.findAccountByUsername(principal.getName()).getMember();
         String userName = securityUser.getUsername();
-        Post newPost = postService.savePost(userName,currentMember , postCreateDto);
+        Post newPost = postService.savePost(userName,currentMember , postDto);
         log.info("userName post : " + userName);
         Long id = newPost.getId();
         redirectAttributes.addAttribute("id", id);
@@ -159,17 +159,19 @@ public class PostController {
         Post post = postService.findById(id);
         PostUpdateDto postUpdateDto = new PostUpdateDto(post.getId(), post.getTitle(), post.getContent(),
                 post.getPlace().getPlaceName(), post.isPrivateStatus());
+        //id, title, content, place, privateStatus 태
+        PostDto postDto = new PostDto();
         model.addAttribute("postUpdateDto", postUpdateDto);
         model.addAttribute("post", post);
         return "post/post-updateForm";
     }
-
 
     @PutMapping("post/update/{id}")
     public String updatePost(@PathVariable Long id, PostUpdateDto updateDto) {
 
 //        postService.up
         Post post = postService.findById(id);
+        postService.updatePost()
         post.updateCurrentPost(updateDto.getTitle(), updateDto.getContent(), "", updateDto.getPrivateStatus());
         postRepository.save(post);
         return "redirect:/post/{id}/detail";

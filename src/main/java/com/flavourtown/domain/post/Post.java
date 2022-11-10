@@ -79,19 +79,20 @@ public class Post {
 
 
     public void addReply(Reply reply) {
-        this.replyList.add(reply);
+        this.replyList.add(,reply);
         reply.insertPost(this);
     }
 
     /**
      * 수정
      */
-    public void updateCurrentPost(String title, String content,  String imageUrls , boolean privateStatus) {
-        this.title = title;
-        this.content = content;
-        this.imageUrls = imageUrls == null ? "" : imageUrls;
-        this.privateStatus = privateStatus;
-        this.modifiedTime = LocalDateTime.now();
-    }
+
+//    public void updateCurrentPost(String title, String content,  String imageUrls , boolean privateStatus) {
+//        this.title = title;
+//        this.content = content;
+//        this.imageUrls = imageUrls == null ? "" : imageUrls;
+//        this.privateStatus = privateStatus;
+//        this.modifiedTime = LocalDateTime.now();
+//    }
 
 }
