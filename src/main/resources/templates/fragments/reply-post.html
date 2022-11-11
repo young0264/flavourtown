@@ -45,11 +45,11 @@
                                         </button>
                                         <div class="dropdown-menu dropdown-menu-right">
                                             <a class="icofont-comment dropdown-item" data-toggle="modal"
-                                               th:data-target="|#replyUpdate${reply.id}|"><span
+                                               th:method="put" th:data-target="|#replyUpdate${reply.id}|"><span
                                                     class="ml-1">수정</span></a>
 
                                             <a class="icofont-delete-alt dropdown-item" data-toggle="modal"
-                                               th:data-target="|#replyDelete${reply.id}|"><span
+                                               th:method="delete" th:data-target="|#replyDelete${reply.id}|"><span
                                                     class="ml-1">삭제</span></a>
                                         </div>
                                     </th:block>

@@ -14,7 +14,7 @@
           replyComment : comment
         };
         $.ajax({
-          type: "POST",
+          type: "PUT",
           url: "/reply/update",
           data : param,
           success: function z(flag)
