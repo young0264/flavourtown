@@ -12,7 +12,7 @@
           replyNum: replyId
         };
         $.ajax({
-          type: "POST",
+          type: "Delete",
           url: "/reply/delete",
           data : param,
           success: function (flag) {
@@ -22,13 +22,6 @@
             $('.modal-backdrop').remove();
           },
         })
-        imageDelay(function (){
-          $(".identicon").each(function() {
-            var hash = md5($(this).data('id')).toString();
-            var data = new Identicon(hash,{format:'svg'}).toString();
-            $(this).attr('src', "data:image/svg+xml;base64,"+data);
-          });
-        }, 1000);
       },
     }
   </script>

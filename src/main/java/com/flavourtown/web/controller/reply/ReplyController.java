@@ -46,7 +46,8 @@ public class ReplyController {
      */
     @PreAuthorize("isAuthenticated()")
     @ResponseBody
-    @RequestMapping(value = "/post/{postId}/reply", method = {RequestMethod.POST})
+//    @RequestMapping(value = "/post/{postId}/reply", method = {RequestMethod.POST})
+    @PostMapping("/post/{postId}/reply")
     public ResponseEntity createReply(@Valid ReplyDto replyDto, BindingResult bindingResult,
                                       @PathVariable("postId") Long postId,
                                       @AuthUser Account account,
@@ -66,6 +67,7 @@ public class ReplyController {
                 .replyTime(reply.getReplyTime())
                 .comment(reply.getComment())
                 .build();
+        log.info("댓글 값이 들어갔습니다 , nickname ={}", newReplyDto.getNickname());
         log.info("값이 들어갔습니다 = " + replyDto.getComment());
         return ResponseEntity.ok(newReplyDto);
     }
@@ -74,7 +76,7 @@ public class ReplyController {
      *댓글 수정
      */
     @PreAuthorize("isAuthenticated()")
-    @PostMapping("/reply/update")
+    @PutMapping("/reply/update")
     @ResponseBody
     public boolean updateReply(@RequestParam Map<String, String> params) {
         Reply currentReply = replyService.getReply(Long.valueOf(params.get("replyNum")));
@@ -86,7 +88,7 @@ public class ReplyController {
      *댓글 삭제
      */
     @PreAuthorize("isAuthenticated()")
-    @PostMapping("/reply/delete")
+    @DeleteMapping("/reply/delete")
     @ResponseBody
     public boolean removeReply(@RequestParam Map<String, String> params) {
         Reply currentReply = replyService.getReply(Long.valueOf(params.get("replyNum")));
