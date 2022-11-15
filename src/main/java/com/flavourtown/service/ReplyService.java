@@ -67,9 +67,9 @@ public class ReplyService {
     }
 
     /**
-     *post id로 페이징 댓글 가져오기
+     * post id로 페이징 댓글 가져오기
      */
-    public Page<Reply> getReplyList(int page,Long id) {
+    public Page<Reply> getReplyList(int page, Long id) {
         List<Sort.Order> sorts = new ArrayList<>();
         sorts.add(Sort.Order.desc("createDate")); //수정 댓글 리팩토링 필요
         Pageable pageable = PageRequest.of(page, 5, Sort.by(sorts));
@@ -111,9 +111,9 @@ public class ReplyService {
 
     public void refreshTime(List<Reply> replyList) {
         for (Reply reply : replyList) {
-            if (reply.getModifyDate() == null){
+            if (reply.getModifyDate() == null) {
                 reply.insertReplyTime(convertDateTime(reply.getCreateDate()));
-            }else{
+            } else {
                 reply.insertReplyTime(convertDateTime(reply.getModifyDate()));
             }
         }
@@ -123,7 +123,7 @@ public class ReplyService {
         LocalDateTime now = LocalDateTime.now();
         long diffTime = localDateTime.until(now, ChronoUnit.SECONDS); // now보다 이후면 +, 전이면 -
 
-        if (diffTime < ReplyTime.SEC){
+        if (diffTime < ReplyTime.SEC) {
             return diffTime + "초전";
         }
         diffTime = diffTime / ReplyTime.SEC;
@@ -140,16 +140,11 @@ public class ReplyService {
         }
         diffTime = diffTime / ReplyTime.DAY;
         if (diffTime < ReplyTime.MONTH) {
-
-
             return diffTime + "개월 전";
         }
-
         diffTime = diffTime / ReplyTime.MONTH;
         return diffTime + "년 전";
     }
-
-
 
 
 }

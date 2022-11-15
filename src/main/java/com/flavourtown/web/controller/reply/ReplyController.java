@@ -4,9 +4,7 @@ package com.flavourtown.web.controller.reply;
 import com.flavourtown.domain.account.Account;
 import com.flavourtown.domain.account.AuthUser;
 import com.flavourtown.domain.member.Member;
-import com.flavourtown.domain.post.Post;
 import com.flavourtown.domain.reply.Reply;
-import com.flavourtown.service.MemberService;
 import com.flavourtown.service.PostService;
 import com.flavourtown.service.ReplyService;
 import com.flavourtown.web.dto.reply.ReplyDto;
@@ -15,7 +13,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -46,12 +43,10 @@ public class ReplyController {
      */
     @PreAuthorize("isAuthenticated()")
     @ResponseBody
-//    @RequestMapping(value = "/post/{postId}/reply", method = {RequestMethod.POST})
     @PostMapping("/post/{postId}/reply")
     public ResponseEntity createReply(@Valid ReplyDto replyDto, BindingResult bindingResult,
                                       @PathVariable("postId") Long postId,
-                                      @AuthUser Account account,
-                                      Principal principal) {
+                                      @AuthUser Account account) {
         if (bindingResult.hasErrors()) {
             return ResponseEntity.badRequest().build();
         }
