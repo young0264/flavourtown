@@ -1,6 +1,7 @@
 package com.flavourtown.service;
 
 import com.flavourtown.domain.member.Member;
+import com.flavourtown.domain.member.MemberRepository;
 import com.flavourtown.domain.place.Place;
 import com.flavourtown.domain.post.Post;
 import com.flavourtown.domain.post.PostRepository;
@@ -25,6 +26,7 @@ import java.util.List;
 @Slf4j
 public class PostService {
 
+    private final MemberRepository memberRepository;
     private final PlaceService placeService;
 
     //    private final ImageUtil imageUtil;

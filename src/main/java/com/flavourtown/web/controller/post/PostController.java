@@ -53,7 +53,7 @@ public class PostController {
 
 
     /**
-     * 게시글 조회
+     * 게시글 상세 조회
      */
     @GetMapping("/post/{id}/detail")
     public String showDetailPost(@PathVariable long id,
@@ -89,6 +89,9 @@ public class PostController {
         return "post/post-detail";
     }
 
+    /**
+     * 게시글 리스트 조회
+     */
     @GetMapping("/post/list")
     public String showAllPosts(@RequestParam(defaultValue = "") String keyword,
                                @RequestParam(defaultValue = "0") int page,
@@ -150,7 +153,14 @@ public class PostController {
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/post/modify/{id}")
     public String updatePost(@PathVariable Long id, Model model) throws IOException {
-        model.addAttribute("postUpdateDto", new PostDto());
+        Post post = postRepository.findById(id).orElse(null);
+        PostDto postDto = PostDto.builder()
+                .id(post.getId())
+                .title(post.getTitle())
+                .content(post.getContent())
+                .placeName(post.getPlace().getPlaceName())
+                .build();
+        model.addAttribute("postUpdateDto", postDto);
         return "post/post-updateForm";
     }
 
