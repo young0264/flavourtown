@@ -79,4 +79,19 @@ class PostServiceTest {
         assertThat(post.isPrivateStatus()).isEqualTo(true);
         assertThat(post.getPlace().getId()).isEqualTo(1995242054L);
     }
+
+    @Test
+    @DisplayName("게시글 수정")
+    void editPost() {
+        Post post = postRepository.findById(34L).orElse(null);
+        PostDto postDto = new PostDto();
+        postDto.setTitle("testUpdateTitle");
+        postDto.setContent("testUpdateContent");
+        postDto.setPrivateStatus(true);
+        postService.updatePost(post, postDto);
+
+        assertThat(post.getTitle()).isEqualTo("testUpdateTitle");
+        assertThat(post.getContent()).isEqualTo("testUpdateContent");
+        assertThat(post.isPrivateStatus()).isEqualTo(true);
+    }
 }
