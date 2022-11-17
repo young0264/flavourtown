@@ -52,6 +52,7 @@ public class PostService {
     public Post savePost(String userName, Member user, PostDto postDto) {
 //        String imageUrls = imageUtil.saveFiles(dto.getImgFiles());
         Place place = placeService.findPlace(postDto.getPlaceId());
+        log.info("place id = " + postDto.getPlaceId());
         String newTypeTime = convertDateTime(LocalDateTime.now());
 
         Post post = Post.builder()
@@ -73,36 +74,6 @@ public class PostService {
         post.updatePost(postDto.getTitle(), postDto.getContent(), postDto.getPrivateStatus());
     }
 
-
-    /**
-     * 게시글 삭제
-     * @param id
-     */
-    public void delete(Long id) {
-        postRepository.deleteById(id);
-    }
-
-    /**
-     * 전체 게시글 조회. 페이징
-     **/
-    @Transactional(readOnly = true)
-    public Page<Post> getList(String keyword, int page, String searchType, Pageable pageable) {
-
-        searchType = searchType.toLowerCase();
-
-        if (searchType.equals(SearchType.TITLE.getKey())) {
-            return postRepository.searchTitle(keyword, pageable);
-        } else if (searchType.equals(SearchType.CONTENT.getKey())) {
-            return postRepository.searchContent(keyword, pageable);
-        } else if (searchType.equals(SearchType.AUTHOR.getKey())) {
-            return postRepository.searchAuthor(keyword, pageable);
-        }
-        return postRepository.findAll(pageable);
-    }
-
-    public List<Post> findTop5Post() {
-        return postRepository.findPostTop5();
-    }
 
 
     /**
