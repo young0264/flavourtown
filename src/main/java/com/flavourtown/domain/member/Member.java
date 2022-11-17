@@ -41,7 +41,7 @@ public class Member {
     @Enumerated(EnumType.STRING)
     private MemberAge memberAge;
 
-    @OneToOne(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne(fetch=FetchType.LAZY, mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
     private Account account;
 
     @Builder.Default
