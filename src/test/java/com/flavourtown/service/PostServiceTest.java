@@ -8,6 +8,7 @@ import com.flavourtown.domain.post.Post;
 import com.flavourtown.domain.post.PostRepository;
 import com.flavourtown.web.dto.member.MemberInfoDto;
 import com.flavourtown.web.dto.post.PostDto;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -26,7 +27,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 
 @SpringBootTest
-@Transactional
+//@Transactional
 @ExtendWith(SpringExtension.class)
 @TestPropertySource(locations = "/application-test.properties")
 class PostServiceTest {
@@ -43,7 +44,7 @@ class PostServiceTest {
     @Autowired
     private MemberRepository memberRepository;
 
-    @BeforeEach
+    @Test
     @DisplayName("회원 가입")
     void testBefore() {
         Account account = new Account();
@@ -65,7 +66,7 @@ class PostServiceTest {
     //savePost(String userName, Member user, PostDto postDto)
     @Test
     @DisplayName("게시글 등록")
-    void createPost() {
+    void t1() {
         Member member = memberRepository.findByNickname("testUser").orElse(null);
         PostDto postDto = new PostDto();
         postDto.setPlaceId(1995242054L);
@@ -82,8 +83,8 @@ class PostServiceTest {
 
     @Test
     @DisplayName("게시글 수정")
-    void editPost() {
-        Post post = postRepository.findById(34L).orElse(null);
+    void t2() {
+        Post post = postRepository.findById(87L).orElse(null);
         PostDto postDto = new PostDto();
         postDto.setTitle("testUpdateTitle");
         postDto.setContent("testUpdateContent");
@@ -93,5 +94,16 @@ class PostServiceTest {
         assertThat(post.getTitle()).isEqualTo("testUpdateTitle");
         assertThat(post.getContent()).isEqualTo("testUpdateContent");
         assertThat(post.isPrivateStatus()).isEqualTo(true);
+    }
+
+    @Test
+    @DisplayName("게시글 삭제")
+    void t3() {
+        postService.delete(41L);
+//        Assertions.assertThrows(RuntimeException.class, () -> {
+//            postRepository.findById(86L);
+//        });
+        assertThat(postRepository.findAll().size()).isEqualTo(1);
+
     }
 }
