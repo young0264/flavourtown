@@ -10,6 +10,8 @@ import java.util.List;
 
 @Getter
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class ReplyDto {
 
     @NotEmpty(message = "댓글은 필수입니다.")

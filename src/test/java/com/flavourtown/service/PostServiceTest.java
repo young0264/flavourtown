@@ -62,8 +62,8 @@ class PostServiceTest {
 
         Member newMember = memberService.createNewMember(account, memberInfoDto);
 
-        assertThat(newMember.getNickname()).isEqualTo("testUser2");
-        assertThat(newMember.getAccount().getPassword()).isEqualTo("testPwd2");
+        assertThat(newMember.getNickname()).isEqualTo("testUser");
+        assertThat(newMember.getAccount().getPassword()).isEqualTo("testPwd");
         assertThat(newMember.getGender()).isEqualTo("man");
     }
 

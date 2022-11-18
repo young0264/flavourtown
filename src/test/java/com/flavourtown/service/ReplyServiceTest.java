@@ -69,7 +69,6 @@ class ReplyServiceTest {
     @Test
     @DisplayName("댓글 수정")
     void t2() {
-//        public void update(Reply reply, String content) {
         Post post = postRepository.findById(postId).orElse(null);
         Reply reply = post.getReplyList().get(0);
         replyService.update(reply, "test update reply");
@@ -86,7 +85,6 @@ class ReplyServiceTest {
         Reply reply = post.getReplyList().get(0);
         Long replyId = reply.getId();
         replyService.deleteReply(reply);
-//        replyRepository.findById(replyId)
         assertThat(replyRepository.findById(replyId).orElse(null)).isNull();
     }
 
