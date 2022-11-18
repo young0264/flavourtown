@@ -63,8 +63,6 @@ public class PostController {
                                  @AuthUser Account account, @AuthenticationPrincipal SecurityUser securityUser) {
 
         Post post = postService.findById(id);
-//        String postImage = postService.callImage(id);
-//        log.info("se name : " + securityUser.getUsername());
 
         if (!post.isPrivateStatus()) {
             if (securityUser == null || !account.getMember().getNickname().equals(post.getMember().getNickname())) {
@@ -78,7 +76,6 @@ public class PostController {
         Page<Reply> paging = replyService.getReplyList(page, id);
 
         model.addAttribute("post", post);
-//        model.addAttribute("postImage", postImage);
         model.addAttribute("paging", paging);
 
         if (account != null) {

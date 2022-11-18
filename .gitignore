@@ -164,8 +164,9 @@ replay_pid*
 
 .DS_Store
 
-#aws
-application-prod.properties
 
 #properties
-application.properties
+application-prod.properties
+application-local.properties
+application-test.properties
+
