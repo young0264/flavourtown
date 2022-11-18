@@ -79,7 +79,16 @@ class ReplyServiceTest {
         }
 
 
-
+    @Test
+    @DisplayName("댓글 삭제")
+    void t3() {
+        Post post = postRepository.findById(postId).orElse(null);
+        Reply reply = post.getReplyList().get(0);
+        Long replyId = reply.getId();
+        replyService.deleteReply(reply);
+//        replyRepository.findById(replyId)
+        assertThat(replyRepository.findById(replyId).orElse(null)).isNull();
+    }
 
 
 }
