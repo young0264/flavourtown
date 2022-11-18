@@ -47,16 +47,18 @@ class PostServiceTest {
     @Test
     @DisplayName("회원 가입")
     void testBefore() {
-        Account account = new Account();
-        account.setUsername("testUser2");
-        account.setPassword("testPwd2");
-        account.setEmail("test2@naver.com");
+        Account account =  Account.builder()
+                .username("testUser")
+                .password("testPwd")
+                .email("test2@naver.com")
+                .build();
 
-        MemberInfoDto memberInfoDto = new MemberInfoDto();
-        memberInfoDto.setIntroduce("테스트");
-        memberInfoDto.setBirth(new Date());
-        memberInfoDto.setGender("man");
-        memberInfoDto.setMemberAge(MemberAge.MEMBER_AGE_20S);
+        MemberInfoDto memberInfoDto =  MemberInfoDto.builder()
+                .introduce("테스트")
+                .birth(new Date())
+                .gender("man")
+                .memberAge(MemberAge.MEMBER_AGE_20S)
+                .build();
 
         Member newMember = memberService.createNewMember(account, memberInfoDto);
 
@@ -70,12 +72,12 @@ class PostServiceTest {
     @DisplayName("게시글 등록")
     void t1() {
         Member member = memberRepository.findByNickname("testUser").orElse(null);
-        PostDto postDto = new PostDto();
-        postDto.setPlaceId(26981291L); //등록되어 있는 place Id 사용
-        postDto.setTitle("testTitle");
-        postDto.setContent("testContent");
-        postDto.setPrivateStatus(true);
-
+        PostDto postDto = PostDto.builder()
+                .placeId(26981291L) //등록되어 있는 place Id 사용
+                .title("testTitle")
+                .content("testContent")
+                .privateStatus(true)
+                .build();
         Post post = postService.savePost(member, postDto);
 
         thisId = post.getId();
@@ -89,10 +91,13 @@ class PostServiceTest {
     @DisplayName("게시글 수정")
     void t2() {
         Post post = postRepository.findById(thisId).orElse(null);
-        PostDto postDto = new PostDto();
-        postDto.setTitle("testUpdateTitle");
-        postDto.setContent("testUpdateContent");
-        postDto.setPrivateStatus(true);
+
+        PostDto postDto = PostDto.builder()
+                .title("testUpdateTitle")
+                .content("testUpdateContent")
+                .privateStatus(true)
+                .build();
+
         postService.updatePost(post, postDto);
         assertThat(post.getTitle()).isEqualTo("testUpdateTitle");
         assertThat(post.getContent()).isEqualTo("testUpdateContent");
@@ -103,9 +108,6 @@ class PostServiceTest {
     @Test
     @DisplayName("게시글 삭제")
     void t3() {
-//        Assertions.assertThrows(RuntimeException.class, () -> {
-//            postRepository.findById(86L);
-//        });
         System.out.println("this id 3 : " + thisId);
         postService.delete(thisId);
         assertThat(postService.findById(thisId)).isNull();
