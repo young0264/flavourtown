@@ -127,7 +127,19 @@ public class PostController {
         return "post/post-newForm";
     }
 
+    @PreAuthorize("isAuthenticated()")
+    @PostMapping("/post/new")
+    public String createPost(@Valid PostDto postDto, BindingResult bindingResult,
+                             Model model, Principal principal){
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("postCreateDto", postDto);
+            return "post/post-newForm";
+        }
+        Member currentMember = accountService.findAccountByUsername(principal.getName()).getMember();
+        Post newPost = postService.savePost(currentMember , postDto);
 
+        return String.format("redirect:/post/%s/detail",newPost.getId());
+    }
 
 
     /**
