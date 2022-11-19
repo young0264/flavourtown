@@ -1,6 +1,7 @@
 package com.flavourtown.web.controller.account;
 
 import com.flavourtown.domain.account.Account;
+import com.flavourtown.domain.account.AccountRepository;
 import com.flavourtown.domain.account.AuthUser;
 import com.flavourtown.domain.account.LoginType;
 import com.flavourtown.domain.member.Member;
@@ -24,13 +25,14 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.security.Principal;
+import java.util.List;
+
 @Controller
 @RequiredArgsConstructor
 @Slf4j
 public class AccountController {
     private final AccountService accountService;
     private final MemberService memberService;
-
     private final SocialLoginApiService loginApiService;
 
 
@@ -54,9 +56,9 @@ public class AccountController {
         return "redirect:/";
     }
 
+
     @GetMapping("/signup")
     public String showSignUpPage(Model model) {
-        // 회원가입 시 사용할 Dto 전달
         model.addAttribute("accountSignUpDto", new AccountSignUpDto());
         return "account/account-signup";
     }
@@ -100,13 +102,16 @@ public class AccountController {
 
     @PostMapping("/info-init")
     public String createNewMember(MemberInfoDto memberInfoDto,
-                                  Principal principal, Model model) {
+                                  Principal principal) {
         Account account = accountService.findAccountByUsername(principal.getName());
         Member currentMember = account.getMember();
         memberService.updateCurrentMember(currentMember, memberInfoDto);
         return "redirect:/";
     }
 
+    /**
+     * 회원탈퇴
+     */
     @PostMapping("/withdrawal")
     public String accountWithdrawal(@AuthUser Account account, ProfileWithdrawalDto dto, Model model) {
         MemberVo member = accountService.getReadOnlyMember(account.getMember().getNickname());
@@ -118,7 +123,9 @@ public class AccountController {
             model.addAttribute("profileIntroduceDto", new ProfileIntroduceDto());
             return "profile/profile-setting";
         }
-        accountService.withdrawalAccount(account);
+
+        memberService.withdrawalMember(account.getMember().getId());
         return "redirect:/logout";
     }
+
 }

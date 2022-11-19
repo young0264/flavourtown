@@ -105,10 +105,6 @@ public class ProfileController {
     /**
      * 프로필의 북마크 관리 페이지
      *
-     * @param model
-     * @param account
-     * @param principal
-     * @return
      */
     @GetMapping("/profile/bookmark/view")
     public String showBookmark(Model model, @AuthUser Account account, Principal principal) {

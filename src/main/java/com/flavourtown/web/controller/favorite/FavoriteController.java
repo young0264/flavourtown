@@ -30,7 +30,6 @@ public class FavoriteController {
     @PostMapping("/favorite/addFavorite")
     public String addFavorite(@AuthUser Account account, @PathParam("subject") String subject) {
         Member member = account.getMember();
-
         Favorite favorite = new Favorite(member, subject);
         favoriteService.save(favorite);
         return "redirect:/profile/bookmark/view";
@@ -38,10 +37,6 @@ public class FavoriteController {
 
     /**
      *
-     * @param account
-     * @param favoriteId
-     * @param placeId
-     * @return
      */
     @GetMapping("/favorite/changeFavorite/{favoriteId}/{placeId}")
     public String changeFavorite(@AuthUser Account account,@PathVariable("favoriteId") Long favoriteId, @PathVariable("placeId") long placeId) {
@@ -49,16 +44,11 @@ public class FavoriteController {
         Place place = placeService.findPlace(placeId);
         Favorite favorite = favoriteService.findById(favoriteId);
         favoriteService.replaceExistPlace(member, place, favorite);
-
         return "redirect:/profile/bookmark/view";
     }
 
     /**
      *
-     * @param account
-     * @param favoriteId
-     * @param subject
-     * @return
      */
     @PostMapping("/favorite/modifyFavorite/{favoriteId}")
     public String modifyFavorite(@AuthUser Account account, @PathVariable Long favoriteId, @PathParam("subject") String subject) {
@@ -71,9 +61,6 @@ public class FavoriteController {
 
     /**
      *
-     * @param account
-     * @param favoriteId
-     * @return
      */
     @GetMapping("/favorite/deleteFavorite/{favoriteId}")
     public String deleteFavorite(@AuthUser Account account, @PathVariable Long favoriteId) {

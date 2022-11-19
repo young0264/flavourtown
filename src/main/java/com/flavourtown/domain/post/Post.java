@@ -12,6 +12,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -41,18 +42,18 @@ public class Post {
     @Column(nullable = false , columnDefinition = "TEXT")
     private String content; // 내용
 
-    // NPE 때문에 추가 ?
     @Nullable
     private String imageUrls;
 
-//    @Column(updatable = false) // 수정 불가
+//    @Column(updatable = false) //
     @CreatedDate
     private LocalDateTime createdTime;
 
     @LastModifiedDate
     private LocalDateTime modifiedTime;
 
-    @Column(nullable = false)
+//    @Column(nullable = false) 검증면에서 notnull어노테이션 추천
+    @NotNull
     private boolean privateStatus; // 공개 / 비공개 여부  true => 비공개 , false => 공개
 
     @Builder.Default
@@ -94,5 +95,7 @@ public class Post {
         this.privateStatus = privateStatus;
         this.modifiedTime = LocalDateTime.now();
     }
+
+
 
 }
