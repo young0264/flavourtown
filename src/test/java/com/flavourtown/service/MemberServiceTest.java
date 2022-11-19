@@ -3,6 +3,7 @@ package com.flavourtown.service;
 import com.flavourtown.domain.account.Account;
 import com.flavourtown.domain.member.Member;
 import com.flavourtown.domain.member.MemberAge;
+import com.flavourtown.domain.member.MemberRepository;
 import com.flavourtown.web.dto.member.MemberInfoDto;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -15,21 +16,28 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-
+/**
+ * member domain : 회원 유저의 프로필
+ */
 @SpringBootTest
 @Transactional
 @ExtendWith(SpringExtension.class)
 @TestPropertySource(locations = "/application-test.properties")
 class MemberServiceTest {
 //    @Autowired(required = false)
+    Long memberId;
     @Autowired
     private MemberService memberService;
 
-    Long memberId;
+    @Autowired
+    private MemberRepository memberRepository;
+
+
 
     @BeforeEach
     @DisplayName("회원 가입")
@@ -56,14 +64,34 @@ class MemberServiceTest {
     @DisplayName("회원탈퇴")
     void t2() {
         memberService.withdrawalMember(memberId);
+        Member member = memberRepository.findById(memberId).orElse(null);
+        assertThat(member).isNull();
     }
 
-
+//    public void updateCurrentMember(Member member, MemberInfoDto memberInfoDto) {
+//        member.addBasicInfo(memberInfoDto.getBirth(),
+//                memberInfoDto.getGender(),
+//                memberInfoDto.getIntroduce(),
+//                memberInfoDto.getMemberAge());
+//    }
     @Test
-    @DisplayName("소갯말 수정")
+    @DisplayName("멤버 프로필 등록")
     void t3() {
+        Member member = memberRepository.findById(memberId).orElse(null);
+        Date now = new Date();
+        MemberInfoDto memberInfo = MemberInfoDto.builder()
+                .gender("man")
+                .birth(now)
+                .memberAge(MemberAge.MEMBER_AGE_20S)
+                .introduce("테스트 인삿말입니다.")
+                .build();
 
-
+        memberService.updateCurrentMember(member, memberInfo);
+        assertThat(memberInfo.getMemberAge()).isEqualTo(MemberAge.MEMBER_AGE_20S);
+        assertThat(memberInfo.getGender()).isEqualTo("man");
+        assertThat(memberInfo.getBirth()).isEqualTo(now);
+        assertThat(memberInfo.getIntroduce()).isEqualTo("테스트 인삿말입니다.");
     }
+
 
 }
