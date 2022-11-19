@@ -50,10 +50,11 @@ public class MemberService {
     }
 
     public MemberInfoDto createEmptyMemberInfoDto() {
-        MemberInfoDto memberInfoDto = new MemberInfoDto();
-        memberInfoDto.setBirth(null);
-        memberInfoDto.setGender(null);
-        memberInfoDto.setIntroduce(null);
+        MemberInfoDto memberInfoDto =  MemberInfoDto.builder()
+                .birth(null)
+                .gender(null)
+                .introduce(null)
+                .build();
         return memberInfoDto;
     }
 
