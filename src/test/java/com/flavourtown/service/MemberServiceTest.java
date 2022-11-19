@@ -37,7 +37,15 @@ class MemberServiceTest {
     @Autowired
     private MemberRepository memberRepository;
 
-
+    /**
+     * spring security 로직 제외한 메서드
+     */
+    public void changeMemberNickname(String nickname, Account account) {
+        Member currentMember = account.getMember();
+        currentMember.setNickname(nickname);
+        memberRepository.save(currentMember);
+//        forceAuthentication(account);
+    }
 
     @BeforeEach
     @DisplayName("회원 가입")
@@ -68,13 +76,7 @@ class MemberServiceTest {
         assertThat(member).isNull();
     }
 
-//    public void updateCurrentMember(Member member, MemberInfoDto memberInfoDto) {
-//        member.addBasicInfo(memberInfoDto.getBirth(),
-//                memberInfoDto.getGender(),
-//                memberInfoDto.getIntroduce(),
-//                memberInfoDto.getMemberAge());
-//    }
-    @Test
+    @BeforeEach
     @DisplayName("멤버 프로필 등록")
     void t3() {
         Member member = memberRepository.findById(memberId).orElse(null);
@@ -91,6 +93,14 @@ class MemberServiceTest {
         assertThat(memberInfo.getGender()).isEqualTo("man");
         assertThat(memberInfo.getBirth()).isEqualTo(now);
         assertThat(memberInfo.getIntroduce()).isEqualTo("테스트 인삿말입니다.");
+    }
+
+    @Test
+    @DisplayName("멤버 프로필 닉네임변경")
+    void t4() {
+        Member member = memberRepository.findById(memberId).orElse(null);
+        changeMemberNickname("testNewNickname", member.getAccount());
+        assertThat(member.getNickname()).isEqualTo("testNewNickname");
     }
 
 
