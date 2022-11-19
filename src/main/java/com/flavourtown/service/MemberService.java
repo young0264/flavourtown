@@ -67,10 +67,6 @@ public class MemberService {
         return memberRepository.existsByNickname(nickname);
     }
 
-    public Member findMember(long memberId) {
-        return memberRepository.findById(memberId).orElseThrow();
-    }
-
     public void changeMemberNickname(String nickname, Account account) {
         Member currentMember = account.getMember();
         currentMember.setNickname(nickname);
@@ -92,7 +88,9 @@ public class MemberService {
         SecurityContextHolder.setContext(context);
     }
 
-    public void deleteMember(Member member) {
-        memberRepository.delete(member);
+    public void withdrawalMember(Long memberId) {
+        memberRepository.deleteById(memberId);
+
+
     }
 }

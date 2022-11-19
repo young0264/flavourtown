@@ -5,6 +5,7 @@ import com.flavourtown.domain.account.AccountRepository;
 import com.flavourtown.domain.account.AccountRole;
 import com.flavourtown.domain.account.LoginType;
 import com.flavourtown.domain.member.Member;
+import com.flavourtown.domain.member.MemberRepository;
 import com.flavourtown.infra.security.SecurityUser;
 import com.flavourtown.web.dto.account.AccountSignUpDto;
 import com.flavourtown.web.dto.member.MemberInfoDto;
@@ -37,6 +38,7 @@ import java.util.UUID;
 public class AccountService implements UserDetailsService {
 
     private final AccountRepository accountRepository;
+    private final MemberRepository memberRepository;
     private final MemberService memberService;
     private final PasswordEncoder passwordEncoder;
 
@@ -202,13 +204,6 @@ public class AccountService implements UserDetailsService {
     public void changeAccountPassword(String password, Account currentUser) {
         currentUser.setPassword(passwordEncoder.encode(password));
         accountRepository.save(currentUser);
-    }
-
-    public void withdrawalAccount(Account account) {
-        log.info("탈퇴 메서드 실행");
-//        memberService.deleteMember(account.getMember());
-        accountRepository.deleteByUsername(account.getUsername());
-//        accountRepository.delete(account);
     }
 
     /**
