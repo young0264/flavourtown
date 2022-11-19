@@ -29,9 +29,11 @@ class MemberServiceTest {
     @Autowired
     private MemberService memberService;
 
+    Long memberId;
+
     @BeforeEach
     @DisplayName("회원 가입")
-    void testBefore() {
+    void t1() {
         Account account = new Account();
         account.setUsername("testUser");
         account.setPassword("testPwd");
@@ -43,15 +45,24 @@ class MemberServiceTest {
         memberInfoDto.setGender("man");
         memberInfoDto.setMemberAge(MemberAge.MEMBER_AGE_20S);
         Member newMember = memberService.createNewMember(account, memberInfoDto);
+        memberId = newMember.getId();
 
         assertThat(newMember.getNickname()).isEqualTo("testUser");
         assertThat(newMember.getAccount().getPassword()).isEqualTo("testPwd");
         assertThat(newMember.getGender()).isEqualTo("man");
     }
 
+    @Test
+    @DisplayName("회원탈퇴")
+    void t2() {
+        memberService.withdrawalMember(memberId);
+    }
+
 
     @Test
-    void test1() {
+    @DisplayName("소갯말 수정")
+    void t3() {
+
 
     }
 
