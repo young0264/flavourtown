@@ -103,5 +103,12 @@ class MemberServiceTest {
         assertThat(member.getNickname()).isEqualTo("testNewNickname");
     }
 
+    @Test
+    @DisplayName("멤버 프로필 소갯말변경")
+    void t5() {
+        Member member = memberRepository.findById(memberId).orElse(null);
+        memberService.changeMemberIntroduce(member,"testNewIntroduce");
+        assertThat(member.getIntroduce()).isEqualTo("testNewIntroduce");
+    }
 
 }
