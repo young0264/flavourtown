@@ -24,12 +24,12 @@ public class LikeApiService {
 
     /* Post Like 시작 */
 
-    public void createNewPostLike(Member member, Post currentPost) {
+    public PostLike createNewPostLike(Member member, Post currentPost) {
         PostLike newPostLike = PostLike.builder()
                 .member(member)
                 .post(currentPost)
                 .build();
-        postLikeRepository.save(newPostLike);
+        return postLikeRepository.save(newPostLike);
     }
 
     public boolean existPostLikeFlag(Member member, Post post) {
