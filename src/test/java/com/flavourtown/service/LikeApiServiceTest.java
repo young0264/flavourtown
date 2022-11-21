@@ -125,4 +125,12 @@ class LikeApiServiceTest {
         assertThat(member.getPostLike().size()).isEqualTo(0);
     }
 
+    @Test
+    @DisplayName("게시글 좋아요 추가 및 삭제")
+    void t3() {
+        Member member = memberRepository.findById(memberId).orElse(null);
+        Post post = postRepository.findById(postId).orElse(null);
+        boolean isPostLike = likeApiService.existPostLikeFlag(member, post);
+        Assertions.assertThat(isPostLike).isEqualTo(false);
+    }
 }
