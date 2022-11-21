@@ -74,12 +74,14 @@ public class LikeApiService {
 
     /* Reply Like 시작 */
 
-    public void createNewReplyLike(Member member, Reply currentReply) {
-        ReplyLike newPostLike = ReplyLike.builder()
+    public ReplyLike createNewReplyLike(Member member, Reply currentReply) {
+        ReplyLike newReplyLike = ReplyLike.builder()
                 .member(member)
                 .reply(currentReply)
                 .build();
-        replyLikeRepository.save(newPostLike);
+        currentReply.getReplyLike().add(newReplyLike);
+        member.getReplyLike().add(newReplyLike);
+        return replyLikeRepository.save(newReplyLike);
     }
 
     public boolean existReplyLikeFlag(Member member, Reply reply) {
