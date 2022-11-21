@@ -4,14 +4,18 @@ import com.flavourtown.domain.account.Account;
 import com.flavourtown.domain.account.AccountRepository;
 import com.flavourtown.domain.like.PostLike;
 import com.flavourtown.domain.like.PostLikeRepository;
+import com.flavourtown.domain.like.ReplyLike;
 import com.flavourtown.domain.like.ReplyLikeRepository;
 import com.flavourtown.domain.member.Member;
 import com.flavourtown.domain.member.MemberAge;
 import com.flavourtown.domain.member.MemberRepository;
 import com.flavourtown.domain.post.Post;
 import com.flavourtown.domain.post.PostRepository;
+import com.flavourtown.domain.reply.Reply;
+import com.flavourtown.domain.reply.ReplyRepository;
 import com.flavourtown.web.dto.member.MemberInfoDto;
 import com.flavourtown.web.dto.post.PostDto;
+import com.flavourtown.web.dto.reply.ReplyDto;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -42,6 +46,8 @@ class LikeApiServiceTest {
     @Autowired
     PostLikeRepository postLikeRepository;
     @Autowired
+    ReplyRepository replyRepository;
+    @Autowired
     ReplyLikeRepository replyLikeRepository;
     @Autowired
     PostRepository postRepository;
@@ -51,6 +57,8 @@ class LikeApiServiceTest {
     PostService postService;
     @Autowired
     MemberService memberService;
+    @Autowired
+    ReplyService replyService;
     Long postId;
     Long memberId;
 
@@ -110,6 +118,27 @@ class LikeApiServiceTest {
         assertThat(post.getContent()).isEqualTo(postLike.getPost().getContent());
     }
 
+    @Test
+    @DisplayName("ReplyLike 생성")
+    void t1_1() {
+        Member member = memberRepository.findByNickname("testUser").orElse(null);
+        Post post = postRepository.findById(postId).orElse(null);
+        ReplyDto replyDto = ReplyDto.builder()
+                .comment("test reply")
+                .replyTime("test now")
+                .replyLikeCount(1)
+                .nickname("testUser")
+                .build();
+        Long replyId = replyService.saveReply(post.getId(), replyDto, member.getId());
+        Reply reply = replyRepository.findById(replyId).orElse(null);
+        ReplyLike replyLike = likeApiService.createNewReplyLike(member, reply);
+        assertThat(member.getNickname()).isEqualTo(replyLike.getMember().getNickname());
+        assertThat(member.getBirth()).isEqualTo(replyLike.getMember().getBirth());
+        assertThat(reply.getNickname()).isEqualTo(replyLike.getReply().getNickname());
+        assertThat(reply.getComment()).isEqualTo(replyLike.getReply().getComment());
+
+    }
+
 
     @Test
     @DisplayName("좋아요 기능 상태 리턴")
@@ -133,4 +162,6 @@ class LikeApiServiceTest {
         boolean isPostLike = likeApiService.existPostLikeFlag(member, post);
         Assertions.assertThat(isPostLike).isEqualTo(false);
     }
+
+
 }
