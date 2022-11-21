@@ -1,5 +1,6 @@
 package com.flavourtown.service;
 
+import com.flavourtown.domain.like.PostLike;
 import com.flavourtown.domain.member.Member;
 import com.flavourtown.domain.member.MemberRepository;
 import com.flavourtown.domain.place.Place;
@@ -7,6 +8,7 @@ import com.flavourtown.domain.post.Post;
 import com.flavourtown.domain.post.PostRepository;
 import com.flavourtown.domain.post.SearchType;
 import com.flavourtown.domain.reply.ReplyTime;
+import com.flavourtown.infra.security.SecurityUser;
 import com.flavourtown.web.dto.post.PostDto;
 import lombok.RequiredArgsConstructor;
 
@@ -18,7 +20,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @RequiredArgsConstructor
 @Transactional
@@ -33,7 +37,7 @@ public class PostService {
     private final PostRepository postRepository;
 
     public Post findById(Long id) {
-        return postRepository.findById(id).get();
+        return postRepository.findById(id).orElse(null);
     }
 
     @Transactional(readOnly = true)
@@ -49,21 +53,19 @@ public class PostService {
     /**
      * 게시글 등록
      */
-    public Post savePost(String userName, Member user, PostDto postDto) {
+    public Post savePost(Member user, PostDto postDto) {
 //        String imageUrls = imageUtil.saveFiles(dto.getImgFiles());
         Place place = placeService.findPlace(postDto.getPlaceId());
-        log.info("place id = " + postDto.getPlaceId());
         String newTypeTime = convertDateTime(LocalDateTime.now());
-
         Post post = Post.builder()
                 .title(postDto.getTitle())
                 .content(postDto.getContent())
                 .privateStatus(postDto.getPrivateStatus())
                 .member(user)
-                .userName(userName)
-//                .imageUrls(imageUrls)
+                .userName(user.getNickname())
                 .createdTime(LocalDateTime.now())
                 .postTime(newTypeTime)
+                .postLike(new HashSet<>())
                 .build();
         post.addPlace(place);
 
