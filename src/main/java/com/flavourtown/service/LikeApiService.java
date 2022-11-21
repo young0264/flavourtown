@@ -29,7 +29,15 @@ public class LikeApiService {
                 .member(member)
                 .post(currentPost)
                 .build();
+        currentPost.getPostLike().add(newPostLike);
+        member.getPostLike().add(newPostLike);
         return postLikeRepository.save(newPostLike);
+    }
+
+    public void deletePostLike(Member member, Post currentPost, PostLike postLike) {
+        currentPost.getPostLike().remove(postLike);
+        member.getPostLike().remove(postLike);
+        postLikeRepository.delete(postLike);
     }
 
     public boolean existPostLikeFlag(Member member, Post post) {
@@ -42,7 +50,7 @@ public class LikeApiService {
                 Post currentPost = postService.findById(id);
                 if (existPostLikeFlag(member, currentPost)) {
                     PostLike currentPostLike = postLikeRepository.findByMemberAndPost(member, currentPost);
-                    postLikeRepository.delete(currentPostLike);
+                    deletePostLike(member, currentPost, currentPostLike);
                     return false;
                 } else {
                     createNewPostLike(member, currentPost);
