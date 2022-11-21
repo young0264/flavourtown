@@ -1,6 +1,7 @@
 package com.flavourtown.service;
 
 import com.flavourtown.domain.account.Account;
+import com.flavourtown.domain.account.AccountRepository;
 import com.flavourtown.domain.member.Member;
 import com.flavourtown.domain.member.MemberAge;
 import com.flavourtown.domain.member.MemberRepository;
@@ -41,6 +42,8 @@ class PostServiceTest {
     private MemberService memberService;
     @Autowired
     private MemberRepository memberRepository;
+    @Autowired
+    private AccountRepository accountRepository;
 
     Long thisId;
 
@@ -50,7 +53,7 @@ class PostServiceTest {
         Account account =  Account.builder()
                 .username("testUser")
                 .password("testPwd")
-                .email("test2@naver.com")
+                .email("test@naver.com")
                 .build();
 
         MemberInfoDto memberInfoDto =  MemberInfoDto.builder()
@@ -59,7 +62,7 @@ class PostServiceTest {
                 .gender("man")
                 .memberAge(MemberAge.MEMBER_AGE_20S)
                 .build();
-
+        accountRepository.save(account);
         Member newMember = memberService.createNewMember(account, memberInfoDto);
 
         assertThat(newMember.getNickname()).isEqualTo("testUser");
@@ -68,13 +71,14 @@ class PostServiceTest {
     }
 
     //savePost(String userName, Member user, PostDto postDto)
-    @BeforeEach
+    @Test
     @DisplayName("게시글 등록")
     void t1() {
         Member member = memberRepository.findByNickname("testUser").orElse(null);
         PostDto postDto = PostDto.builder()
                 .placeId(26981291L) //등록되어 있는 place Id 사용
                 .title("testTitle")
+
                 .content("testContent")
                 .privateStatus(true)
                 .build();
