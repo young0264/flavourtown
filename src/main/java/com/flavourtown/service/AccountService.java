@@ -163,7 +163,7 @@ public class AccountService implements UserDetailsService {
     }
 
     public boolean checkDuplicatedAccount(String username) {
-        return accountRepository.existsByUsername(username);
+        return accountRepository.existsFindByUsername(username);
     }
 
     /**
@@ -173,7 +173,7 @@ public class AccountService implements UserDetailsService {
      */
     public boolean existMemberCheck(AccountSignUpDto accountSignUpDto) {
         // 이미 존재하는 username 혹은 email 인지 확인하는 폼
-        boolean existUsername = accountRepository.existsByUsername(accountSignUpDto.getUsername());
+        boolean existUsername = accountRepository.existsFindByUsername(accountSignUpDto.getUsername());
         boolean existEmail = accountRepository.existsByEmail(accountSignUpDto.getEmail());
         return existUsername || existEmail;
     }
@@ -194,7 +194,6 @@ public class AccountService implements UserDetailsService {
                 .postList(currentMember.getPostList())
                 .replyList(currentMember.getReplyList())
                 .build();
-
     }
 
     public boolean checkAccountPassword(String password, Account currentUser) {
