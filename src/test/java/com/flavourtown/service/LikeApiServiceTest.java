@@ -111,4 +111,18 @@ class LikeApiServiceTest {
     }
 
 
+    @Test
+    @DisplayName("좋아요 기능 상태 리턴")
+    void t2() {
+        Member member = memberRepository.findById(memberId).orElse(null);
+        Post post = postRepository.findById(postId).orElse(null);
+
+        likeApiService.modifyLikeStatus(member, postId, "post");
+        assertThat(post.getPostLike().size()).isEqualTo(1);
+        assertThat(member.getPostLike().size()).isEqualTo(1);
+        likeApiService.modifyLikeStatus(member, postId, "post");
+        assertThat(post.getPostLike().size()).isEqualTo(0);
+        assertThat(member.getPostLike().size()).isEqualTo(0);
+    }
+
 }
