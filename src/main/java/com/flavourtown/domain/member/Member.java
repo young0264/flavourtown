@@ -2,6 +2,7 @@ package com.flavourtown.domain.member;
 
 import com.flavourtown.domain.account.Account;
 import com.flavourtown.domain.favorite.Favorite;
+import com.flavourtown.domain.like.PostLike;
 import com.flavourtown.domain.like.ReplyLike;
 import com.flavourtown.domain.post.Post;
 import com.flavourtown.domain.reply.Reply;
@@ -72,6 +73,9 @@ public class Member {
     public void changeBasicInfo(String introduce) {
         this.introduce = introduce;
     }
+
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<PostLike> postLike;
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<ReplyLike> replyLike;
