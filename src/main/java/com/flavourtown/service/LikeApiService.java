@@ -61,6 +61,7 @@ public class LikeApiService {
                 if (existReplyLikeFlag(member, currentReply)) {
                     ReplyLike currentReplyLike = replyLikeRepository.findByMemberAndReply(member, currentReply);
                     replyLikeRepository.delete(currentReplyLike);
+                    deleteReplyLike(member, currentReply, currentReplyLike);
                     return false;
                 } else {
                     createNewReplyLike(member, currentReply);
@@ -82,6 +83,11 @@ public class LikeApiService {
         currentReply.getReplyLike().add(newReplyLike);
         member.getReplyLike().add(newReplyLike);
         return replyLikeRepository.save(newReplyLike);
+    }
+    public void deleteReplyLike(Member member, Reply currentReply, ReplyLike replyLike) {
+        member.getReplyLike().remove(replyLike);
+        currentReply.getReplyLike().remove(replyLike);
+        replyLikeRepository.delete(replyLike);
     }
 
     public boolean existReplyLikeFlag(Member member, Reply reply) {
