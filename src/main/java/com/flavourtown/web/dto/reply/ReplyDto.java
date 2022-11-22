@@ -10,12 +10,12 @@ import java.util.List;
 
 @Getter
 @Builder
-@NoArgsConstructor
+//@NoArgsConstructor
 @AllArgsConstructor
 public class ReplyDto {
 
     @NotEmpty(message = "댓글은 필수입니다.")
-    @Size(min = 5, message = "댓글은 5글자이상 이내로 작성해주세요.")
+    @Size(min = 5, message = "댓글은 5글자 이상 작성해주세요.")
     private String comment;
 
     private Long id;

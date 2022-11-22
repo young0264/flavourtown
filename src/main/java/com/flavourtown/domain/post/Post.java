@@ -63,7 +63,7 @@ public class Post {
     @ManyToOne(fetch = FetchType.LAZY)
     private Place place;
 
-    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "post", orphanRemoval = true)
     private Set<PostLike> postLike;
 
     // 추가 부분
