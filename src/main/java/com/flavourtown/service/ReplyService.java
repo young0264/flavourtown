@@ -55,6 +55,7 @@ public class ReplyService {
         log.info("member nickname : " + member.getNickname());
         Reply savedReply = replyRepository.save(reply);     //id와 comment만 등록되어 있는 상태.
         post.addReply(savedReply);                 //Reply에 Post객체 초기화
+        member.addReply(savedReply);
         return reply.getId();
     }
 

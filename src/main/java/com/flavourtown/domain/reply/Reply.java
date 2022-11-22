@@ -68,7 +68,7 @@ public class Reply {
         this.post = post;
     }
 
-    public void insertWriter(Member member) {
+    public void insertMember(Member member) {
         this.writer = member;
     }
 

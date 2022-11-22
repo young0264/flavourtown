@@ -68,7 +68,6 @@ public class PostService {
                 .postLike(new HashSet<>())
                 .build();
         post.addPlace(place);
-
         return postRepository.save(post);
     }
 
@@ -82,7 +81,10 @@ public class PostService {
      * @param id
      */
     public void delete(Long id) {
+        Post post = postRepository.findById(id).orElse(null);
+        post.getPlace().getPosts().remove(post);
         postRepository.deleteById(id);
+
     }
 
     /**
