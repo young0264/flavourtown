@@ -74,9 +74,17 @@ public class Member {
         this.introduce = introduce;
     }
 
-    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "post", orphanRemoval = true)
     private Set<PostLike> postLike;
 
-    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "member", orphanRemoval = true)
     private Set<ReplyLike> replyLike;
+
+    public void addPostLike(PostLike postLike) {
+        this.postLike.add(postLike);
+        postLike.setMember(this);
+    }
+
+
+
 }

@@ -40,21 +40,21 @@ public class ReplyService {
      * 댓글저장
      */
     public Long saveReply(Long postId, ReplyDto replyDto, Long memberId) {
-        Optional<Member> member = memberRepository.findById(memberId);
-        Optional<Post> post = postRepository.findById(postId);
+        Member member = memberRepository.findById(memberId).orElse(null);
+        Post post = postRepository.findById(postId).orElse(null);
         String newTypeTime = convertDateTime(LocalDateTime.now());
         Reply reply = Reply.builder()
-                .nickname(member.get().getNickname())
+                .nickname(member.getNickname())
                 .comment(replyDto.getComment())
                 .createDate(LocalDateTime.now())
-                .writer(member.get())
-                .post(post.get())
+                .writer(member)
+                .post(post)
                 .replyLike(new HashSet<>())
                 .replyTime(newTypeTime)
                 .build();
-        log.info("member nickname : " + member.get().getNickname());
+        log.info("member nickname : " + member.getNickname());
         Reply savedReply = replyRepository.save(reply);     //id와 comment만 등록되어 있는 상태.
-        post.get().addReply(savedReply);                 //Reply에 Post객체 초기화
+        post.addReply(savedReply);                 //Reply에 Post객체 초기화
         return reply.getId();
     }
 
@@ -108,7 +108,6 @@ public class ReplyService {
     /**
      * 댓글 시간 변경(~전)
      */
-
     public void refreshTime(List<Reply> replyList) {
         for (Reply reply : replyList) {
             if (reply.getModifyDate() == null) {

@@ -36,6 +36,7 @@
                                     </div>
                                 </div>
 
+                                <!--drop down 내부-->
                                 <div class="dropdown" sec:authorize="isAuthenticated()">
                                     <th:block
                                             th:if="${#authentication.principal.username == reply.writer.account.username}">
@@ -55,7 +56,7 @@
                                     </th:block>
                                 </div>
                             </div>
-                            <!-- Modal -->
+                            <!-- drop down 수정 외부 -->
                             <div class="modal fade" th:id="|replyUpdate${reply.id}|" tabindex="-1" role="dialog"
                                  th:aria-labelledby="|replyModalCenterTitle${reply.id}|" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered" role="document">
@@ -65,8 +66,7 @@
                                                 <h5 class="modal-title"
                                                     th:id="|replyModalLongTitle${reply.id}|">댓글
                                                     수정하기</h5>
-                                                <button type="button" class="close" data-dismiss="modal"
-                                                        aria-label="Close">
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
                                             </div>
@@ -89,7 +89,7 @@
                                     </form>
                                 </div>
                             </div>
-                            <!-- Modal -->
+                            <!-- drop down 삭제 외부 -->
                             <div class="modal fade" th:id="|replyDelete${reply.id}|" tabindex="-1" role="dialog"
                                  th:aria-labelledby="|replyDeleteModalCenterTitle${reply.id}|"
                                  aria-hidden="true">
@@ -143,11 +143,13 @@
                 <a href="#" class="item-btn">Load More Comments <span>4+</span></a>
             </div>-->
         </div>
-        <div id = class="my-2">
+<!--        <div id=class="my-2" sec:authorize="isAuthenticated()">-->
+        <div id=class="my-2">
             <form method="POST" th:object="${replyDto}" th:action="@{|/post/${post.id}/reply|}" id="replyForm">
                 <div class="input-group">
                     <!--                    <input type="text" id="comment" name="COMMENT" class="form-control w-75" placeholder="댓글을 입력해 주세요.">-->
-                    <input id="replyInput" type="text" th:field="*{comment}" class="form-control w-75" placeholder="댓글을 입력해 주세요.">
+                    <input id="replyInput" type="text" th:field="*{comment}" class="form-control w-75"
+                           placeholder="댓글을 입력해 주세요.">
                     <!--                    <small class="form-text text-danger fieldError" th:if="${#fields.hasErrors('comment')}" th:errors="*{comment}">Comment Error</small>-->
 
                     <div class="input-group-append">
@@ -193,12 +195,14 @@
 
             const postId = [[${post.id}]]
             $("#replyButton").click(function (e) {
-
+                console.log("reply save error1")
                 $.ajax({
                     type: "POST",
                     url: "/post/" + postId + "/reply",
                     data: $('#replyForm').serialize(),
+
                     error: function (error) {
+                        console.log("reply save error2")
                         Swal.fire({
                             icon: 'error',
                             title: 'Error...',
@@ -207,6 +211,7 @@
                     },
 
                     success: function (replyDto) {
+                        console.log("reply save error3")
                         let result = $("#reply_async_template").html()
                             .replaceAll("{nickname}", replyDto.nickname)
                             .replaceAll("{comment}", replyDto.comment)

@@ -120,7 +120,7 @@ class LikeApiServiceTest {
 
     @Test
     @DisplayName("ReplyLike 생성")
-    void t1_1() {
+    void t1_2() {
         Member member = memberRepository.findByNickname("testUser").orElse(null);
         Post post = postRepository.findById(postId).orElse(null);
         ReplyDto replyDto = ReplyDto.builder()
@@ -141,12 +141,18 @@ class LikeApiServiceTest {
 
 
     @Test
-    @DisplayName("좋아요 기능 상태 리턴")
+    @DisplayName("post 좋아요 상태 리턴")
     void t2() {
         Member member = memberRepository.findById(memberId).orElse(null);
         Post post = postRepository.findById(postId).orElse(null);
+        System.out.println("post title : " + post.getTitle());
+        System.out.println("post title : " + post.getContent());
+        System.out.println("post title : " + post.getPostLike().size());
 
         likeApiService.modifyLikeStatus(member, postId, "post");
+        System.out.println("post title : " + post.getPostLike().size());
+        System.out.println("member size : " +member.getPostLike().size());
+
         assertThat(post.getPostLike().size()).isEqualTo(1);
         assertThat(member.getPostLike().size()).isEqualTo(1);
         likeApiService.modifyLikeStatus(member, postId, "post");
@@ -155,10 +161,33 @@ class LikeApiServiceTest {
     }
 
     @Test
+    @DisplayName("reply 좋아요 상태 리턴")
+    void t2_2() {
+        Member member = memberRepository.findById(memberId).orElse(null);
+        Post post = postRepository.findById(postId).orElse(null);
+        ReplyDto replyDto = ReplyDto.builder()
+                .comment("test reply")
+                .replyTime("test now")
+                .replyLikeCount(1)
+                .nickname("testUser")
+                .build();
+        Long replyId = replyService.saveReply(post.getId(), replyDto, member.getId());
+        Reply reply = replyRepository.findById(replyId).orElse(null);
+
+        likeApiService.modifyLikeStatus(member, replyId, "reply");
+        assertThat(reply.getReplyLike().size()).isEqualTo(1);
+        assertThat(member.getReplyLike().size()).isEqualTo(1);
+        likeApiService.modifyLikeStatus(member, replyId, "reply");
+        assertThat(reply.getReplyLike().size()).isEqualTo(0);
+        assertThat(member.getReplyLike().size()).isEqualTo(0);
+    }
+
+    @Test
     @DisplayName("게시글 좋아요 추가 및 삭제")
     void t3() {
         Member member = memberRepository.findById(memberId).orElse(null);
         Post post = postRepository.findById(postId).orElse(null);
+
         boolean isPostLike = likeApiService.existPostLikeFlag(member, post);
         Assertions.assertThat(isPostLike).isEqualTo(false);
     }

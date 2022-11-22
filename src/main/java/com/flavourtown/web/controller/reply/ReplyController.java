@@ -48,8 +48,10 @@ public class ReplyController {
                                       @PathVariable("postId") Long postId,
                                       @AuthUser Account account) {
         if (bindingResult.hasErrors()) {
+            System.out.println("reply binding error");
             return ResponseEntity.badRequest().build();
         }
+        System.out.println("error : "+ replyDto.getComment());
 
         Member member = account.getMember(); //securityuser . account . member . id가져오기
         Long memberId = member.getId(); //securityuser . account . member . id가져오기
@@ -62,7 +64,6 @@ public class ReplyController {
                 .replyTime(reply.getReplyTime())
                 .comment(reply.getComment())
                 .build();
-        log.info("댓글 값이 들어갔습니다 , nickname ={}", newReplyDto.getNickname());
         log.info("값이 들어갔습니다 = " + replyDto.getComment());
         return ResponseEntity.ok(newReplyDto);
     }

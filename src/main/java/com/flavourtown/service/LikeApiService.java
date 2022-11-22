@@ -8,12 +8,14 @@ import com.flavourtown.domain.member.Member;
 import com.flavourtown.domain.post.Post;
 import com.flavourtown.domain.reply.Reply;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
 @Transactional
+@Slf4j
 public class LikeApiService {
 
     private final PostLikeRepository postLikeRepository;
@@ -29,14 +31,19 @@ public class LikeApiService {
                 .member(member)
                 .post(currentPost)
                 .build();
-        currentPost.getPostLike().add(newPostLike);
-        member.getPostLike().add(newPostLike);
+//        currentPost.addPostLike(newPostLike);
+//        member.addPostLike(newPostLike);
+////
+//        currentPost.getPostLike().add(newPostLike);
+//        member.getPostLike().add(newPostLike);
+//        newPostLike.setPost(currentPost);
+//        newPostLike.setMember(member);
         return postLikeRepository.save(newPostLike);
     }
 
     public void deletePostLike(Member member, Post currentPost, PostLike postLike) {
-        currentPost.getPostLike().remove(postLike);
-        member.getPostLike().remove(postLike);
+
+//        currentPost.deletePostLike(postLike);
         postLikeRepository.delete(postLike);
     }
 
@@ -60,7 +67,7 @@ public class LikeApiService {
                 Reply currentReply = replyService.getReply(id);
                 if (existReplyLikeFlag(member, currentReply)) {
                     ReplyLike currentReplyLike = replyLikeRepository.findByMemberAndReply(member, currentReply);
-                    replyLikeRepository.delete(currentReplyLike);
+//                    replyLikeRepository.delete(currentReplyLike);
                     deleteReplyLike(member, currentReply, currentReplyLike);
                     return false;
                 } else {
@@ -80,13 +87,13 @@ public class LikeApiService {
                 .member(member)
                 .reply(currentReply)
                 .build();
-        currentReply.getReplyLike().add(newReplyLike);
-        member.getReplyLike().add(newReplyLike);
+//        currentReply.getReplyLike().add(newReplyLike);
+//        member.getReplyLike().add(newReplyLike);
         return replyLikeRepository.save(newReplyLike);
     }
     public void deleteReplyLike(Member member, Reply currentReply, ReplyLike replyLike) {
-        member.getReplyLike().remove(replyLike);
-        currentReply.getReplyLike().remove(replyLike);
+//        member.getReplyLike().remove(replyLike);
+//        currentReply.getReplyLike().remove(replyLike);
         replyLikeRepository.delete(replyLike);
     }
 

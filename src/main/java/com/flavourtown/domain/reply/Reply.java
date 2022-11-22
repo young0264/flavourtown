@@ -36,11 +36,12 @@ public class Reply {
     @ManyToOne(fetch = FetchType.LAZY)
     private Post post;
 
-    @ManyToOne(fetch = FetchType.LAZY) //댓글 작성자
+    @ManyToOne(fetch = FetchType.LAZY) //
     private Member writer;
 
     @Builder.Default
     @OneToMany(mappedBy = "reply", cascade = CascadeType.ALL, orphanRemoval = true)
+    //cascade = CascadeType.ALL,
     private Set<ReplyLike> replyLike = new HashSet<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -49,7 +50,6 @@ public class Reply {
 
     @Builder.Default
     @OneToMany(mappedBy = "parent", orphanRemoval = true)
-
     private List<Reply> child = new ArrayList<>();
 
     private String replyTime;
@@ -71,5 +71,6 @@ public class Reply {
     public void insertWriter(Member member) {
         this.writer = member;
     }
+
 
 }

@@ -17,10 +17,10 @@ public class ReplyLike {
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.EAGER )
+    @ManyToOne(fetch = FetchType.LAZY )
     private Reply reply;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @EqualsAndHashCode.Include
     private Member member;
 
