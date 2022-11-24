@@ -55,7 +55,7 @@ public class Member {
     private List<Reply> replyList = new ArrayList<>();
 
     @Builder.Default
-    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "member", orphanRemoval = true)
     private List<Favorite> favoriteList = new ArrayList<>();
 
     public void addReply(Reply reply) {
