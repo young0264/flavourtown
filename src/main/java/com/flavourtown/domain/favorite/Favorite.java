@@ -5,10 +5,12 @@ import com.flavourtown.domain.place.Place;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Getter
+@Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class Favorite {
@@ -22,18 +24,17 @@ public class Favorite {
     @ManyToOne(fetch = FetchType.LAZY)
     private Member member;
 
-    @OneToMany
-    @JoinColumn
-    private List<Place> placeList;
+    @OneToMany(mappedBy = "favorite", orphanRemoval = true)
+    private List<Place> placeList = new ArrayList<>();
 
     public Favorite(Member member, String subject) {
         this.member = member;
         this.subject = subject;
     }
 
-    public void addPlace(Place place) {
-        this.placeList.add(place);
-    }
+//    public void addPlace(Place place) {
+//        this.placeList.add(place);
+//    }
 
     public void setSubject(String subject) {
         this.subject = subject;
