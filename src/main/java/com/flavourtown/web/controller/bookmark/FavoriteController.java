@@ -1,4 +1,4 @@
-package com.flavourtown.web.controller.favorite;
+package com.flavourtown.web.controller.bookmark;
 
 import com.flavourtown.domain.account.Account;
 import com.flavourtown.domain.account.AuthUser;
@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.websocket.server.PathParam;
+import java.util.List;
 
 @Slf4j
 @Controller
@@ -22,21 +23,20 @@ public class FavoriteController {
     private final PlaceService placeService;
 
     /**
-     *
-     * @param account
-     * @param subject
-     * @return
+     * 북마크 카테고리 추가
      */
     @PostMapping("/favorite/addFavorite")
     public String addFavorite(@AuthUser Account account, @PathParam("subject") String subject) {
         Member member = account.getMember();
         Favorite favorite = new Favorite(member, subject);
+        member.getFavoriteList().add(favorite); //연관관계
+        favorite.setMember(member);
         favoriteService.save(favorite);
         return "redirect:/profile/bookmark/view";
     }
 
     /**
-     *
+     *장소에서 북마크추가하면서, 카테고리 위치 변경 가능
      */
     @GetMapping("/favorite/changeFavorite/{favoriteId}/{placeId}")
     public String changeFavorite(@AuthUser Account account,@PathVariable("favoriteId") Long favoriteId, @PathVariable("placeId") long placeId) {
@@ -48,7 +48,7 @@ public class FavoriteController {
     }
 
     /**
-     *
+     * 북마크 카테고리 이름 변경
      */
     @PostMapping("/favorite/modifyFavorite/{favoriteId}")
     public String modifyFavorite(@AuthUser Account account, @PathVariable Long favoriteId, @PathParam("subject") String subject) {
