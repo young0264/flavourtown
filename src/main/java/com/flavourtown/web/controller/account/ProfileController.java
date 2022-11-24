@@ -104,22 +104,24 @@ public class ProfileController {
 
     /**
      * 프로필의 북마크 관리 페이지
-     *
      */
     @GetMapping("/profile/bookmark/view")
     public String showBookmark(Model model, @AuthUser Account account, Principal principal) {
-        Optional<Favorite> optionalFavorite = Optional.ofNullable(favoriteService.findTopByMember(account.getMember()));
+        Member member = account.getMember();
+        Optional<Favorite> optionalFavorite = Optional.ofNullable(favoriteService.findTopByMember(member));
+
         if (optionalFavorite.isPresent()) {
             List<Favorite> favoriteList = favoriteService.findAllByMember(account.getMember());
-            model.addAttribute("favorites", favoriteList);
+            model.addAttribute("favoriteList", favoriteList);
+
         } else {
             Favorite favorite = new Favorite(account.getMember(), "나만의 맛집");
             favoriteService.save(favorite);
-            model.addAttribute("favorites", favorite);
+            model.addAttribute("favoriteList", favorite);
         }
+
         MemberVo memberVo = accountService.getReadOnlyMember(principal.getName());
         model.addAttribute("member", memberVo);
-
         return "profile/profile-bookmark";
     }
 
