@@ -1,5 +1,6 @@
 package com.flavourtown.domain.place;
 
+import com.flavourtown.domain.favorite.Favorite;
 import com.flavourtown.domain.post.Post;
 import lombok.*;
 
@@ -10,6 +11,7 @@ import java.util.List;
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
+@Setter
 public class Place {
     @Id
     private long id;
@@ -25,6 +27,9 @@ public class Place {
 
     @Lob
     private String photoUrls;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Favorite favorite;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "place")
     private List<Post> posts = new ArrayList<>();
