@@ -9,10 +9,8 @@ import com.flavourtown.domain.member.MemberRepository;
 import com.flavourtown.domain.place.Place;
 import com.flavourtown.domain.post.Post;
 import com.flavourtown.domain.post.PostRepository;
-import com.flavourtown.domain.reply.ReplyRepository;
 import com.flavourtown.web.dto.member.MemberInfoDto;
 import com.flavourtown.web.dto.post.PostDto;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -24,7 +22,6 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import javax.transaction.Transactional;
 import java.util.Date;
 import java.util.List;
-import java.util.stream.DoubleStream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
