@@ -9,9 +9,9 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
-@Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
+@Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final AccountService accountService;

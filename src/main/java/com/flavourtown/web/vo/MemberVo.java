@@ -1,5 +1,6 @@
 package com.flavourtown.web.vo;
 
+import com.flavourtown.domain.favorite.Favorite;
 import com.flavourtown.domain.post.Post;
 import com.flavourtown.domain.reply.Reply;
 import lombok.AllArgsConstructor;
@@ -21,5 +22,6 @@ public class MemberVo {
     private final String gender;
     private final List<Post> postList;
     private final List<Reply> replyList;
+    private final List<Favorite> favoriteList;
 
 }

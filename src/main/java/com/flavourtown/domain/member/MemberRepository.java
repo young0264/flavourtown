@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Optional;
 
 
-@Transactional
+@Transactional(readOnly = true)
 @Repository
 public interface MemberRepository extends JpaRepository<Member, Long> {
 
