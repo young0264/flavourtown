@@ -76,5 +76,43 @@ class FavoriteServiceTest {
 
     }
 
+    @Test
+    @DisplayName("북마크 다른 카테고리로 이동")
+    void t3() {
+        Member member = memberRepository.findByNickname("testUser").orElse(null);
+        Place place = placeRepository.findById(26981291L).orElse(null);
+        Favorite favorite1 = favoriteService.initFavorite(member, "test Favorite1");
+        Favorite favorite2 = favoriteService.initFavorite(member, "test Favorite2");
+
+        //카테고리 1,2 추가
+        favoriteService.addCategory(member, favorite1);
+        favoriteService.addCategory(member, favorite2);
+
+        //카테고리 1에 북마크한 palce 등록
+        favoriteService.replaceExistPlace(member, place, favorite1);
+
+        String subject = member.getFavoriteList().get(0).getSubject();
+
+        //favorite 카테고리가 정상적으로 저장되었는지 확인
+        assertThat(favorite1.getSubject()).isEqualTo("test Favorite1");
+
+        //favorite 카테고리를 추가 저장 후 member에 저장되있는 것과 같은지 확인
+        assertThat(subject).isEqualTo("test Favorite1");
+
+        //favorite 카테고리 1에있던걸 2로 옮김 -> 1에없고 2에 있는 검증해야함
+        favoriteService.replaceExistPlace(member, place, favorite2);
+
+        List<Favorite> favoriteList = member.getFavoriteList();
+        for (Favorite favorite : favoriteList) {
+            if (favorite.getSubject().equals("test Favorite2")) {
+                assertThat(favorite.getPlaceList().get(0).getPlaceName()).isEqualTo(place.getPlaceName());
+                break;
+            }
+        }
+
+    }
+
+
+    //    public void delete(Favorite favorite) {
 
 }
