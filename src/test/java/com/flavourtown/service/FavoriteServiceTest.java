@@ -135,5 +135,21 @@ class FavoriteServiceTest {
         assertThat(favoriteRepository.findAllByMember(member).get(0).getPlaceList().size()).isEqualTo(0);
     }
 
+    @Test
+    @DisplayName("북마크 카테고리 전체 삭제")
+    void t5() {
+        Member member = memberRepository.findByNickname("testUser").orElse(null);
+        Place place = placeRepository.findById(26981291L).orElse(null);
+        Favorite favorite = favoriteService.initFavorite(member, "test Favorite1");
+        //카테고리 생성
+        favoriteService.addCategory(member, favorite);
+        //카테고리에 북마크한 장소 추가
+        favoriteService.replaceExistPlace(member, place, favorite);
+        //레포지토리에서 삭제
+        favoriteService.delete(member, favorite);
 
+        assertThat(member.getFavoriteList().size()).isEqualTo(0);
+        assertThat(favoriteRepository.findAllByMember(member).size()).isEqualTo(0);
+
+    }
 }
