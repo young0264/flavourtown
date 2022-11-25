@@ -114,5 +114,26 @@ class FavoriteServiceTest {
 
 
     //    public void delete(Favorite favorite) {
+    @Test
+    @DisplayName("북마크 삭제")
+    void t4() {
+        Member member = memberRepository.findByNickname("testUser").orElse(null);
+        Place place = placeRepository.findById(26981291L).orElse(null);
+        Favorite favorite = favoriteService.initFavorite(member, "test Favorite1");
+        //카테고리 생성
+        favoriteService.addCategory(member, favorite);
+        //카테고리에 북마크한 장소 추가
+        favoriteService.replaceExistPlace(member, place, favorite);
+
+        assertThat(favorite.getSubject()).isEqualTo("test Favorite1");
+        favorite.getPlaceList().remove(place);
+        favoriteRepository.save(favorite);
+
+        //북마크한 장소를 삭제한 placeList의 길이는 0 : favorite에서 확인
+        assertThat(favorite.getPlaceList().size()).isEqualTo(0);
+        //북마크한 장소를 삭제한 placeList의 길이는 0 : repository에서 확인
+        assertThat(favoriteRepository.findAllByMember(member).get(0).getPlaceList().size()).isEqualTo(0);
+    }
+
 
 }
