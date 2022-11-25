@@ -7,7 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@Transactional
+@Transactional(readOnly = true)
 @Repository
 public interface FavoriteRepository extends JpaRepository<Favorite, Long> {
 

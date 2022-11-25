@@ -110,14 +110,15 @@ public class ProfileController {
         Member member = account.getMember();
         Optional<Favorite> optionalFavorite = Optional.ofNullable(favoriteService.findTopByMember(member));
 
+        //카테고리가 있을 때
         if (optionalFavorite.isPresent()) {
             List<Favorite> favoriteList = favoriteService.findAllByMember(account.getMember());
             model.addAttribute("favoriteList", favoriteList);
-
-        } else {
+        } else { //카테고리가 없을 때
             Favorite favorite = new Favorite(account.getMember(), "나만의 맛집");
-            favoriteService.save(favorite);
             model.addAttribute("favoriteList", favorite);
+            member.addFavoriteCategory(favorite);
+            favoriteService.save(favorite);
         }
 
         MemberVo memberVo = accountService.getReadOnlyMember(principal.getName());
