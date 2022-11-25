@@ -1,6 +1,8 @@
 package com.flavourtown.service;
 
 import com.flavourtown.domain.account.Account;
+import com.flavourtown.domain.account.AccountRepository;
+import com.flavourtown.domain.favorite.Favorite;
 import com.flavourtown.domain.like.PostLike;
 import com.flavourtown.domain.member.Member;
 import com.flavourtown.domain.member.MemberRepository;
@@ -15,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Optional;
 
@@ -25,6 +28,7 @@ import java.util.Optional;
 public class MemberService {
 
     private final MemberRepository memberRepository;
+    private final AccountRepository accountRepository;
     public Member createNewMember(Account account, MemberInfoDto memberInfoDto) {
         Member newMember = Member.builder()
                 .account(account)
@@ -34,9 +38,12 @@ public class MemberService {
                 .gender(memberInfoDto.getGender())
                 .birth(memberInfoDto.getBirth())
                 .postLike(new HashSet<PostLike>())
+                .favoriteList(new ArrayList<Favorite>())
                 .build();
-        account.addMember(newMember);
+        account.insertMember(newMember);
+        newMember.insertAccount(account);
         log.info("newMember={}", newMember);
+        accountRepository.save(account);
         return memberRepository.save(newMember);
     }
 
