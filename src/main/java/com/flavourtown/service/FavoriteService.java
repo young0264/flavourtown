@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -38,8 +39,7 @@ public class FavoriteService {
                 break;
             }
         }
-        currentFavorite.getPlaceList().add(place);
-        place.setFavorite(currentFavorite);
+        currentFavorite.addPlace(place);
         favoriteRepository.save(currentFavorite);
     }
 
@@ -51,8 +51,26 @@ public class FavoriteService {
         return favoriteRepository.findByIdAndMember(favoriteId, member);
     }
 
-    public void delete(Favorite favorite) {
+
+    public void delete(Member member , Favorite favorite) {
         log.info("favorite.name in service ->{}", favorite.getSubject());
+        member.getFavoriteList().remove(favorite);
         favoriteRepository.delete(favorite);
+    }
+
+    public void addCategory(Member member, Favorite favorite) {
+
+        member.getFavoriteList().add(favorite);
+        favorite.insertMember(member);//여기까진 ok
+        favoriteRepository.save(favorite);
+    }
+
+    public Favorite initFavorite(Member member, String subject) {
+        Favorite favorite = Favorite.builder()
+                .subject(subject)
+                .member(member)
+                .placeList(new ArrayList<>())
+                .build();
+        return favorite;
     }
 }
