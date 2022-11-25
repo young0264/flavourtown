@@ -60,4 +60,8 @@ public class Place {
         System.out.println(photoUrls);
     }
 
+    public void insertFavorite(Favorite favorite) {
+        this.favorite = favorite;
+    }
+
 }
