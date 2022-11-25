@@ -9,19 +9,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Builder
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class Favorite {
-    // 고유 Id
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private String subject;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY) //
     private Member member;
 
     @OneToMany(mappedBy = "favorite", orphanRemoval = true)
@@ -32,11 +32,16 @@ public class Favorite {
         this.subject = subject;
     }
 
-//    public void addPlace(Place place) {
-//        this.placeList.add(place);
-//    }
+    public void addPlace(Place place) {
+        this.placeList.add(place);
+        place.insertFavorite(this);
+    }
 
-    public void setSubject(String subject) {
+
+    public void insertMember(Member member) {
+        this.member = member;
+    }
+    public void insertSubject(String subject) {
         this.subject = subject;
     }
 }
