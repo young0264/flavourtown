@@ -58,4 +58,23 @@ class FavoriteServiceTest {
         Assertions.assertThat(member.getFavoriteList().get(0).getSubject()).isEqualTo("test category subject");
     }
 
+    @Test
+    @DisplayName("장소 북마크에 등록")
+    void t2() {
+        Member member = memberRepository.findByNickname("testUser").orElse(null);
+        Place place = placeRepository.findById(26981291L).orElse(null);
+        Favorite favorite = favoriteService.initFavorite(member, "test Favorite1");
+        favoriteService.addCategory(member, favorite);
+        favoriteService.replaceExistPlace(member, place, favorite);
+        String subject = member.getFavoriteList().get(0).getSubject();
+
+        //favorite 카테고리가 정상적으로 저장되었는지 확인
+        assertThat(favorite.getSubject()).isEqualTo("test Favorite1");
+
+        //favorite 카테고리를 추가 저장 후 member에 저장되있는 것과 같은지 확인
+        assertThat(subject).isEqualTo("test Favorite1");
+
+    }
+
+
 }
