@@ -55,7 +55,7 @@ public class Member {
     private List<Reply> replyList = new ArrayList<>();
 
     @Builder.Default
-    @OneToMany(mappedBy = "member", orphanRemoval = true)
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Favorite> favoriteList = new ArrayList<>();
 
     public void addReply(Reply reply) {
@@ -85,6 +85,13 @@ public class Member {
         postLike.setMember(this);
     }
 
+    public void addFavoriteCategory(Favorite favorite) {
+        this.getFavoriteList().add(favorite);
+        favorite.insertMember(this);
+    }
 
+    public void insertAccount(Account account) {
+        this.account = account;
+    }
 
 }
