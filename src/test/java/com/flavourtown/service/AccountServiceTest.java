@@ -101,7 +101,7 @@ class AccountServiceTest {
     void t3() {
         Member member = memberRepository.findById(memberId).orElse(null);
         MemberVo memberVo = accountService.getReadOnlyMember(member.getNickname());
-        System.out.println("멤버 닉네임 : " + memberVo.getNickname());
+
         assertThat(memberVo.getNickname()).isEqualTo("testUser11");
         assertThat(memberVo.getIntroduce()).isEqualTo("테스트 intro");
     }
@@ -109,6 +109,12 @@ class AccountServiceTest {
     @Test//changeAccountPassword
     @DisplayName("비밀번호 변경")
     void t4() {
+        Member member = memberRepository.findById(memberId).orElse(null);
+        Account account = member.getAccount();
+        String newPwd = "changedPwd";
 
+        accountService.changeAccountPassword(newPwd, account);
+
+        assertTrue(passwordEncoder.matches(newPwd, account.getPassword()));
     }
 }
