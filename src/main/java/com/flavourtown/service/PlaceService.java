@@ -68,7 +68,7 @@ public class PlaceService {
 
 
 
-    private void pullInfo(Place place) {
+    public void pullInfo(Place place) {
 
         try {
             String menus="";
@@ -76,6 +76,7 @@ public class PlaceService {
             String mainPhotoUrl = "";
             String photoUrls = "";
             String url = "https://place.map.kakao.com/main/v/" + place.getId();
+
             HttpEntity<Map<String, String>> httpEntity = new HttpEntity<>(new HttpHeaders());
             ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, httpEntity, String.class);
             String body = response.getBody();
@@ -118,12 +119,14 @@ public class PlaceService {
                     return entry.getKey() + "=" + entry.getValue();
                 }).collect(Collectors.joining("|")).toString();
             }
+
             place.setAdditionalInfo(menus, facilityInfo,mainPhotoUrl,photoUrls);
         } catch (ParseException e) {
             log.error("parser error",e);
             throw new RuntimeException(e);
         }
     }
+
 
     public List<Place> findTop5Place() {
         return placeRepository.findByTop5Place();
