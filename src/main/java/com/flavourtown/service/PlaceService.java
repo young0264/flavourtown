@@ -38,7 +38,17 @@ public class PlaceService {
 
     public void savePlace(PlaceDto placeDto) {
         if (!placeRepository.existsById(placeDto.getId())) {
-            Place place = placeDto.toPlace();
+            Place place = Place.builder()
+                    .placeName(placeDto.getPlaceName())
+                    .id(placeDto.getId())
+                    .placeUrl(placeDto.getPlaceUrl())
+                    .categoryName(placeDto.getCategoryName())
+                    .addressName(placeDto.getAddressName())
+                    .roadAddressName(placeDto.getRoadAddressName())
+                    .phone(placeDto.getPhone())
+                    .x(placeDto.getX())
+                    .y(placeDto.getY())
+                    .build();
             pullInfo(place);
             placeRepository.save(place);
         }
