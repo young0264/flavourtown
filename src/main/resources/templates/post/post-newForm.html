@@ -25,7 +25,7 @@
     <!--=       Container  Area Start       =-->
     <!--=====================================-->
     <div class="container">
-        <!-- Modal -->
+        <!-- Place 찾기 Modal -->
         <div class="modal fade" id="placeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
@@ -48,8 +48,8 @@
                 </div>
             </div>
         </div>
-        <div class="forum-topic-add">
 
+        <div class="forum-topic-add">
             <div class="my-4">
                 <h3 class="heading-title">맛집 리뷰 등록</h3>
                 <p class="fs-3">맛집 등록을 통해 다른 사람들과 공유해보세요 !</p>
@@ -200,6 +200,7 @@
                     searchResultList.append(el);
                 }
             }
+            <!--음식점 카페 category-->
             const sendKakaoApi= ()=>{
                 let url = "https://dapi.kakao.com/v2/local/search/keyword.json?"+
                             "category_group_code=CE7,FD6&"+
@@ -209,7 +210,7 @@
                 url+= searchKeyword.trim()
                 fetch(url,{
                     method: "GET",
-                    headers:{"Authorization": "KakaoAK b12ed310737d8c0fe214f6b5e4532252",}
+                    headers:{"Authorization": "KakaoAK 8983013ae892b015737ad79cce0e27c1",}
                 }).
                     then(async res =>{
                         const json = await res.json();
