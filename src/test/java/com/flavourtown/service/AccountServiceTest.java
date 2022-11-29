@@ -41,8 +41,6 @@ class AccountServiceTest {
     @Autowired
     private AccountService accountService;
     @Autowired
-    private AccountRepository accountRepository;
-    @Autowired
     private MemberRepository memberRepository;
     @Autowired
     MemberService memberService;
@@ -88,12 +86,6 @@ class AccountServiceTest {
         assertThat("test121").isEqualTo(account.getUsername());
         assertThat("test@naver.com").isEqualTo(account.getEmail());
         assertTrue(passwordEncoder.matches(rowPwd,account.getPassword()));
-    }
-
-    @Test
-    @DisplayName("로그인")
-    void t2() {
-
     }
 
     @Test//getReadOnlyMember

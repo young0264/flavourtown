@@ -73,23 +73,6 @@ class PlaceServiceTest {
         assertThat(newMember.getGender()).isEqualTo("man");
     }
 
-    //    public void savePlace(PlaceDto placeDto) {
-    //PlaceDto
-//    private long id;
-//    private String placeName;
-//    private String placeUrl;
-//    private String categoryName;
-//    private String addressName;
-//    private String roadAddressName;
-//    private String phone;
-//    private String x;
-//    private String y;
-//
-//    @JsonProperty("category_group_code")
-//    private String categoryGroupCode;
-//    @JsonProperty("category_group_name")
-//    private String categoryGroupName;
-//    private String distance;
 
     @BeforeEach
     @DisplayName("place 저장")

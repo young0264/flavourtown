@@ -113,7 +113,6 @@ class FavoriteServiceTest {
     }
 
 
-    //    public void delete(Favorite favorite) {
     @Test
     @DisplayName("북마크 삭제")
     void t4() {
