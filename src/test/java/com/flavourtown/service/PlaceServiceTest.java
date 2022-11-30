@@ -37,7 +37,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @Transactional
-@ExtendWith(SpringExtension.class)
 @TestPropertySource(locations = "/application-test.properties")
 class PlaceServiceTest {
 
@@ -47,9 +46,7 @@ class PlaceServiceTest {
     private PlaceRepository placeRepository;
     @Autowired
     private PlaceService placeService;
-    @Autowired
-    private RestTemplate restTemplate;
-    private JSONParser parser = new JSONParser();
+
     Long memberId;
 
     @BeforeEach

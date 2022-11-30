@@ -9,6 +9,7 @@ import com.flavourtown.web.dto.reply.ReplyDto;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 @Transactional
-@ExtendWith(SpringExtension.class)
 @TestPropertySource(locations = "/application-test.properties")
 class ReplyServiceTest {
 

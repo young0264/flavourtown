@@ -23,7 +23,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 @Transactional
-@ExtendWith(SpringExtension.class)
 @TestPropertySource(locations = "/application-test.properties")
 class ProfileServiceTest {
     @Autowired

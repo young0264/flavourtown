@@ -34,7 +34,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @Transactional
-@ExtendWith(SpringExtension.class)
 @TestPropertySource(locations = "/application-test.properties")
 class AccountServiceTest {
 
