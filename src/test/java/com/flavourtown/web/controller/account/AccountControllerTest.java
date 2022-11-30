@@ -28,7 +28,7 @@ class AccountControllerTest {
     private MockMvc mockMvc;
 
     @Test
-    @DisplayName("로그인페이지 보여주기")
+    @DisplayName("GET method /login 로그인페이지 보여주기")
     void showLoginPage() throws Exception {
         ResultActions resultActions = mockMvc
                 .perform(get("/login"))
@@ -41,8 +41,11 @@ class AccountControllerTest {
 //    }
 
     @Test
-    void showSignUpPage() {
-
+    @DisplayName("GET method /signup 회원가입 페이지 보여주기")
+    void showSignUpPage() throws Exception {
+        mockMvc
+                .perform(get("/signup"))
+                .andExpect(status().isOk());
     }
 
     @Test
