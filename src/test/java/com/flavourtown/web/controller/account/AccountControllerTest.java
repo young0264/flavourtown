@@ -1,10 +1,13 @@
 package com.flavourtown.web.controller.account;
 
+import com.flavourtown.web.dto.account.AccountSignUpDto;
+import com.google.gson.Gson;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
@@ -16,6 +19,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
@@ -46,10 +51,24 @@ class AccountControllerTest {
         mockMvc
                 .perform(get("/signup"))
                 .andExpect(status().isOk());
+
     }
 
     @Test
-    void createNewMember() {
+    void createNewMember() throws Exception {
+        AccountSignUpDto accountSignUpDto = AccountSignUpDto.builder()
+                .username("mocktest")
+                .password("mocktest")
+                .email("mocktest@naver.com")
+                .build();
+        Gson gson = new Gson();
+        String content = gson.toJson(accountSignUpDto);
+        mockMvc
+                .perform(
+                        post("/signup")
+                                .content(content)
+                                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
     }
 
     @Test
