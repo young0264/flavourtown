@@ -12,6 +12,8 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Setter
+@Builder
+@AllArgsConstructor
 public class Place {
     @Id
     private long id;

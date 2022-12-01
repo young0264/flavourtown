@@ -48,7 +48,8 @@ public class TestDataInit {
                     .signUpDate(LocalDateTime.now())
                     .memberAge(MemberAge.MEMBER_AGE_20S)
                     .build());
-            newAccount.addMember(member);
+            newAccount.insertMember(member);
+            member.insertAccount(newAccount);
             accountRepository.save(newAccount);
         }
         if (accountRepository.findByUsername("admin").isEmpty()) {
@@ -70,7 +71,8 @@ public class TestDataInit {
                     .signUpDate(LocalDateTime.now())
                     .memberAge(MemberAge.MEMBER_AGE_20S)
                     .build());
-            newAccount.addMember(member);
+            newAccount.insertMember(member);
+            member.insertAccount(newAccount);
             accountRepository.save(newAccount);
         }
         if (accountRepository.findByUsername("1").isEmpty()) {
@@ -92,7 +94,8 @@ public class TestDataInit {
                     .signUpDate(LocalDateTime.now())
                     .memberAge(MemberAge.MEMBER_AGE_20S)
                     .build());
-            newAccount.addMember(member);
+            newAccount.insertMember(member);
+            member.insertAccount(newAccount);
             accountRepository.save(newAccount);
         }
     }

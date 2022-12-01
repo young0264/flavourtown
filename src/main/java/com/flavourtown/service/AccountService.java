@@ -38,7 +38,6 @@ import java.util.UUID;
 public class AccountService implements UserDetailsService {
 
     private final AccountRepository accountRepository;
-    private final MemberRepository memberRepository;
     private final MemberService memberService;
     private final PasswordEncoder passwordEncoder;
 
@@ -141,7 +140,7 @@ public class AccountService implements UserDetailsService {
     /**
      * Account 객체를 받아 로그인을 시켜주는 메소드
      * @param account 회원가입 시 생긴 Account 객체가 들어옴
-     * @returns 들어온 Account 객체를 Security를 이용하여 로그인 시켜줌
+     *  들어온 Account 객체를 Security를 이용하여 로그인 시켜줌
      */
     public void login(Account account) {
         // Security를 이용하여 member를 로그인 시켜줌(회원가입 시에만 사용)
@@ -152,16 +151,19 @@ public class AccountService implements UserDetailsService {
         SecurityContextHolder.getContext().setAuthentication(token);
     }
 
+
     /**
      * username을 통해 Account 객체를 찾는 메소드
-     * @param username 로그인 id가 들어옴
-     * @returns 해당하는 유저가 있는지 찾고 없다면 null을 반환
      */
     public Account findAccountByUsername(String username){
         Optional<Account> currentMember = accountRepository.findByUsername(username);
         return currentMember.orElse(null);
     }
 
+
+    /**
+     * user ID 중복 확인
+     */
     public boolean checkDuplicatedAccount(String username) {
         return accountRepository.existsFindByUsername(username);
     }
