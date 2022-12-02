@@ -1,6 +1,8 @@
 package com.flavourtown.web.controller.account;
 
+import com.flavourtown.domain.account.Account;
 import com.flavourtown.web.dto.account.AccountSignUpDto;
+import com.flavourtown.web.dto.profile.ProfileWithdrawalDto;
 import com.google.gson.Gson;
 import org.hibernate.type.TrueFalseType;
 import org.junit.jupiter.api.DisplayName;
@@ -9,7 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.TestPropertySource;
+import org.springframework.test.context.transaction.BeforeTransaction;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -84,16 +88,24 @@ class AccountControllerTest {
 
     @Test
     @DisplayName("/info-init, GET, 회원가입 추가정보")
+    @WithMockUser
     void memberInformationInit() throws Exception {
         mockMvc.perform(get("/info-init"))
                 .andExpect(status().isOk());
     }
 
     @Test
-    void testCreateNewMember() {
+    @DisplayName("/info-init, POST, 회원가입 추가정보")
+    void testCreateNewMember() throws Exception {
+        mockMvc.perform(post("/info-init"))
+                .andExpect(status().is3xxRedirection());
     }
 
     @Test
-    void accountWithdrawal() {
+    @DisplayName("/withdrawal, POST, 회원탈퇴")
+    void accountWithdrawal() throws Exception {
+
+        mockMvc.perform(post("/withdrawal"))
+                .andExpect(status().is3xxRedirection());
     }
 }
