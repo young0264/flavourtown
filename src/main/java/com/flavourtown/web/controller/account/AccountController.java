@@ -92,7 +92,7 @@ public class AccountController {
     @GetMapping("/info-init")
     public String memberInformationInit(Principal principal, Model model) {
         Account principalAccount = accountService.findAccountByUsername(principal.getName());
-        if (principalAccount == null) {
+        if (principal == null) {
             return "redirect:/";
         }
         model.addAttribute("ages", MemberAge.values());
