@@ -104,7 +104,6 @@ class AccountControllerTest {
     @Test
     @DisplayName("/withdrawal, POST, 회원탈퇴")
     void accountWithdrawal() throws Exception {
-
         mockMvc.perform(post("/withdrawal"))
                 .andExpect(status().is3xxRedirection());
     }
