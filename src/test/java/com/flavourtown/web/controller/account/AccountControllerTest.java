@@ -2,6 +2,7 @@ package com.flavourtown.web.controller.account;
 
 import com.flavourtown.web.dto.account.AccountSignUpDto;
 import com.google.gson.Gson;
+import org.hibernate.type.TrueFalseType;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import javax.transaction.Transactional;
 
@@ -20,8 +22,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
 @Transactional
@@ -32,8 +33,10 @@ class AccountControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
+
     @Test
     @DisplayName("GET method /login 로그인페이지 보여주기")
+
     void showLoginPage() throws Exception {
         ResultActions resultActions = mockMvc
                 .perform(get("/login"))
@@ -55,6 +58,7 @@ class AccountControllerTest {
     }
 
     @Test
+    @DisplayName("Post, /signup 회원가입")
     void createNewMember() throws Exception {
         AccountSignUpDto accountSignUpDto = AccountSignUpDto.builder()
                 .username("mocktest")
@@ -72,11 +76,17 @@ class AccountControllerTest {
     }
 
     @Test
-    void overlappedID() {
+    @DisplayName("/account/idCheck, GET, 아이디중복 확인")
+    void overlappedID() throws Exception {
+        mockMvc.perform(get("/account/idCheck?username=testname"))
+                .andExpect(content().string("false"));
     }
 
     @Test
-    void memberInformationInit() {
+    @DisplayName("/info-init, GET, 회원가입 추가정보")
+    void memberInformationInit() throws Exception {
+        mockMvc.perform(get("/info-init"))
+                .andExpect(status().isOk());
     }
 
     @Test
