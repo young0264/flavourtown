@@ -37,11 +37,3 @@ Chromium 기반의 웹에서 모두 작동하며, 위치 기반의 서비스를 
 - [Docker](https://www.docker.com/)
 - [GitHub Actions](https://github.com/features/actions) -->
 
-## 이후 진행될 상황들 요약
-- ~10월까지 구현된 기능, 배포시 버그들 리팩터링(완료)
-- 각 도메인 bug fix(완료)
-- 배포 파이프라인 구성 및 AWS EC2를 통한 배포(운영중) https://flavourtown.site (크롬환경) 
-- 성능 테스트 (Jmeter)
-  - 게시글 리스트를 읽어오는 쿼리의 수를 줄임으로써 32초 -> 4초 (700%의 속도 향상)
-- 네거티브 테스트 코드 작성
-- CI/CD 구축(진행중)
