@@ -32,7 +32,10 @@ class PostControllerTest {
     }
 
     @Test
-    void showAllPosts() {
+    @DisplayName("/post/list")
+    void showAllPosts() throws Exception {
+        mockMvc.perform(get("/post/list"))
+                .andExpect(status().isOk());
     }
 
     @Test
