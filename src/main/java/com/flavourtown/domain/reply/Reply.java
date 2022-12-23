@@ -44,6 +44,9 @@ public class Reply {
     //cascade = CascadeType.ALL,
     private Set<ReplyLike> replyLike = new HashSet<>();
 
+    /**
+     * 연관관계
+     */
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="parent_id")
     private Reply parent;

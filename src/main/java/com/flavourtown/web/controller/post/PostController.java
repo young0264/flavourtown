@@ -28,6 +28,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -127,11 +128,12 @@ public class PostController {
                              Model model, Principal principal){
         if (bindingResult.hasErrors()) {
             model.addAttribute("postCreateDto", postDto);
+            System.out.println("binding error 11111111");
             return "post/post-newForm";
         }
+        System.out.println(222222222);
         Member currentMember = accountService.findAccountByUsername(principal.getName()).getMember();
         Post newPost = postService.savePost(currentMember , postDto);
-
         return String.format("redirect:/post/%s/detail",newPost.getId());
     }
 

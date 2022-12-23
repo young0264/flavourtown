@@ -1,13 +1,15 @@
 package com.flavourtown.web.dto.account;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 @Getter @Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class AccountSignUpDto {
 
     @Size(min = 5, max = 15, message = "아이디는 5글자 ~ 15글자 이내로 작성해주세요!")

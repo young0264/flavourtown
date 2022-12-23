@@ -67,6 +67,7 @@ public class PostService {
                 .postTime(newTypeTime)
                 .postLike(new HashSet<>())
                 .build();
+
         post.addPlace(place);
         return postRepository.save(post);
     }

@@ -1,5 +1,6 @@
 package com.flavourtown.web.controller.place;
 
+import com.flavourtown.domain.place.Place;
 import com.flavourtown.service.PlaceService;
 import com.flavourtown.web.dto.place.PlaceDto;
 import lombok.RequiredArgsConstructor;
@@ -17,12 +18,9 @@ public class PlaceApiController {
     @PostMapping
     public ResponseEntity<String> savePlace(@RequestBody PlaceDto placeDto){
         log.info("placeDto = {}", placeDto);
-        placeService.savePlace(placeDto);
+        Place place = placeService.savePlace(placeDto);
+        placeService.pullInfo(place);
         return ResponseEntity.ok().body("ok");
     }
-
-
-
-
 
 }

@@ -110,14 +110,14 @@
                             <div class="media">
                                 <div class="item-img">
                                     <div class="user-img">
-                                        <svg th:data-jdenticon-value="${post.author.nickname}" width="90" height="90" class="rounded-circle identicon" th:data-id="${post.author.nickname}"></svg>
+                                        <svg th:data-jdenticon-value="${post.userName}" width="90" height="90" class="rounded-circle identicon" th:data-id="${post.userName}"></svg>
                                     </div>
                                 </div>
                                 <div class="media-body">
                                     <a th:href="@{/post/{id}/detail(id = ${post.id})}" style="width: 100%;">
                                         <div class="item-date" th:text="${#temporals.format(post.createdTime, 'yy-MM-dd HH:mm')}">DateTime</div>
                                         <div class="author-name">
-                                            <h5 class="item-title" th:text="${post.author.nickname}">Writer</h5>
+                                            <h5 class="item-title" th:text="${post.userName}">Writer</h5>
                                         </div>
                                         <p style="font-weight: bold" th:text="${post.title}">title</p>
                                         <p th:utext="${post.content}">content</p>

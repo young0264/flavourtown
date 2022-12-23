@@ -1,7 +1,6 @@
 package com.flavourtown.web.controller.account;
 
 import com.flavourtown.domain.account.Account;
-import com.flavourtown.domain.account.AccountRepository;
 import com.flavourtown.domain.account.AuthUser;
 import com.flavourtown.domain.account.LoginType;
 import com.flavourtown.domain.member.Member;
@@ -113,9 +112,11 @@ public class AccountController {
      * 회원탈퇴
      */
     @PostMapping("/withdrawal")
-    public String accountWithdrawal(@AuthUser Account account, ProfileWithdrawalDto dto, Model model) {
-        MemberVo member = accountService.getReadOnlyMember(account.getMember().getNickname());
-        if (!accountService.checkAccountPassword(dto.getPassword(), account)) {
+    public String accountWithdrawal(Principal principal, ProfileWithdrawalDto dto, Model model) {
+        Member member = memberService.findMemberByUsername(principal.getName());
+        Account account = accountService.findAccountByUsername(principal.getName());
+
+        if (principal==null || !accountService.checkAccountPassword(dto.getPassword(),account)) {
             model.addAttribute("settingMessageError", "비밀번호를 잘못 입력하셨습니다.");
             model.addAttribute("member", member);
             model.addAttribute("profileWithdrawalDto", dto);
@@ -124,7 +125,9 @@ public class AccountController {
             return "profile/profile-setting";
         }
 
-        memberService.withdrawalMember(account.getMember().getId());
+        log.info("drawal1 : " + member.getNickname());
+        log.info("drawal2 : " + account.getUsername());
+        memberService.withdrawalMember(member.getId());
         return "redirect:/logout";
     }
 

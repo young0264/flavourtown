@@ -120,7 +120,7 @@
                     y_pos+"&x="+x_pos+"&sort=distance&category_group_code=FD6,CE7&radius=500&size=12",
                     {
                         method: "GET",
-                        headers:{"Authorization": "KakaoAK b12ed310737d8c0fe214f6b5e4532252",}
+                        headers:{"Authorization": "KakaoAK 8983013ae892b015737ad79cce0e27c1",}
                     }).then( async res => {
                     removeChildAll(cardList);
                     let tmp = await res.json();
@@ -133,7 +133,7 @@
                     "&size=12&page="+pageIdx,
                     {
                         method: "GET",
-                        headers:{"Authorization": "KakaoAK b12ed310737d8c0fe214f6b5e4532252",}
+                        headers:{"Authorization": "KakaoAK 8983013ae892b015737ad79cce0e27c1",}
                     }
                 ).then( async res =>{
                     let tmp = await res.json();

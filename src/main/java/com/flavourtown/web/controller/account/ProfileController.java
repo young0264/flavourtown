@@ -36,21 +36,24 @@ public class ProfileController {
 
 
     @GetMapping("/profile/{username}")
-    public String showProfilePage(@PathVariable String username, Model model, @AuthUser Account account) {
-        Optional<MemberVo> memberVo = profileService.findByUsernameOrNickname(username);
-        if (memberVo.isEmpty()) {
-            MemberVo principalMember = accountService.getReadOnlyMember(account.getMember().getNickname());
+    public String showProfilePage(@PathVariable String username, Model model,Principal principal) {
+        MemberVo memberVo = profileService.findByUsernameOrNickname(username).orElse(null);
+        Account account = accountService.findAccountByUsername(username);
+        if (memberVo==null) {
+//            MemberVo principalMember = accountService.getReadOnlyMember(username);
+            MemberVo principalMember = accountService.getReadOnlyMember(account.getUsername());
             model.addAttribute("member", principalMember);
             model.addAttribute("isNotPresentMemberMessage", "해당 유저가 존재하지 않습니다.");
             return "profile/profile-main";
         }
-        model.addAttribute("member", memberVo.get());
-        List<Post> postList = memberVo.get().getPostList();
+        log.info("profile username principal : "+ principal.getName());
+        model.addAttribute("member", memberVo);
+        List<Post> postList = memberVo.getPostList();
         postService.refreshTime(postList);
         return "profile/profile-main";
     }
 
-    @GetMapping("/settings/profile")
+    @GetMapping("/settings/profile")//////////////////
     public String showProfileSettingPage(@AuthUser Account account, Model model) {
         MemberVo member = accountService.getReadOnlyMember(account.getMember().getNickname());
         model.addAttribute("member", member);

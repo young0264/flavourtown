@@ -26,7 +26,7 @@ public class TestDataInit {
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
 
-    @PostConstruct
+//    @PostConstruct
     @Transactional
     public void memberDataInit() {
         if (accountRepository.findByUsername("member1").isEmpty()) {

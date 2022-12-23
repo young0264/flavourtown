@@ -144,6 +144,7 @@ public class AccountService implements UserDetailsService {
      */
     public void login(Account account) {
         // Security를 이용하여 member를 로그인 시켜줌(회원가입 시에만 사용)
+        System.out.println("token : " );
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
                 new SecurityUser(account),
                 account.getPassword(),

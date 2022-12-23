@@ -1,6 +1,11 @@
 package com.flavourtown.web.controller.account;
 
+import com.flavourtown.domain.account.Account;
+import com.flavourtown.domain.account.AccountRepository;
+import com.flavourtown.domain.member.Member;
+import com.flavourtown.domain.member.MemberRepository;
 import com.flavourtown.domain.post.Post;
+import com.flavourtown.service.AccountService;
 import com.flavourtown.service.ProfileService;
 import com.flavourtown.web.vo.MemberVo;
 import org.junit.jupiter.api.DisplayName;
@@ -10,6 +15,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -38,25 +44,43 @@ class ProfileControllerTest {
     MockMvc mockMvc;
     @MockBean
     ProfileService profileService;
+    @MockBean
+    AccountRepository accountRepository;
+    @MockBean
+    MemberRepository memberRepository;
+    @MockBean
+    AccountService accountService;
 
     @Test
     @DisplayName("/profile/username, get, 프로필페이지 보여주기")
     @WithMockUser(username = "testUser",password = "1", roles = "User")
     void showProfilePage() throws Exception {
         List<Post> postList = new ArrayList<>();
-        postList.add(Post.builder().title("title").content("content").userName("testUser").build());
+        postList.add(Post.builder().title("testUser").content("content").userName("testUser").build());
 
         MemberVo memberVo = MemberVo.builder().nickname("testUser").postList(postList).build();
+//        Member member = memberRepository.findByNickname("testUser").orElse(null);
+//        MemberVo memberVo = accountService.getReadOnlyMember("testUser");
+
         given(profileService.findByUsernameOrNickname("testUser"))
                 .willReturn(Optional.ofNullable(memberVo));
 
-        mockMvc.perform(get("/profile/"+"testUser"))
+        mockMvc.perform(get("/profile/"+"testUser")
+                        .with(SecurityMockMvcRequestPostProcessors.user("testUser")))
                 .andExpect(status().isOk());
-
     }
 
     @Test
-    void showProfileSettingPage() {
+    @DisplayName("/settings/profile, get, 프로필 셋팅 페이지")
+    @WithMockUser(username = "test",password = "1",roles = "User")
+    void showProfileSettingPage() throws Exception {
+
+//        MemberVo memberVo = accountService.getReadOnlyMember("test");
+//        Account account = accountService.findAccountByUsername("test");
+
+//        given(accountService.getReadOnlyMember("test")).willReturn(new MemberVo("하이","test"));
+//        mockMvc.perform(get("/settings/profile"))
+//                .andExpect(status().isOk());
     }
 
     @Test

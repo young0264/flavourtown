@@ -36,7 +36,7 @@ public class PlaceService {
     private final RestTemplate restTemplate;
     private final JSONParser parser = new JSONParser();
 
-    public void savePlace(PlaceDto placeDto) {
+    public Place savePlace(PlaceDto placeDto) {
         if (!placeRepository.existsById(placeDto.getId())) {
             Place place = Place.builder()
                     .placeName(placeDto.getPlaceName())
@@ -49,10 +49,11 @@ public class PlaceService {
                     .x(placeDto.getX())
                     .y(placeDto.getY())
                     .build();
-            pullInfo(place);
-            placeRepository.save(place);
+            return placeRepository.save(place);
         }
+        return null;
     }
+
 
     public Place findPlace(long placeId) {
         Optional<Place> place = placeRepository.findById(placeId);

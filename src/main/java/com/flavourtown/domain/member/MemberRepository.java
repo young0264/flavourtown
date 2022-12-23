@@ -9,7 +9,6 @@ import java.util.Optional;
 
 
 @Transactional(readOnly = true)
-@Repository
 public interface MemberRepository extends JpaRepository<Member, Long> {
 
     boolean existsByNickname(String nickname);
