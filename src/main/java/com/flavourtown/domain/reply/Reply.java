@@ -44,17 +44,6 @@ public class Reply {
     //cascade = CascadeType.ALL,
     private Set<ReplyLike> replyLike = new HashSet<>();
 
-    /**
-     * 연관관계
-     */
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="parent_id")
-    private Reply parent;
-
-    @Builder.Default
-    @OneToMany(mappedBy = "parent", orphanRemoval = true)
-    private List<Reply> child = new ArrayList<>();
-
     private String replyTime;
 
     //데이터 필드를 가지고 있는 단에서 비즈니스 로직내기
