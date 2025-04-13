@@ -4,7 +4,7 @@
 
 여러 식당들에 대한 정보를 맛동산이라는 페이지의 한 공간에 저장하여 관리할 수 있으며 유저들과 공유 및 교류할 수 있는 웹사이트입니다.
 
-프로젝트 링크 : [https://flavourtown.site](https://flavourtown.site)
+프로젝트 링크 : `https://flavourtown.site`(현재는 사이트 운영을 종료하였습니다.)
 
 
 ## 왜 이 프로젝트를 만들었는가?
